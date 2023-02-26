@@ -39,7 +39,7 @@ struct BenevoleListView: View {
                     BenevoleView(benevole: benevole)
                 }
                 EditButton()
-            }
+            }.navigationTitle("Bénévoles")
         }
         
     }
