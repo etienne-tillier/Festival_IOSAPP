@@ -1,0 +1,680 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		343E7E9429A786510010F177 /* BenevoleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9329A786510010F177 /* BenevoleListView.swift */; };
+		343E7E9629A787930010F177 /* BenevoleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9529A787930010F177 /* BenevoleList.swift */; };
+		343E7E9829A7A8140010F177 /* BenevoleListIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */; };
+		343E7E9A29A7AC530010F177 /* BenevoleListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9929A7AC530010F177 /* BenevoleListItem.swift */; };
+		343E7E9D29ABA4840010F177 /* MyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9C29ABA4840010F177 /* MyError.swift */; };
+		343E7EA129ABA5F10010F177 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EA029ABA5F10010F177 /* Env.swift */; };
+		34D6870E29A4C7CA00BDC431 /* FestivalAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */; };
+		34D6871029A4C7CA00BDC431 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6870F29A4C7CA00BDC431 /* ContentView.swift */; };
+		34D6871229A4C7CB00BDC431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D6871129A4C7CB00BDC431 /* Assets.xcassets */; };
+		34D6871529A4C7CB00BDC431 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D6871429A4C7CB00BDC431 /* Preview Assets.xcassets */; };
+		34D6871F29A4C7CB00BDC431 /* FestivalAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6871E29A4C7CB00BDC431 /* FestivalAppTests.swift */; };
+		34D6872929A4C7CB00BDC431 /* FestivalAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6872829A4C7CB00BDC431 /* FestivalAppUITests.swift */; };
+		34D6872B29A4C7CB00BDC431 /* FestivalAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6872A29A4C7CB00BDC431 /* FestivalAppUITestsLaunchTests.swift */; };
+		34D6873D29A4C8A900BDC431 /* BenevoleDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6873C29A4C8A900BDC431 /* BenevoleDAO.swift */; };
+		34D6873F29A4C8C000BDC431 /* Benevole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6873E29A4C8C000BDC431 /* Benevole.swift */; };
+		34D6874229A4CB5100BDC431 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6874129A4CB5100BDC431 /* URLSession.swift */; };
+		34D6874429A4FAC300BDC431 /* BenevoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6874329A4FAC300BDC431 /* BenevoleView.swift */; };
+		34D6874629A500C400BDC431 /* BenevoleIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6874529A500C400BDC431 /* BenevoleIntent.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		34D6871B29A4C7CB00BDC431 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34D6870229A4C7CA00BDC431 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34D6870929A4C7CA00BDC431;
+			remoteInfo = FestivalApp;
+		};
+		34D6872529A4C7CB00BDC431 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34D6870229A4C7CA00BDC431 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34D6870929A4C7CA00BDC431;
+			remoteInfo = FestivalApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		343E7E9329A786510010F177 /* BenevoleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleListView.swift; sourceTree = "<group>"; };
+		343E7E9529A787930010F177 /* BenevoleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleList.swift; sourceTree = "<group>"; };
+		343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleListIntent.swift; sourceTree = "<group>"; };
+		343E7E9929A7AC530010F177 /* BenevoleListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleListItem.swift; sourceTree = "<group>"; };
+		343E7E9C29ABA4840010F177 /* MyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyError.swift; sourceTree = "<group>"; };
+		343E7EA029ABA5F10010F177 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
+		34D6870A29A4C7CA00BDC431 /* FestivalApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivalApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalAppApp.swift; sourceTree = "<group>"; };
+		34D6870F29A4C7CA00BDC431 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		34D6871129A4C7CB00BDC431 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		34D6871429A4C7CB00BDC431 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		34D6871A29A4C7CB00BDC431 /* FestivalAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FestivalAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D6871E29A4C7CB00BDC431 /* FestivalAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalAppTests.swift; sourceTree = "<group>"; };
+		34D6872429A4C7CB00BDC431 /* FestivalAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FestivalAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D6872829A4C7CB00BDC431 /* FestivalAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalAppUITests.swift; sourceTree = "<group>"; };
+		34D6872A29A4C7CB00BDC431 /* FestivalAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		34D6873C29A4C8A900BDC431 /* BenevoleDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleDAO.swift; sourceTree = "<group>"; };
+		34D6873E29A4C8C000BDC431 /* Benevole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Benevole.swift; sourceTree = "<group>"; };
+		34D6874129A4CB5100BDC431 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		34D6874329A4FAC300BDC431 /* BenevoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleView.swift; sourceTree = "<group>"; };
+		34D6874529A500C400BDC431 /* BenevoleIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleIntent.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		34D6870729A4C7CA00BDC431 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D6871729A4C7CB00BDC431 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D6872129A4C7CB00BDC431 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		343E7E9B29ABA4710010F177 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				343E7E9C29ABA4840010F177 /* MyError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		34D6870129A4C7CA00BDC431 = {
+			isa = PBXGroup;
+			children = (
+				34D6870C29A4C7CA00BDC431 /* FestivalApp */,
+				34D6871D29A4C7CB00BDC431 /* FestivalAppTests */,
+				34D6872729A4C7CB00BDC431 /* FestivalAppUITests */,
+				34D6870B29A4C7CA00BDC431 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		34D6870B29A4C7CA00BDC431 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				34D6870A29A4C7CA00BDC431 /* FestivalApp.app */,
+				34D6871A29A4C7CB00BDC431 /* FestivalAppTests.xctest */,
+				34D6872429A4C7CB00BDC431 /* FestivalAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		34D6870C29A4C7CA00BDC431 /* FestivalApp */ = {
+			isa = PBXGroup;
+			children = (
+				343E7E9B29ABA4710010F177 /* Errors */,
+				34D6874029A4CB3D00BDC431 /* Tools */,
+				34D6873B29A4C86200BDC431 /* DAO */,
+				34D6873929A4C81400BDC431 /* Model */,
+				34D6873829A4C80200BDC431 /* Intent */,
+				34D6873729A4C7F800BDC431 /* View */,
+				34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */,
+				34D6871129A4C7CB00BDC431 /* Assets.xcassets */,
+				34D6871329A4C7CB00BDC431 /* Preview Content */,
+			);
+			path = FestivalApp;
+			sourceTree = "<group>";
+		};
+		34D6871329A4C7CB00BDC431 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				34D6871429A4C7CB00BDC431 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		34D6871D29A4C7CB00BDC431 /* FestivalAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				34D6871E29A4C7CB00BDC431 /* FestivalAppTests.swift */,
+			);
+			path = FestivalAppTests;
+			sourceTree = "<group>";
+		};
+		34D6872729A4C7CB00BDC431 /* FestivalAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				34D6872829A4C7CB00BDC431 /* FestivalAppUITests.swift */,
+				34D6872A29A4C7CB00BDC431 /* FestivalAppUITestsLaunchTests.swift */,
+			);
+			path = FestivalAppUITests;
+			sourceTree = "<group>";
+		};
+		34D6873729A4C7F800BDC431 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				34D6870F29A4C7CA00BDC431 /* ContentView.swift */,
+				34D6874329A4FAC300BDC431 /* BenevoleView.swift */,
+				343E7E9329A786510010F177 /* BenevoleListView.swift */,
+				343E7E9929A7AC530010F177 /* BenevoleListItem.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		34D6873829A4C80200BDC431 /* Intent */ = {
+			isa = PBXGroup;
+			children = (
+				34D6874529A500C400BDC431 /* BenevoleIntent.swift */,
+				343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */,
+			);
+			path = Intent;
+			sourceTree = "<group>";
+		};
+		34D6873929A4C81400BDC431 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				34D6873E29A4C8C000BDC431 /* Benevole.swift */,
+				343E7E9529A787930010F177 /* BenevoleList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		34D6873B29A4C86200BDC431 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				34D6873C29A4C8A900BDC431 /* BenevoleDAO.swift */,
+			);
+			path = DAO;
+			sourceTree = "<group>";
+		};
+		34D6874029A4CB3D00BDC431 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				34D6874129A4CB5100BDC431 /* URLSession.swift */,
+				343E7EA029ABA5F10010F177 /* Env.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		34D6870929A4C7CA00BDC431 /* FestivalApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D6872E29A4C7CB00BDC431 /* Build configuration list for PBXNativeTarget "FestivalApp" */;
+			buildPhases = (
+				34D6870629A4C7CA00BDC431 /* Sources */,
+				34D6870729A4C7CA00BDC431 /* Frameworks */,
+				34D6870829A4C7CA00BDC431 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FestivalApp;
+			productName = FestivalApp;
+			productReference = 34D6870A29A4C7CA00BDC431 /* FestivalApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		34D6871929A4C7CB00BDC431 /* FestivalAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D6873129A4C7CB00BDC431 /* Build configuration list for PBXNativeTarget "FestivalAppTests" */;
+			buildPhases = (
+				34D6871629A4C7CB00BDC431 /* Sources */,
+				34D6871729A4C7CB00BDC431 /* Frameworks */,
+				34D6871829A4C7CB00BDC431 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34D6871C29A4C7CB00BDC431 /* PBXTargetDependency */,
+			);
+			name = FestivalAppTests;
+			productName = FestivalAppTests;
+			productReference = 34D6871A29A4C7CB00BDC431 /* FestivalAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		34D6872329A4C7CB00BDC431 /* FestivalAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D6873429A4C7CB00BDC431 /* Build configuration list for PBXNativeTarget "FestivalAppUITests" */;
+			buildPhases = (
+				34D6872029A4C7CB00BDC431 /* Sources */,
+				34D6872129A4C7CB00BDC431 /* Frameworks */,
+				34D6872229A4C7CB00BDC431 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34D6872629A4C7CB00BDC431 /* PBXTargetDependency */,
+			);
+			name = FestivalAppUITests;
+			productName = FestivalAppUITests;
+			productReference = 34D6872429A4C7CB00BDC431 /* FestivalAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		34D6870229A4C7CA00BDC431 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					34D6870929A4C7CA00BDC431 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					34D6871929A4C7CB00BDC431 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 34D6870929A4C7CA00BDC431;
+					};
+					34D6872329A4C7CB00BDC431 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 34D6870929A4C7CA00BDC431;
+					};
+				};
+			};
+			buildConfigurationList = 34D6870529A4C7CA00BDC431 /* Build configuration list for PBXProject "FestivalApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 34D6870129A4C7CA00BDC431;
+			productRefGroup = 34D6870B29A4C7CA00BDC431 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34D6870929A4C7CA00BDC431 /* FestivalApp */,
+				34D6871929A4C7CB00BDC431 /* FestivalAppTests */,
+				34D6872329A4C7CB00BDC431 /* FestivalAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		34D6870829A4C7CA00BDC431 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D6871529A4C7CB00BDC431 /* Preview Assets.xcassets in Resources */,
+				34D6871229A4C7CB00BDC431 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D6871829A4C7CB00BDC431 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D6872229A4C7CB00BDC431 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		34D6870629A4C7CA00BDC431 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				343E7E9D29ABA4840010F177 /* MyError.swift in Sources */,
+				343E7EA129ABA5F10010F177 /* Env.swift in Sources */,
+				343E7E9429A786510010F177 /* BenevoleListView.swift in Sources */,
+				34D6874429A4FAC300BDC431 /* BenevoleView.swift in Sources */,
+				34D6874629A500C400BDC431 /* BenevoleIntent.swift in Sources */,
+				34D6873D29A4C8A900BDC431 /* BenevoleDAO.swift in Sources */,
+				34D6873F29A4C8C000BDC431 /* Benevole.swift in Sources */,
+				343E7E9829A7A8140010F177 /* BenevoleListIntent.swift in Sources */,
+				34D6874229A4CB5100BDC431 /* URLSession.swift in Sources */,
+				343E7E9A29A7AC530010F177 /* BenevoleListItem.swift in Sources */,
+				34D6871029A4C7CA00BDC431 /* ContentView.swift in Sources */,
+				34D6870E29A4C7CA00BDC431 /* FestivalAppApp.swift in Sources */,
+				343E7E9629A787930010F177 /* BenevoleList.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D6871629A4C7CB00BDC431 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D6871F29A4C7CB00BDC431 /* FestivalAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D6872029A4C7CB00BDC431 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D6872B29A4C7CB00BDC431 /* FestivalAppUITestsLaunchTests.swift in Sources */,
+				34D6872929A4C7CB00BDC431 /* FestivalAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		34D6871C29A4C7CB00BDC431 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34D6870929A4C7CA00BDC431 /* FestivalApp */;
+			targetProxy = 34D6871B29A4C7CB00BDC431 /* PBXContainerItemProxy */;
+		};
+		34D6872629A4C7CB00BDC431 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34D6870929A4C7CA00BDC431 /* FestivalApp */;
+			targetProxy = 34D6872529A4C7CB00BDC431 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		34D6872C29A4C7CB00BDC431 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		34D6872D29A4C7CB00BDC431 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		34D6872F29A4C7CB00BDC431 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FestivalApp/Preview Content\"";
+				DEVELOPMENT_TEAM = JC74AK8ZSU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tillier.FestivalApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		34D6873029A4C7CB00BDC431 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FestivalApp/Preview Content\"";
+				DEVELOPMENT_TEAM = JC74AK8ZSU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tillier.FestivalApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		34D6873229A4C7CB00BDC431 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JC74AK8ZSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tillier.FestivalAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FestivalApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FestivalApp";
+			};
+			name = Debug;
+		};
+		34D6873329A4C7CB00BDC431 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JC74AK8ZSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tillier.FestivalAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FestivalApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FestivalApp";
+			};
+			name = Release;
+		};
+		34D6873529A4C7CB00BDC431 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JC74AK8ZSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tillier.FestivalAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FestivalApp;
+			};
+			name = Debug;
+		};
+		34D6873629A4C7CB00BDC431 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JC74AK8ZSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tillier.FestivalAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FestivalApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34D6870529A4C7CA00BDC431 /* Build configuration list for PBXProject "FestivalApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D6872C29A4C7CB00BDC431 /* Debug */,
+				34D6872D29A4C7CB00BDC431 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34D6872E29A4C7CB00BDC431 /* Build configuration list for PBXNativeTarget "FestivalApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D6872F29A4C7CB00BDC431 /* Debug */,
+				34D6873029A4C7CB00BDC431 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34D6873129A4C7CB00BDC431 /* Build configuration list for PBXNativeTarget "FestivalAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D6873229A4C7CB00BDC431 /* Debug */,
+				34D6873329A4C7CB00BDC431 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34D6873429A4C7CB00BDC431 /* Build configuration list for PBXNativeTarget "FestivalAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D6873529A4C7CB00BDC431 /* Debug */,
+				34D6873629A4C7CB00BDC431 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 34D6870229A4C7CA00BDC431 /* Project object */;
+}

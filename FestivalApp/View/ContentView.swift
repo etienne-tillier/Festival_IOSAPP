@@ -1,0 +1,53 @@
+//
+//  ContentView.swift
+//  FestivalApp
+//
+//  Created by Etienne Tillier on 21/02/2023.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    
+    
+    @ObservedObject private var benevoles : BenevoleList
+    @State private var intent : BenevoleListIntent
+    
+    init(benevoles : BenevoleList){
+        self.benevoles = benevoles
+        self.intent = BenevoleListIntent(benevoles: benevoles)
+    }
+
+    
+    
+    var body: some View {
+        VStack {
+            switch benevoles.state {
+                case .isLoading :
+                    ProgressView()
+                    Text("ça charge...")
+                case .ready :
+                    BenevoleListView(benevoles: benevoles)
+                case .load(_):
+                    Text("C'est chargé")
+                case .updated:
+                    Text("updated")
+                case .error:
+                    Text("erreur")
+            default:
+                Text("default")
+            }
+        }.onAppear {
+            Task {
+                await self.intent.loadBenevoles()!
+            }
+        }
+        
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(benevoles : BenevoleList())
+    }
+}
