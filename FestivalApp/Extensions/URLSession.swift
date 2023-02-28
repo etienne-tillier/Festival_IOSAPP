@@ -10,8 +10,8 @@ import SwiftUI
 
 extension URLSession {
     func getJSON<T: Decodable>(
-        from url: URL) async throws -> T {
-            let (data, _) = try await data(from: url)
+        from request: URLRequest) async throws -> T {
+            let (data, _) = try await data(for: request)
             let decoder = JSONDecoder() // création d'un décodeur
             let decoded = try decoder.decode(T.self, from: data)
             return decoded

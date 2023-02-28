@@ -17,7 +17,10 @@ class BenevoleDAO {
             guard let url = URL(string: Env.get("API_URL") + "benevoles") else {
                 throw MyError.invalidURL(url: Env.get("API_URL") + "benevoles/")
             }
-            let benevoles : [Benevole] = try await URLSession.shared.getJSON(from: url)
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            let benevoles : [Benevole] = try await URLSession.shared.getJSON(from: request)
             return benevoles
         }
         catch {
@@ -30,7 +33,10 @@ class BenevoleDAO {
             guard let url = URL(string: Env.get("API_URL") + "benevoles/" + id) else {
                 throw MyError.invalidURL(url: Env.get("API_URL") + "benevoles/" + id )
             }
-            let benevole : Benevole = try await URLSession.shared.getJSON(from: url)
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            let benevole : Benevole = try await URLSession.shared.getJSON(from: request)
             return benevole
         }
         catch{
@@ -46,7 +52,7 @@ class BenevoleDAO {
             }
             var request = URLRequest(url: url)
             request.httpMethod = "DELETE"
-                
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: request) { data, response, error in
                     if let error = error {
                         completion(.failure(error))

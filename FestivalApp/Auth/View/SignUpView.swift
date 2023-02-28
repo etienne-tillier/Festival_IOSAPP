@@ -107,7 +107,19 @@ struct SignUpView : View {
                         if let authResult = authResult {
                             //print(authResult.user.uid)
                             //inscrit et connecté
-                            user.user = User(email: authResult.user.email!, uid: authResult.user.uid)
+                            withAnimation{
+                                authResult.user.getIDTokenResult(completion: { (result, error) in
+                                                guard error == nil else {
+                                                    print(error!.localizedDescription)
+                                                    return
+                                                }
+
+                                                if let token = result?.token {
+                                                    TokenManager.shared.setToken(token: token)
+                                                    user.user = User(email: authResult.user.email!, uid: authResult.user.uid)
+                                                }
+                                            })
+                            }
                             
                         }
                     }

@@ -21,7 +21,6 @@ class UserSettings : ObservableObject {
 struct User {
     
     var email : String
-    var token : String?
     var uid : String
     
 }
