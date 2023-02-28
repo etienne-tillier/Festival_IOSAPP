@@ -40,6 +40,22 @@ struct BenevoleIntent {
         return nil
     }
     
+    /*
+    func updateBenevole(nom: String, prenom: String, email: String) async {
+        do {
+            DispatchQueue.main.async {
+                benevole.state = .isLoading
+            }
+            
+            //api
+            DispatchQueue.main.async {
+                benevole.state = .load(benevole.id, nom, prenom, email)
+                benevole.state = .ready
+            }
+        }
+    }
+    */
+    
     func removeBenevoleById(id : String) async {
         do {
             

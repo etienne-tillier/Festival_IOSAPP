@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct FestivalAppApp: App {
+    
+    @StateObject var user : UserSettings = UserSettings()
+    
+    init(){
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView(benevoles : BenevoleList())
+            ContentView()
+                .environmentObject(user)
+
         }
     }
 }

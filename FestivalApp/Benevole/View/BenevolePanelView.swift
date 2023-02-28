@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct BenevolePanelView : View {
     
     
     @ObservedObject private var benevoles : BenevoleList
     @State private var intent : BenevoleListIntent
+
     
     init(benevoles : BenevoleList){
         self.benevoles = benevoles
         self.intent = BenevoleListIntent(benevoles: benevoles)
     }
 
-    
     
     var body: some View {
         VStack {
@@ -44,10 +44,6 @@ struct ContentView: View {
         }
         
     }
+
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(benevoles : BenevoleList())
-    }
-}

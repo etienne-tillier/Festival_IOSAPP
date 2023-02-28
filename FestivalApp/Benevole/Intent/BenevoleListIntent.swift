@@ -33,7 +33,6 @@ struct BenevoleListIntent {
             return newBenevoles
         }
         catch {
-            print(error)
             DispatchQueue.main.async {
                 benevoles.state = .error
             }
@@ -61,7 +60,6 @@ struct BenevoleListIntent {
                 benevoles.state = .error
             }
         }
-
     }
     
 }

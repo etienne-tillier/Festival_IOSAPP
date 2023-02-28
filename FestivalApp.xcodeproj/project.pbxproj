@@ -14,8 +14,18 @@
 		343E7E9D29ABA4840010F177 /* MyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9C29ABA4840010F177 /* MyError.swift */; };
 		343E7EA129ABA5F10010F177 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EA029ABA5F10010F177 /* Env.swift */; };
 		343E7EDA29ABFD8E0010F177 /* BenevoleModifView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7ED929ABFD8E0010F177 /* BenevoleModifView.swift */; };
+		343E7EDE29AD0AB00010F177 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EDD29AD0AB00010F177 /* LoginView.swift */; };
+		343E7EE129AD10880010F177 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EE029AD10880010F177 /* String.swift */; };
+		343E7EE329AD15DC0010F177 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EE229AD15DC0010F177 /* SignUpView.swift */; };
+		343E7EE529AD18070010F177 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EE429AD18070010F177 /* AuthView.swift */; };
+		343E7EEA29AD1C530010F177 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 343E7EE929AD1C530010F177 /* GoogleService-Info.plist */; };
+		343E7EED29AD21500010F177 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 343E7EEC29AD21500010F177 /* FirebaseAuth */; };
+		343E7EEF29AD21500010F177 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 343E7EEE29AD21500010F177 /* FirebaseFirestore */; };
+		343E7EF129AD21500010F177 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 343E7EF029AD21500010F177 /* FirebaseStorage */; };
+		343E7EFA29ADE06D0010F177 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EF929ADE06D0010F177 /* User.swift */; };
+		343E7EFE29ADEB420010F177 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EFD29ADEB420010F177 /* ContentView.swift */; };
 		34D6870E29A4C7CA00BDC431 /* FestivalAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */; };
-		34D6871029A4C7CA00BDC431 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6870F29A4C7CA00BDC431 /* ContentView.swift */; };
+		34D6871029A4C7CA00BDC431 /* BenevolePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6870F29A4C7CA00BDC431 /* BenevolePanelView.swift */; };
 		34D6871229A4C7CB00BDC431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D6871129A4C7CB00BDC431 /* Assets.xcassets */; };
 		34D6871529A4C7CB00BDC431 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D6871429A4C7CB00BDC431 /* Preview Assets.xcassets */; };
 		34D6871F29A4C7CB00BDC431 /* FestivalAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6871E29A4C7CB00BDC431 /* FestivalAppTests.swift */; };
@@ -53,9 +63,16 @@
 		343E7E9C29ABA4840010F177 /* MyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyError.swift; sourceTree = "<group>"; };
 		343E7EA029ABA5F10010F177 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		343E7ED929ABFD8E0010F177 /* BenevoleModifView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleModifView.swift; sourceTree = "<group>"; };
+		343E7EDD29AD0AB00010F177 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		343E7EE029AD10880010F177 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		343E7EE229AD15DC0010F177 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		343E7EE429AD18070010F177 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		343E7EE929AD1C530010F177 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		343E7EF929ADE06D0010F177 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		343E7EFD29ADEB420010F177 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		34D6870A29A4C7CA00BDC431 /* FestivalApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivalApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalAppApp.swift; sourceTree = "<group>"; };
-		34D6870F29A4C7CA00BDC431 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		34D6870F29A4C7CA00BDC431 /* BenevolePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevolePanelView.swift; sourceTree = "<group>"; };
 		34D6871129A4C7CB00BDC431 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34D6871429A4C7CB00BDC431 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		34D6871A29A4C7CB00BDC431 /* FestivalAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FestivalAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +92,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				343E7EED29AD21500010F177 /* FirebaseAuth in Frameworks */,
+				343E7EEF29AD21500010F177 /* FirebaseFirestore in Frameworks */,
+				343E7EF129AD21500010F177 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,12 +126,85 @@
 		343E7ED829ABFD6A0010F177 /* Benevole */ = {
 			isa = PBXGroup;
 			children = (
-				343E7E9929A7AC530010F177 /* BenevoleListItem.swift */,
-				343E7E9329A786510010F177 /* BenevoleListView.swift */,
-				34D6874329A4FAC300BDC431 /* BenevoleView.swift */,
-				343E7ED929ABFD8E0010F177 /* BenevoleModifView.swift */,
+				343E7EF629ADDFE70010F177 /* Intent */,
+				343E7EF529ADDFAD0010F177 /* Model */,
+				343E7EF429ADDFA40010F177 /* View */,
+				343E7EF329ADDF9D0010F177 /* DAO */,
 			);
 			path = Benevole;
+			sourceTree = "<group>";
+		};
+		343E7EDC29AD0A9E0010F177 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				343E7EF829ADE0510010F177 /* Model */,
+				343E7EF729ADE03E0010F177 /* View */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		343E7EDF29AD10750010F177 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				343E7EE029AD10880010F177 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		343E7EF329ADDF9D0010F177 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				34D6873C29A4C8A900BDC431 /* BenevoleDAO.swift */,
+			);
+			path = DAO;
+			sourceTree = "<group>";
+		};
+		343E7EF429ADDFA40010F177 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				34D6870F29A4C7CA00BDC431 /* BenevolePanelView.swift */,
+				343E7ED929ABFD8E0010F177 /* BenevoleModifView.swift */,
+				34D6874329A4FAC300BDC431 /* BenevoleView.swift */,
+				343E7E9329A786510010F177 /* BenevoleListView.swift */,
+				343E7E9929A7AC530010F177 /* BenevoleListItem.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		343E7EF529ADDFAD0010F177 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				343E7E9529A787930010F177 /* BenevoleList.swift */,
+				34D6873E29A4C8C000BDC431 /* Benevole.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		343E7EF629ADDFE70010F177 /* Intent */ = {
+			isa = PBXGroup;
+			children = (
+				34D6874529A500C400BDC431 /* BenevoleIntent.swift */,
+				343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */,
+			);
+			path = Intent;
+			sourceTree = "<group>";
+		};
+		343E7EF729ADE03E0010F177 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				343E7EDD29AD0AB00010F177 /* LoginView.swift */,
+				343E7EE229AD15DC0010F177 /* SignUpView.swift */,
+				343E7EE429AD18070010F177 /* AuthView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		343E7EF829ADE0510010F177 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				343E7EF929ADE06D0010F177 /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		34D6870129A4C7CA00BDC431 = {
@@ -137,15 +230,16 @@
 		34D6870C29A4C7CA00BDC431 /* FestivalApp */ = {
 			isa = PBXGroup;
 			children = (
+				343E7EDC29AD0A9E0010F177 /* Auth */,
+				343E7ED829ABFD6A0010F177 /* Benevole */,
+				343E7EE929AD1C530010F177 /* GoogleService-Info.plist */,
+				343E7EDF29AD10750010F177 /* Extensions */,
 				343E7E9B29ABA4710010F177 /* Errors */,
 				34D6874029A4CB3D00BDC431 /* Tools */,
-				34D6873B29A4C86200BDC431 /* DAO */,
-				34D6873929A4C81400BDC431 /* Model */,
-				34D6873829A4C80200BDC431 /* Intent */,
-				34D6873729A4C7F800BDC431 /* View */,
 				34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */,
 				34D6871129A4C7CB00BDC431 /* Assets.xcassets */,
 				34D6871329A4C7CB00BDC431 /* Preview Content */,
+				343E7EFD29ADEB420010F177 /* ContentView.swift */,
 			);
 			path = FestivalApp;
 			sourceTree = "<group>";
@@ -175,41 +269,6 @@
 			path = FestivalAppUITests;
 			sourceTree = "<group>";
 		};
-		34D6873729A4C7F800BDC431 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				343E7ED829ABFD6A0010F177 /* Benevole */,
-				34D6870F29A4C7CA00BDC431 /* ContentView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		34D6873829A4C80200BDC431 /* Intent */ = {
-			isa = PBXGroup;
-			children = (
-				34D6874529A500C400BDC431 /* BenevoleIntent.swift */,
-				343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */,
-			);
-			path = Intent;
-			sourceTree = "<group>";
-		};
-		34D6873929A4C81400BDC431 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				34D6873E29A4C8C000BDC431 /* Benevole.swift */,
-				343E7E9529A787930010F177 /* BenevoleList.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		34D6873B29A4C86200BDC431 /* DAO */ = {
-			isa = PBXGroup;
-			children = (
-				34D6873C29A4C8A900BDC431 /* BenevoleDAO.swift */,
-			);
-			path = DAO;
-			sourceTree = "<group>";
-		};
 		34D6874029A4CB3D00BDC431 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +294,11 @@
 			dependencies = (
 			);
 			name = FestivalApp;
+			packageProductDependencies = (
+				343E7EEC29AD21500010F177 /* FirebaseAuth */,
+				343E7EEE29AD21500010F177 /* FirebaseFirestore */,
+				343E7EF029AD21500010F177 /* FirebaseStorage */,
+			);
 			productName = FestivalApp;
 			productReference = 34D6870A29A4C7CA00BDC431 /* FestivalApp.app */;
 			productType = "com.apple.product-type.application";
@@ -307,6 +371,9 @@
 				Base,
 			);
 			mainGroup = 34D6870129A4C7CA00BDC431;
+			packageReferences = (
+				343E7EEB29AD21500010F177 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 34D6870B29A4C7CA00BDC431 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -325,6 +392,7 @@
 			files = (
 				34D6871529A4C7CB00BDC431 /* Preview Assets.xcassets in Resources */,
 				34D6871229A4C7CB00BDC431 /* Assets.xcassets in Resources */,
+				343E7EEA29AD1C530010F177 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,17 +420,23 @@
 				343E7E9D29ABA4840010F177 /* MyError.swift in Sources */,
 				343E7EA129ABA5F10010F177 /* Env.swift in Sources */,
 				343E7E9429A786510010F177 /* BenevoleListView.swift in Sources */,
+				343E7EDE29AD0AB00010F177 /* LoginView.swift in Sources */,
 				34D6874429A4FAC300BDC431 /* BenevoleView.swift in Sources */,
 				34D6874629A500C400BDC431 /* BenevoleIntent.swift in Sources */,
+				343E7EFE29ADEB420010F177 /* ContentView.swift in Sources */,
 				34D6873D29A4C8A900BDC431 /* BenevoleDAO.swift in Sources */,
 				34D6873F29A4C8C000BDC431 /* Benevole.swift in Sources */,
+				343E7EE529AD18070010F177 /* AuthView.swift in Sources */,
 				343E7E9829A7A8140010F177 /* BenevoleListIntent.swift in Sources */,
 				343E7EDA29ABFD8E0010F177 /* BenevoleModifView.swift in Sources */,
 				34D6874229A4CB5100BDC431 /* URLSession.swift in Sources */,
 				343E7E9A29A7AC530010F177 /* BenevoleListItem.swift in Sources */,
-				34D6871029A4C7CA00BDC431 /* ContentView.swift in Sources */,
+				343E7EE329AD15DC0010F177 /* SignUpView.swift in Sources */,
+				34D6871029A4C7CA00BDC431 /* BenevolePanelView.swift in Sources */,
 				34D6870E29A4C7CA00BDC431 /* FestivalAppApp.swift in Sources */,
+				343E7EE129AD10880010F177 /* String.swift in Sources */,
 				343E7E9629A787930010F177 /* BenevoleList.swift in Sources */,
+				343E7EFA29ADE06D0010F177 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +761,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		343E7EEB29AD21500010F177 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		343E7EEC29AD21500010F177 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 343E7EEB29AD21500010F177 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		343E7EEE29AD21500010F177 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 343E7EEB29AD21500010F177 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		343E7EF029AD21500010F177 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 343E7EEB29AD21500010F177 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 34D6870229A4C7CA00BDC431 /* Project object */;
 }

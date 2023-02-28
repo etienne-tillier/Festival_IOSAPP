@@ -28,7 +28,7 @@ struct BenevoleView: View {
                     showModificationView = true
                 }
                 .sheet(isPresented: $showModificationView){
-                    BenevoleModifView(benevole: benevole, intent: intent)
+                    BenevoleModifView(benevole: benevole, intent: intent, create: false)
                 }
                 .foregroundColor(.white)
                 .padding(.vertical, 10)
