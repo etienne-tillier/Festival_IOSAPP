@@ -25,7 +25,6 @@ struct BenevolePanelView : View {
             switch benevoles.state {
                 case .isLoading :
                     ProgressView()
-                    Text("ça charge...")
                 case .ready :
                     BenevoleListView(benevoles: benevoles)
                 case .load(_):

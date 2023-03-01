@@ -12,6 +12,7 @@ import FirebaseCore
 struct FestivalAppApp: App {
     
     @StateObject var user : UserSettings = UserSettings()
+    @State var zones : ZoneList = ZoneList()
     
     init(){
         FirebaseApp.configure()
@@ -19,7 +20,7 @@ struct FestivalAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(zones: zones)
                 .environmentObject(user)
 
         }

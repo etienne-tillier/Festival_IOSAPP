@@ -87,7 +87,7 @@ class BenevoleDAO {
             
             var request = URLRequest(url: url)
             request.httpMethod = "PATCH"
-            request.setValue("Beared " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
             URLSession.shared.dataTask(with: request) { data, response, error in
@@ -127,7 +127,7 @@ class BenevoleDAO {
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.setValue("Beared " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
             
