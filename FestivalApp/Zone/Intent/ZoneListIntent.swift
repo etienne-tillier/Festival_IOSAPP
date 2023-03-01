@@ -27,10 +27,14 @@ struct ZoneListIntent {
                 switch result{
                 case .failure(let error):
                     print(error.localizedDescription)
-                    zones.state = .error
+                    DispatchQueue.main.async {
+                        zones.state = .error
+                    }
                 case .success(let newZones):
-                    zones.state = .load(newZones)
-                    zones.state = .ready
+                    DispatchQueue.main.async {
+                        zones.state = .load(newZones)
+                        zones.state = .ready
+                    }
                 }
             }
             

@@ -12,6 +12,8 @@ enum BenevoleState : Equatable {
     case ready
     case isLoading
     case load(String, String, String, String)
+    case resetCreneau
+    case loadCreneau([Creneau])
     case updated
     case error
 }
@@ -22,17 +24,18 @@ class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable 
     @Published var nom : String
     @Published var prenom : String
     @Published var email : String
+    @Published var creneaux : [Creneau]
     
     @Published var state : BenevoleState = .isLoading{
             didSet{
                 switch state {
-                case .isLoading:
-                    print("loading...")
                 case .load(let id, let nom, let prenom, let email):
                     self.id = id
                     self.nom = nom
                     self.prenom = prenom
                     self.email = email
+                case .resetCreneau:
+                    self.creneaux = []
                 default:
                     break
                 }
@@ -52,6 +55,7 @@ class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable 
         self.nom = try container.decode(String.self, forKey: .nom)
         self.prenom = try container.decode(String.self, forKey: .prenom)
         self.email = try container.decode(String.self, forKey: .email)
+        self.creneaux = []
     }
     
     
@@ -60,6 +64,7 @@ class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable 
         self.nom = nom
         self.prenom = prenom
         self.email = email
+        self.creneaux = []
     }
     
     init() {
@@ -67,6 +72,7 @@ class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable 
         self.nom = ""
         self.prenom = ""
         self.email = ""
+        self.creneaux = []
     }
     
     func updateState() {

@@ -11,13 +11,15 @@ struct ContentView: View {
     
     @EnvironmentObject var user : UserSettings
     @State var benevoles : BenevoleList = BenevoleList()
-    @State var zoneIntent : ZoneListIntent
+    @State var zonesIntent : ZoneListIntent
     @ObservedObject var zones : ZoneList
+    @State var selectedZone : Zone = Zone(id: "1", nom: "Tous les bénévoles", creneaux: [], jeux: [])
     
     init(zones : ZoneList){
         self.zones = zones
-        self._zoneIntent = State(initialValue: ZoneListIntent(zones: zones))
+        self.zonesIntent = ZoneListIntent(zones: zones)
     }
+    
     
     var body: some View {
             if user.user != nil {
@@ -26,18 +28,28 @@ struct ContentView: View {
                     case .isLoading:
                         ProgressView()
                     case .ready:
-                        Picker("Zones", selection: $zones.zones) {
+                        Picker("Zones", selection: $selectedZone) {
                             ForEach(zones.zones, id: \.self) { zone in
                                 Text(zone.nom)
                             }
+                        }.onChange(of: selectedZone) { selectedZone in
+                            withAnimation{
+                                self.selectedZone = selectedZone
+                            }
                         }
-                        BenevolePanelView(benevoles : benevoles)
+                        if selectedZone.id == "1" {
+                            BenevolePanelView(benevoles: benevoles)
+                        }
+                        else {
+                            
+                        }
                     default:
                         Text("default")
                     }
                 }.onAppear{
                     Task{
-                        await zoneIntent.getAllZone()
+                        await zonesIntent.getAllZone()
+                        self.zones.zones.insert(selectedZone, at: 0)
                     }
                 }
                 
