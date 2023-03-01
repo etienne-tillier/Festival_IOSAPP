@@ -61,4 +61,27 @@ struct BenevoleListIntent {
 
     }
     
+    func add(nom : String, prenom : String, email : String) async {
+        DispatchQueue.main.async {
+            self.benevoles.state = .isLoading
+        }
+        do {
+            await dao.createBenevole(nom: nom, prenom: prenom, email: email) { result in
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        benevoles.state = .error
+                    }
+                case .success(let benevole):
+                    DispatchQueue.main.async {
+                        benevoles.state = .add(benevole)
+                        benevoles.state = .ready
+                    }
+                }
+                
+            }
+        }
+    }
+    
 }

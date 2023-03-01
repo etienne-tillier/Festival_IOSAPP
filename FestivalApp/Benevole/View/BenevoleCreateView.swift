@@ -7,28 +7,25 @@
 
 import SwiftUI
 
-struct BenevoleModifView: View {
+struct BenevoleCreateView: View {
     
-    @ObservedObject var benevole : Benevole
-    private var intent : BenevoleIntent
-    @State private var nom : String
-    @State private var prenom : String
-    @State private var email : String
+    @ObservedObject var benevoles : BenevoleList
+    private var intent : BenevoleListIntent
+    @State private var nom : String = ""
+    @State private var prenom : String = ""
+    @State private var email : String = ""
     //variable pour gérer l'affichage de la modale
     @Environment(\.presentationMode) var presentationMode
     
-    init(benevole: Benevole, intent: BenevoleIntent) {
-        self.benevole = benevole
+    init(benevoles: BenevoleList, intent: BenevoleListIntent) {
+        self.benevoles = benevoles
         self.intent = intent
-        self._prenom = State(initialValue: benevole.prenom)
-        self._nom = State(initialValue: benevole.nom)
-        self._email = State(initialValue: benevole.email)
     }
     
     var body: some View {
         //mettre un form
         VStack {
-            Text("Modifier le bénévole")
+            Text("Créer un nouveau bénévole")
                 .font(.title)
                 .padding()
                 .foregroundColor(Color.black)
@@ -68,7 +65,7 @@ struct BenevoleModifView: View {
                     .cornerRadius(10)
                     Button("Enregistrer") {
                         Task {
-                            await self.intent.updateBenevole(nom: nom, prenom: prenom, email: email)
+                            await self.intent.add(nom: nom, prenom: prenom, email: email)
                             presentationMode.wrappedValue.dismiss()
                         }
                     }

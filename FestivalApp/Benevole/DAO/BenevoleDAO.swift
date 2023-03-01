@@ -110,6 +110,35 @@ class BenevoleDAO {
             }
             
         }
+    
+    func createBenevole(nom : String, prenom : String, email : String, completion : @escaping (Result<Benevole,Error>) -> Void) async {
+        do {
+            guard let url = URL(string: Env.get("API_URL") + "benevoles") else {
+                completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "benevoles")))
+                return
+            }
+            
+            let benevoleData = ["nom": nom, "prenom": prenom, "email": email]
+            
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: benevoleData) else {
+                completion(.failure(MyError.convertion()))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Beared " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            
+            guard let newBenevole : Benevole = try? await URLSession.shared.getJSON(from: request) else {
+                completion(.failure(MyError.apiProblem(message: "Impossible de créer le benevole")))
+                return
+            }
+            completion(.success(newBenevole))
+            }
+            
+    }
         
         
     }

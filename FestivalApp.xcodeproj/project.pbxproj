@@ -25,6 +25,7 @@
 		343E7EFA29ADE06D0010F177 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EF929ADE06D0010F177 /* User.swift */; };
 		343E7EFE29ADEB420010F177 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EFD29ADEB420010F177 /* ContentView.swift */; };
 		343E7F0029ADF15C0010F177 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EFF29ADF15C0010F177 /* TokenManager.swift */; };
+		343E7F0229AF845A0010F177 /* BenevoleCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7F0129AF845A0010F177 /* BenevoleCreateView.swift */; };
 		34D6870E29A4C7CA00BDC431 /* FestivalAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */; };
 		34D6871029A4C7CA00BDC431 /* BenevolePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6870F29A4C7CA00BDC431 /* BenevolePanelView.swift */; };
 		34D6871229A4C7CB00BDC431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D6871129A4C7CB00BDC431 /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		343E7EF929ADE06D0010F177 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		343E7EFD29ADEB420010F177 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		343E7EFF29ADF15C0010F177 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		343E7F0129AF845A0010F177 /* BenevoleCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleCreateView.swift; sourceTree = "<group>"; };
 		34D6870A29A4C7CA00BDC431 /* FestivalApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivalApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalAppApp.swift; sourceTree = "<group>"; };
 		34D6870F29A4C7CA00BDC431 /* BenevolePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevolePanelView.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				34D6874329A4FAC300BDC431 /* BenevoleView.swift */,
 				343E7E9329A786510010F177 /* BenevoleListView.swift */,
 				343E7E9929A7AC530010F177 /* BenevoleListItem.swift */,
+				343E7F0129AF845A0010F177 /* BenevoleCreateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				343E7EDA29ABFD8E0010F177 /* BenevoleModifView.swift in Sources */,
 				34D6874229A4CB5100BDC431 /* URLSession.swift in Sources */,
 				343E7F0029ADF15C0010F177 /* TokenManager.swift in Sources */,
+				343E7F0229AF845A0010F177 /* BenevoleCreateView.swift in Sources */,
 				343E7E9A29A7AC530010F177 /* BenevoleListItem.swift in Sources */,
 				343E7EE329AD15DC0010F177 /* SignUpView.swift in Sources */,
 				34D6871029A4C7CA00BDC431 /* BenevolePanelView.swift in Sources */,

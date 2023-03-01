@@ -13,6 +13,7 @@ enum BenevoleListState {
     case isLoading
     case load([Benevole])
     case remove(IndexSet)
+    case add(Benevole)
     case updated
     case error
 }
@@ -24,13 +25,12 @@ class BenevoleList : Identifiable, ObservableObject, Hashable, Equatable {
     @Published var state : BenevoleListState = .isLoading {
         didSet{
             switch state {
-            case .isLoading:
-                print("loading...")
             case .load(let benevoles):
                 self.benevoles = benevoles
             case .remove(let index):
-                print(index)
                 self.benevoles.remove(atOffsets: index)
+            case .add(let benevole):
+                self.benevoles.append(benevole)
             default:
                 break
             }

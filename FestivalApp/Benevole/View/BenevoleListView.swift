@@ -11,6 +11,7 @@ struct BenevoleListView: View {
     
     @ObservedObject var benevoles : BenevoleList
     private var intent : BenevoleListIntent
+    @State private var showAddView : Bool = false
     
     init(benevoles: BenevoleList) {
         self.benevoles = benevoles
@@ -34,11 +35,23 @@ struct BenevoleListView: View {
                         }
                     }
                 }
+                .sheet(isPresented: $showAddView){
+                    BenevoleCreateView(benevoles: benevoles, intent: intent)
+                }
                 .navigationDestination(for: Benevole.self){
                     benevole in
                     BenevoleView(benevole: benevole)
                 }
-                EditButton()
+                HStack{
+                    EditButton()
+                    Button(action: {
+                        withAnimation{
+                            self.showAddView = true
+                        }
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                }
             }.navigationTitle("Bénévoles")
         }
         
