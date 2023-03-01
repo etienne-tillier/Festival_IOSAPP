@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 enum MyError : Error {
-    case invalidURL(url : String)
-    case apiProblem(message: String)
+    case invalidURL(message : String = "Problème d'url")
+    case apiProblem(message: String = "Prolème d'API")
+    case convertion(message: String = "Problème de convertion")
 }

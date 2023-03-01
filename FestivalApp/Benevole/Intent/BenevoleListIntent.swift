@@ -46,20 +46,19 @@ struct BenevoleListIntent {
             self.benevoles.state = .ready
         }
         do {
-            try await dao.removeBenevoleById(id: benevoles.benevoles[index.first!].id) { result in
+                await dao.removeBenevoleById(id: benevoles.benevoles[index.first!].id) { result in
                 switch result {
                 case .failure(let error):
                     print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        benevoles.state = .error
+                    }
                 case .success():
                     print("Le benevole a été supprimé avec succès !")
                 }
             }
         }
-        catch {
-            DispatchQueue.main.async {
-                benevoles.state = .error
-            }
-        }
+
     }
     
 }

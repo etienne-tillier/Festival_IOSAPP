@@ -70,7 +70,7 @@ struct BenevoleModifView: View {
                     .cornerRadius(10)
                     Button("Enregistrer") {
                         Task {
-                            //await self.intent.updateBenevole(nom: nom, prenom: prenom, email: email)
+                            await self.intent.updateBenevole(nom: nom, prenom: prenom, email: email)
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
