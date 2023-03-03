@@ -8,11 +8,12 @@
 import Foundation
 import SwiftUI
 
-class Creneau : Decodable{
+class Creneau : Decodable, ObservableObject, Hashable, Identifiable{
     
-    var dateDebut : String
-    var dateFin : String
-    var benevole : Benevole
+    var id : UUID
+    @Published var dateDebut : String
+    @Published var dateFin : String
+    @Published var benevole : Benevole
     
     
     private enum CodingKeys : String, CodingKey {
@@ -26,5 +27,14 @@ class Creneau : Decodable{
         self.dateDebut = try container.decode(String.self, forKey: .dateDebut)
         self.dateFin = try container.decode(String.self, forKey: .dateFin)
         self.benevole = try container.decode(Benevole.self, forKey: .benevole)
+        self.id = UUID()
+    }
+    
+    static func == (lhs: Creneau, rhs: Creneau) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher){
+      hasher.combine(self.id)
     }
 }

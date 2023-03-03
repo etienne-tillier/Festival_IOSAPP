@@ -15,5 +15,26 @@ extension String{
         
         return regex.firstMatch(in: self, range: NSRange(location: 0, length: count)) != nil
     }
+
+    func convertToDate() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            return dateFormatter.string(from: date)
+        }
+        return nil
+    }
+    
+    func getHour() -> Int? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = dateFormatter.date(from: self) {
+                let calendar = Calendar.current
+                let hour = calendar.component(.hour, from: date)
+                return hour
+            }
+            return nil
+        }
     
 }
