@@ -17,6 +17,10 @@ struct ZoneIntent {
         self.zone = zone
     }
     
+    init(){
+        self.zone = Zone()
+    }
+    
     func load(zone : Zone){
         self.zone.state = .isLoading
         self.zone.state = .load(zone)

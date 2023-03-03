@@ -12,6 +12,7 @@ struct BenevoleView: View {
     @ObservedObject private var benevole : Benevole
     private var intent : BenevoleIntent
     @State private var showModificationView : Bool = false
+    @State private var showAddCreneauView : Bool = false
     
     init(benevole: Benevole) {
         self.benevole = benevole
@@ -39,7 +40,21 @@ struct BenevoleView: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.blue, lineWidth: 2)
                 )
-
+                Button("Ajouter un créneau") {
+                    showAddCreneauView = true
+                }
+                .sheet(isPresented: $showAddCreneauView){
+                    CreneauCreateView(benevole: benevole)
+                }
+                .foregroundColor(.white)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 20)
+                .background(Color.blue)
+                .cornerRadius(5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.blue, lineWidth: 2)
+                )
                 
             }
             

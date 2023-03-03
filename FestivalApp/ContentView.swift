@@ -10,13 +10,13 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var user: UserSettings
-     @State var benevoles = BenevoleList()
-     @State var zonesIntent: ZoneListIntent
-     @ObservedObject var zones: ZoneList
-     private var dao = ZoneDAO()
-     @State var selectedZone = Zone(id: "1", nom: "Tous les bénévoles", creneaux: [], jeux: [])
-     @ObservedObject var displayedZone = Zone(id: "1", nom: "Tous les bénévoles", creneaux: [], jeux: [])
-     var selectedZoneIntent: ZoneIntent
+    @State var benevoles = BenevoleList()
+    @State var zonesIntent: ZoneListIntent
+    @ObservedObject var zones: ZoneList
+    private var dao = ZoneDAO()
+    @State var selectedZone = Zone(id: "1", nom: "Tous les bénévoles", creneaux: [], jeux: [])
+    @ObservedObject var displayedZone = Zone(id: "1", nom: "Tous les bénévoles", creneaux: [], jeux: [])
+    var selectedZoneIntent: ZoneIntent
 
      init(zones: ZoneList) {
          self.selectedZoneIntent = ZoneIntent(zone: _displayedZone.wrappedValue)
@@ -67,9 +67,11 @@ struct ContentView: View {
                         }
                         if self.displayedZone.id == "1" {
                             BenevolePanelView(benevoles: benevoles)
+                                .environmentObject(zones)
                         }
                         else {
                             CreneauListView(creneaux: CreneauList(creaneaux: displayedZone.creneaux!), selectedZone: displayedZone)
+                                .environmentObject(zones)
                         }
                     default:
                         Text("default")
