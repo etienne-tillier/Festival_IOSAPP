@@ -84,5 +84,47 @@ class ZoneDAO {
         
     }
     
+    func addCreneauToZone(zoneId: String, benevoleId: String, dateDebut: String, dateFin: String, completion: @escaping(Result<Void,Error>) -> Void) async {
+        do {
+            guard let url = URL(string: Env.get("API_URL") + "zones/addBenevoleTo/" + zoneId) else {
+                completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "zones/addBenevoleTo/" + zoneId )))
+                return
+            }
+            var request = URLRequest(url: url)
+            request.httpMethod = "PATCH"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+
+            let creneauData = [
+                "benevole": benevoleId,
+                "heureDebut": dateDebut,
+                "heureFin" : dateFin
+            ] as [String : String]
+
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: creneauData) else {
+                completion(.failure(MyError.convertion()))
+                return
+            }
+
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                    let error = NSError(domain: Env.get("API_URL"), code: 1, userInfo: [NSLocalizedDescriptionKey: "Erreur de serveur"])
+                    completion(.failure(error))
+                    return
+                }
+
+                completion(.success(()))
+            }.resume()
+        }
+    }
+
+
+
     
 }

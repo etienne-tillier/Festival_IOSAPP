@@ -64,10 +64,8 @@ struct BenevoleCreateView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
                     Button("Enregistrer") {
-                        Task {
-                            await self.intent.add(nom: nom, prenom: prenom, email: email)
-                            presentationMode.wrappedValue.dismiss()
-                        }
+                        self.intent.add(nom: nom, prenom: prenom, email: email)
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .foregroundColor(.white)
                     .padding()

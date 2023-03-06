@@ -37,9 +37,7 @@ struct BenevolePanelView : View {
                 Text("default")
             }
         }.onAppear {
-            Task {
-                await self.intent.loadBenevoles()!
-            }
+            self.intent.loadBenevoles()
         }
         
     }

@@ -11,14 +11,16 @@ import SwiftUI
 enum BenevoleState : Equatable {
     case ready
     case isLoading
+    case removing
     case load(String, String, String, String)
-    case updated
+    case update(String, String, String)
     case error
 }
 
-class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
+class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable {
     
     var id : String
+    var dao : BenevoleDAO = BenevoleDAO()
     @Published var nom : String
     @Published var prenom : String
     @Published var email : String
@@ -26,11 +28,26 @@ class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable 
     @Published var state : BenevoleState = .isLoading{
             didSet{
                 switch state {
+                case .removing:
+                    Task{
+                        await dao.removeBenevoleById(id: self.id) { result in
+                            switch result {
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            case .success():
+                                print("ok")
+                            }
+                        }
+                    }
                 case .load(let id, let nom, let prenom, let email):
                     self.id = id
                     self.nom = nom
                     self.prenom = prenom
                     self.email = email
+                case .update(let nom, let prenom, let email):
+                    Task{
+                        await self.updateBenevole(nom: nom, prenom: prenom, email: email)
+                    }
                 default:
                     break
                 }
@@ -43,6 +60,15 @@ class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable 
         case prenom
         case email
     }
+    
+    
+    func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(id, forKey: .id)
+            try container.encode(nom, forKey: .nom)
+            try container.encode(prenom, forKey: .prenom)
+            try container.encode(email, forKey: .email)
+        }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -66,6 +92,47 @@ class Benevole : Identifiable, ObservableObject, Decodable, Hashable, Equatable 
         self.prenom = ""
         self.email = ""
     }
+  
+    /*
+    func loadBenevoleById(id : String) async {
+        do {
+            let newBenevole : Benevole = try await dao.getBenevolebyId(id: id)!
+            DispatchQueue.main.async {
+                self.state = .load(newBenevole.id, newBenevole.nom, newBenevole.prenom, newBenevole.email)
+                self.state = .ready
+            }
+        }
+        catch {
+            print(error)
+            DispatchQueue.main.async {
+                self.state = .error
+            }
+        }
+    }
+     */
+    
+    func updateBenevole(nom: String, prenom: String, email: String) async {
+        do {
+            
+            //api
+            await dao.updateBenevole(id: self.id, nom: nom, prenom: prenom, email: email) { result in
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.state = .error
+                    }
+                case .success():
+                    DispatchQueue.main.async {
+                        self.state = .load(self.id, nom, prenom, email)
+                        self.state = .ready
+                    }
+                }
+            }
+
+        }
+    }
+    
     
     func updateState() {
         objectWillChange.send()

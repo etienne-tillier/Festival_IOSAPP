@@ -18,70 +18,16 @@ struct BenevoleListIntent {
         self.benevoles = benevoles
     }
     
-    func loadBenevoles() async -> [Benevole]? {
-        
-        do {
-            DispatchQueue.main.async {
-                benevoles.state = .isLoading
-            }
-            
-            let newBenevoles : [Benevole] = try await dao.getAllBenevole()!
-            DispatchQueue.main.async {
-                benevoles.state = .load(newBenevoles)
-                benevoles.state = .ready
-            }
-            return newBenevoles
-        }
-        catch {
-            DispatchQueue.main.async {
-                benevoles.state = .error
-            }
-        }
-        return nil
+    func loadBenevoles() {
+        self.benevoles.state = .isLoading
     }
     
-    func remove(index : IndexSet) async {
-        DispatchQueue.main.async {
-            self.benevoles.state = .remove(index)
-            self.benevoles.state = .ready
-        }
-        do {
-                await dao.removeBenevoleById(id: benevoles.benevoles[index.first!].id) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        benevoles.state = .error
-                    }
-                case .success():
-                    print("Le benevole a été supprimé avec succès !")
-                }
-            }
-        }
-
+    func remove(index : IndexSet) {
+        self.benevoles.state = .remove(index)
     }
     
-    func add(nom : String, prenom : String, email : String) async {
-        DispatchQueue.main.async {
-            self.benevoles.state = .isLoading
-        }
-        do {
-            await dao.createBenevole(nom: nom, prenom: prenom, email: email) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        benevoles.state = .error
-                    }
-                case .success(let benevole):
-                    DispatchQueue.main.async {
-                        benevoles.state = .add(benevole)
-                        benevoles.state = .ready
-                    }
-                }
-                
-            }
-        }
+    func add(nom : String, prenom : String, email : String) {
+        self.benevoles.state = .add(nom, prenom, email)
     }
     
 }

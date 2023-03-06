@@ -17,6 +17,8 @@ struct BenevoleIntent {
         self.benevole = benevole
     }
     
+    /*
+    
     func loadBenevoleById(id : String) async -> Benevole? {
         
         do {
@@ -39,31 +41,11 @@ struct BenevoleIntent {
         }
         return nil
     }
+     */
     
     
-    func updateBenevole(nom: String, prenom: String, email: String) async {
-        do {
-            DispatchQueue.main.async {
-                benevole.state = .isLoading
-            }
-            
-            //api
-            await dao.updateBenevole(id: benevole.id, nom: nom, prenom: prenom, email: email) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        benevole.state = .error
-                    }
-                case .success():
-                    DispatchQueue.main.async {
-                        benevole.state = .load(benevole.id, nom, prenom, email)
-                        benevole.state = .ready
-                    }
-                }
-            }
-
-        }
+    func updateBenevole(nom: String, prenom: String, email: String) {
+        self.benevole.state = .update(nom, prenom, email)
     }
     
     
