@@ -30,6 +30,13 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable{
         self.id = UUID()
     }
     
+    init(benevole : Benevole, dateDebut : String, dateFin : String){
+        self.id = UUID()
+        self.benevole = benevole
+        self.dateDebut = dateDebut
+        self.dateFin = dateFin
+    }
+    
     static func == (lhs: Creneau, rhs: Creneau) -> Bool {
         return lhs.id == rhs.id
     }

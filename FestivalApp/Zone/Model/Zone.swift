@@ -12,6 +12,7 @@ enum ZoneState : Equatable {
     case ready
     case isLoading
     case load(Zone)
+    case addCreneau(Benevole, Date, Int, Int)
     case error
 }
 
@@ -32,6 +33,10 @@ class Zone : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
                 self.id = zone.id
                 self.creneaux = zone.creneaux
                 self.jeux = zone.jeux
+            case .addCreneau(let benevole, let jour, let heureDebut, let heureFin):
+                Task{
+                    await self.addCreneau(benevole: benevole, date: jour, heureDebut: heureDebut, heureFin: heureFin)
+                }
             default:
                 break
             }
@@ -101,10 +106,15 @@ class Zone : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
         await dao.addCreneauToZone(zoneId: self.id, benevoleId: benevole.id, dateDebut: startDateString, dateFin: endDateString) { result in
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
-                self.state = .error
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                    self.state = .error
+                }
             case .success():
-                self.state = .ready
+                DispatchQueue.main.async {
+                    self.creneaux.append(Creneau(benevole: benevole, dateDebut: startDateString, dateFin: endDateString))
+                    self.state = .ready
+                }
             }
         }
         
