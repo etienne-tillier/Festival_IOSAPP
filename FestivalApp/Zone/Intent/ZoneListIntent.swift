@@ -18,27 +18,8 @@ struct ZoneListIntent {
         self.zones = zones
     }
     
-    func getAllZone() async {
-        do {
-            DispatchQueue.main.async {
-                zones.state = .isLoading
-            }
-            await dao.getAllZones() { result in
-                switch result{
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        zones.state = .error
-                    }
-                case .success(let newZones):
-                    DispatchQueue.main.async {
-                        zones.state = .load(newZones)
-                        zones.state = .ready
-                    }
-                }
-            }
-            
-        }
+    func getAllZone() {
+        self.zones.state = .isLoading
     }
     
     

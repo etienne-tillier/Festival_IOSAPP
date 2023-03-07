@@ -30,14 +30,7 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable {
                 switch state {
                 case .removing:
                     Task{
-                        await dao.removeBenevoleById(id: self.id) { result in
-                            switch result {
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                            case .success():
-                                print("ok")
-                            }
-                        }
+                        await self.remove()
                     }
                 case .load(let id, let nom, let prenom, let email):
                     self.id = id
@@ -91,6 +84,17 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable {
         self.nom = ""
         self.prenom = ""
         self.email = ""
+    }
+    
+    func remove() async {
+        await dao.removeBenevoleById(id: self.id) { result in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success():
+                print("benevole removed")
+            }
+        }
     }
   
     /*

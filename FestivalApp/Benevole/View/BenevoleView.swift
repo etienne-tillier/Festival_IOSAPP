@@ -13,10 +13,29 @@ struct BenevoleView: View {
     private var intent : BenevoleIntent
     @State private var showModificationView : Bool = false
     @State private var showAddCreneauView : Bool = false
+    @State private var isConfimationPresented : Bool = false
+    var delegate: BenevoleListDelegate?
+    @Environment(\.presentationMode) var presentationMode
     
     init(benevole: Benevole) {
         self.benevole = benevole
         self.intent = BenevoleIntent(benevole: benevole)
+        self.delegate = nil
+    }
+    
+    init(benevole: Benevole, delegate : BenevoleListDelegate) {
+        self.delegate = delegate
+        self.benevole = benevole
+        self.intent = BenevoleIntent(benevole: benevole)
+    }
+    
+    func removeBenevole(){
+        //confirm
+        if (delegate != nil){
+            self.delegate?.didRemoveBenevole(benevole: self.benevole)
+        }
+        self.intent.removeBenevoleById(id: self.benevole.id)
+        self.presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {
@@ -40,6 +59,20 @@ struct BenevoleView: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.blue, lineWidth: 2)
                 )
+                NavigationLink(destination: BenevoleListView(benevoles: BenevoleList())) {
+                    Button("Supprimer") {
+                        self.isConfimationPresented = true
+                    }
+                    .foregroundColor(.white)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .background(Color.blue)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.blue, lineWidth: 2)
+                    )
+                }
                 Button("Ajouter un créneau") {
                     showAddCreneauView = true
                 }
@@ -58,6 +91,13 @@ struct BenevoleView: View {
                 
             }
             
+        }.alert(isPresented: $isConfimationPresented) {
+            Alert(
+                title: Text("Confirmation"),
+                message: Text("Êtes-vous sûr de vouloir supprimer ce bénévole ?"),
+                primaryButton: .destructive(Text("Supprimer"), action: self.removeBenevole),
+                secondaryButton: .cancel()
+            )
         }
     }
 }

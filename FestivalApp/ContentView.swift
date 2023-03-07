@@ -50,40 +50,40 @@ struct ContentView: View {
     }
     
     var body: some View {
-            if user.user != nil {
-                VStack {
-                    switch self.zones.state{
-                    case .isLoading:
-                        ProgressView()
-                    case .ready:
-                        Picker("Zones", selection: $selectedZone) {
-                            ForEach(zones.zones, id: \.self) { zone in
-                                Text(zone.nom)
-                            }
-                        }.onChange(of: selectedZone) { selectedZone in
-                            Task{
-                                await fetchCurrentZone(id: selectedZone.id)
-                            }
+        if user.user != nil {
+            VStack {
+                switch self.zones.state{
+                case .isLoading:
+                    ProgressView()
+                case .ready:
+                    Picker("Zones", selection: $selectedZone) {
+                        ForEach(zones.zones, id: \.self) { zone in
+                            Text(zone.nom)
                         }
-                        if self.displayedZone.id == "1" {
-                            BenevolePanelView(benevoles: benevoles)
-                                .environmentObject(zones)
+                    }.onChange(of: selectedZone) { selectedZone in
+                        Task{
+                            await fetchCurrentZone(id: selectedZone.id)
                         }
-                        else {
-                            CreneauListView(creneaux: CreneauList(creaneaux: displayedZone.creneaux!), selectedZone: displayedZone)
-                                .environmentObject(zones)
+                    }.onAppear{
+                        Task{
+                            self.zones.zones.insert(selectedZone, at: 0)
                         }
-                    default:
-                        Text("default")
                     }
-                }.onAppear{
-                    Task{
-                        await zonesIntent.getAllZone()
-                        self.zones.zones.insert(selectedZone, at: 0)
+                    if self.displayedZone.id == "1" {
+                        BenevolePanelView(benevoles: benevoles)
+                            .environmentObject(zones)
                     }
+                    else {
+                        CreneauListView(creneaux: CreneauList(creaneaux: displayedZone.creneaux), selectedZone: displayedZone)
+                            .environmentObject(zones)
+                    }
+                default:
+                    Text("Error")
                 }
-                
+            }.onAppear{
+                zonesIntent.getAllZone()
             }
+        }
             else {
                 AuthView()
             }

@@ -34,7 +34,7 @@ struct BenevolePanelView : View {
                 case .error:
                     Text("erreur")
             default:
-                Text("default")
+                ProgressView()
             }
         }.onAppear {
             self.intent.loadBenevoles()

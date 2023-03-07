@@ -32,9 +32,7 @@ struct CreneauListView : View {
                         }
                     }.onDelete{
                         indexSet in
-                        Task{
-                            await intent.remove(index: indexSet)
-                        }
+                            intent.remove(index: indexSet)
                     }
                 }
                 .sheet(isPresented: $showAddView){

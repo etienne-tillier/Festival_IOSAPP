@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct BenevoleListView: View {
+struct BenevoleListView: View, BenevoleListDelegate {
+
+    
     
     @ObservedObject var benevoles : BenevoleList
     private var intent : BenevoleListIntent
@@ -16,6 +18,11 @@ struct BenevoleListView: View {
     init(benevoles: BenevoleList) {
         self.benevoles = benevoles
         self.intent = BenevoleListIntent(benevoles: benevoles)
+    }
+    
+    func didRemoveBenevole(benevole: Benevole) {
+        let index = self.benevoles.benevoles.firstIndex(where: { $0 == benevole })
+        self.intent.remove(index: IndexSet(integer: index!))
     }
     
     
@@ -33,12 +40,17 @@ struct BenevoleListView: View {
                             intent.remove(index: indexSet)
                     }
                 }
+                .refreshable {
+                    withAnimation{
+                        self.intent.loadBenevoles()
+                    }
+                }
                 .sheet(isPresented: $showAddView){
                     BenevoleCreateView(benevoles: benevoles, intent: intent)
                 }
                 .navigationDestination(for: Benevole.self){
                     benevole in
-                    BenevoleView(benevole: benevole)
+                    BenevoleView(benevole: benevole, delegate: self)
                 }
                 HStack{
                     EditButton()

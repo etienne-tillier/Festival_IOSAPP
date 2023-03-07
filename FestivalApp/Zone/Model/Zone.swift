@@ -76,7 +76,7 @@ class Zone : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
         let calendar = Calendar.current
 
         // Extract the year, month, and day components from the given day date
-        let dayComponents = calendar.dateComponents([.year, .month, .day], from: day)
+        //let dayComponents = calendar.dateComponents([.year, .month, .day], from: day)
 
         // Create date components for the start hour
         var startComponents = DateComponents()

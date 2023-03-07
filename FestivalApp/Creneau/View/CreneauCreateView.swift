@@ -71,10 +71,8 @@ struct CreneauCreateView: View {
                         }
                     }
             Button(action: {
-                Task {
-                    await self.selectedZoneIntent.addCreneau(benevole: benevole, date: selectedDate, heureDebut: startHour, heureFin: endHour)
-                    presentationMode.wrappedValue.dismiss()
-                }
+                self.selectedZoneIntent.addCreneau(benevole: benevole, date: selectedDate, heureDebut: startHour, heureFin: endHour)
+                presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Enregistrer")
             })

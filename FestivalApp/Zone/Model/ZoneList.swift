@@ -21,12 +21,17 @@ enum ZoneListState {
 class ZoneList : Identifiable, ObservableObject, Hashable, Equatable {
     
     var id : UUID
+    private var dao : ZoneDAO = ZoneDAO()
     @Published var zones : [Zone]
     @Published var state : ZoneListState = .isLoading {
         didSet{
             switch state {
             case .load(let zones):
                 self.zones = zones
+            case .isLoading:
+                Task {
+                    await self.getAllZone()
+                }
             case .remove(let index):
                 self.zones.remove(atOffsets: index)
             case .add(let zone):
@@ -46,6 +51,26 @@ class ZoneList : Identifiable, ObservableObject, Hashable, Equatable {
     init(){
         self.zones = []
         self.id = UUID()
+    }
+    
+    func getAllZone() async {
+        do {
+            await dao.getAllZones() { result in
+                switch result{
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.state = .error
+                    }
+                case .success(let newZones):
+                    DispatchQueue.main.async {
+                        self.state = .load(newZones)
+                        self.state = .ready
+                    }
+                }
+            }
+            
+        }
     }
     
     static func == (lhs: ZoneList, rhs: ZoneList) -> Bool {

@@ -49,10 +49,8 @@ struct BenevoleIntent {
     }
     
     
-    func removeBenevoleById(id : String) async {
-        do {
-            
-        }
+    func removeBenevoleById(id : String) {
+        self.benevole.state = .removing
     }
     
     
