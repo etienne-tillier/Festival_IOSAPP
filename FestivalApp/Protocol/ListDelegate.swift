@@ -8,6 +8,6 @@
 import Foundation
 import SwiftUI
 
-protocol BenevoleListDelegate {
-    func didRemoveBenevole(benevole : Benevole)
+protocol ListDelegate {
+    func didRemove(item : Object)
 }

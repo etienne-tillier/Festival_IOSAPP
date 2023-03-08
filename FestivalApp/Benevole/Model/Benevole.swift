@@ -17,7 +17,8 @@ enum BenevoleState : Equatable {
     case error
 }
 
-class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable {
+class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, Object {
+    
     
     var id : String
     var dao : BenevoleDAO = BenevoleDAO()

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CreneauListView : View {
+struct CreneauListView : View, ListDelegate {
     
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
@@ -19,6 +19,13 @@ struct CreneauListView : View {
         self.selectedZone = selectedZone
         self.intent = CreneauListIntent(creneaux: creneaux, selectedZone: selectedZone)
     }
+    
+    func didRemove(item: Object) {
+        let creneau = item as! Creneau
+        let index = self.creneaux.creneaux.firstIndex(where: { $0 == creneau })
+        self.intent.remove(index: IndexSet(integer: index!))
+    }
+    
     
     
     var body: some View {
@@ -40,7 +47,7 @@ struct CreneauListView : View {
                 }
                 .navigationDestination(for: Creneau.self){
                     creneau in
-                    CreneauView(creneau: creneau)
+                    CreneauView(creneau: creneau, delegate: self, zone: self.selectedZone)
                 }
                 HStack{
                     EditButton()

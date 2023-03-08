@@ -8,12 +8,34 @@
 import Foundation
 import SwiftUI
 
-class Creneau : Decodable, ObservableObject, Hashable, Identifiable{
+enum CreneauState : Equatable {
+    case ready
+    case isLoading
+    case removing(String)
+    case load
+    case update
+    case error
+}
+
+class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
     
     var id : UUID
+    private var dao : ZoneDAO = ZoneDAO()
     @Published var dateDebut : String
     @Published var dateFin : String
     @Published var benevole : Benevole
+    @Published var state : CreneauState = .ready{
+        didSet {
+            switch state {
+            case .removing(let zoneId):
+                Task{
+                    await self.remove(zoneId: zoneId)
+                }
+            default:
+                break
+            }
+        }
+    }
     
     
     private enum CodingKeys : String, CodingKey {
@@ -35,6 +57,23 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable{
         self.benevole = benevole
         self.dateDebut = dateDebut
         self.dateFin = dateFin
+    }
+    
+    func remove() async {
+        
+    }
+    
+    func remove(zoneId : String) async {
+        await dao.removeCreneauFromZone(zoneId: zoneId, creneau: self){ result in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success():
+                DispatchQueue.main.async {
+                    self.state = .ready
+                }
+            }
+        }
     }
     
     static func == (lhs: Creneau, rhs: Creneau) -> Bool {

@@ -57,6 +57,7 @@ class CreneauList : Identifiable, ObservableObject, Hashable, Equatable {
         self.id = UUID()
     }
     
+
     func remove(index : IndexSet) async {
         do {
             await dao.removeCreneauFromZone(zoneId: self.selectedZone.id, creneau: self.creneaux[index.first!]) { result in

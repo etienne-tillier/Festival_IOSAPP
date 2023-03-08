@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BenevoleListView: View, BenevoleListDelegate {
+struct BenevoleListView: View, ListDelegate {
 
     
     
@@ -20,7 +20,8 @@ struct BenevoleListView: View, BenevoleListDelegate {
         self.intent = BenevoleListIntent(benevoles: benevoles)
     }
     
-    func didRemoveBenevole(benevole: Benevole) {
+    func didRemove(item: Object) {
+        let benevole = item as! Benevole
         let index = self.benevoles.benevoles.firstIndex(where: { $0 == benevole })
         self.intent.remove(index: IndexSet(integer: index!))
     }

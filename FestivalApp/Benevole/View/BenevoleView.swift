@@ -14,7 +14,7 @@ struct BenevoleView: View {
     @State private var showModificationView : Bool = false
     @State private var showAddCreneauView : Bool = false
     @State private var isConfimationPresented : Bool = false
-    var delegate: BenevoleListDelegate?
+    var delegate: ListDelegate?
     @Environment(\.presentationMode) var presentationMode
     
     init(benevole: Benevole) {
@@ -23,7 +23,7 @@ struct BenevoleView: View {
         self.delegate = nil
     }
     
-    init(benevole: Benevole, delegate : BenevoleListDelegate) {
+    init(benevole: Benevole, delegate : ListDelegate) {
         self.delegate = delegate
         self.benevole = benevole
         self.intent = BenevoleIntent(benevole: benevole)
@@ -32,7 +32,7 @@ struct BenevoleView: View {
     func removeBenevole(){
         //confirm
         if (delegate != nil){
-            self.delegate?.didRemoveBenevole(benevole: self.benevole)
+            self.delegate!.didRemove(item: self.benevole)
         }
         self.intent.removeBenevoleById(id: self.benevole.id)
         self.presentationMode.wrappedValue.dismiss()

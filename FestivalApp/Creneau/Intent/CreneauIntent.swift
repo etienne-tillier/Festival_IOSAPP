@@ -16,6 +16,10 @@ struct CreneauIntent {
         self.creneau = creneau
     }
     
+    func removeCreneau(zoneId : String){
+        self.creneau.state = .removing(zoneId)
+    }
+    
     
     
 }
