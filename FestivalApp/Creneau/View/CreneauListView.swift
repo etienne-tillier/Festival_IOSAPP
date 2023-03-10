@@ -12,12 +12,10 @@ struct CreneauListView : View, ListDelegate {
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
     @State private var showAddView : Bool = false
-    private var selectedZone : Zone
     
-    init(creneaux: CreneauList, selectedZone : Zone) {
+    init(creneaux: CreneauList) {
         self.creneaux = creneaux
-        self.selectedZone = selectedZone
-        self.intent = CreneauListIntent(creneaux: creneaux, selectedZone: selectedZone)
+        self.intent = CreneauListIntent(creneaux: creneaux)
     }
     
     func didRemove(item: Object) {
@@ -29,17 +27,17 @@ struct CreneauListView : View, ListDelegate {
     
     
     var body: some View {
-        NavigationStack {
+        NavigationStack{
             VStack{
                 List{
                     ForEach(creneaux.creneaux, id: \.self){
                         creneau in
                         NavigationLink(value: creneau) {
-                            CreneauListItem(creneau: creneau)
+                            CreneauListItem(creneau: creneau, isBenevole: false)
                         }
                     }.onDelete{
                         indexSet in
-                            intent.remove(index: indexSet)
+                        intent.remove(index: indexSet)
                     }
                 }
                 .sheet(isPresented: $showAddView){
@@ -47,7 +45,7 @@ struct CreneauListView : View, ListDelegate {
                 }
                 .navigationDestination(for: Creneau.self){
                     creneau in
-                    CreneauView(creneau: creneau, delegate: self, zone: self.selectedZone)
+                    CreneauView(creneau: creneau, delegate: self)
                 }
                 HStack{
                     EditButton()
@@ -61,7 +59,6 @@ struct CreneauListView : View, ListDelegate {
                 }
             }.navigationTitle("Créneaux occupés")
         }
-        
     }
     
 }

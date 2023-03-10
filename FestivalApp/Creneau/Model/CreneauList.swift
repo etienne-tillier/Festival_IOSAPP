@@ -12,7 +12,6 @@ enum CreneauListState {
     case ready
     case isLoading
     case load([Creneau])
-    case setSelectedZone(Zone)
     case remove(IndexSet)
     case add(Creneau)
     case updated
@@ -23,15 +22,12 @@ class CreneauList : Identifiable, ObservableObject, Hashable, Equatable {
     
     var id : UUID
     private var dao : ZoneDAO = ZoneDAO()
-    @Published var selectedZone : Zone
     @Published var creneaux : [Creneau]
     @Published var state : CreneauListState = .isLoading {
         didSet{
             switch state {
             case .load(let creneaux):
                 self.creneaux = creneaux
-            case .setSelectedZone(let zone):
-                self.selectedZone = zone
             case .remove(let index):
                 Task{
                     await self.remove(index: index)
@@ -44,23 +40,21 @@ class CreneauList : Identifiable, ObservableObject, Hashable, Equatable {
         }
     }
     
-    init(creaneaux : [Creneau]){
-        self.creneaux = creaneaux
-        self.selectedZone = Zone()
+    init(creneaux : [Creneau]){
+        self.creneaux = creneaux
         self.id = UUID()
     }
     
     
     init(){
         self.creneaux = []
-        self.selectedZone = Zone()
         self.id = UUID()
     }
     
 
     func remove(index : IndexSet) async {
         do {
-            await dao.removeCreneauFromZone(zoneId: self.selectedZone.id, creneau: self.creneaux[index.first!]) { result in
+            await dao.removeCreneauFromZone(zoneId: self.creneaux[index.first!].zoneId, creneau: self.creneaux[index.first!]) { result in
                 switch result {
                 case .failure(let error):
                     print(error.localizedDescription)

@@ -9,6 +9,6 @@ import Foundation
 import SwiftUI
 
 protocol Object {
+
     
-    func remove() async
 }

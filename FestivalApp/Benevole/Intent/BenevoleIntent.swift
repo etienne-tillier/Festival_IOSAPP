@@ -44,8 +44,40 @@ struct BenevoleIntent {
      */
     
     
-    func updateBenevole(nom: String, prenom: String, email: String) {
-        self.benevole.state = .update(nom, prenom, email)
+    func updateBenevole(nom: String, prenom: String, email: String) async {
+        do {
+            
+            //api
+            await dao.updateBenevole(id: self.benevole.id, nom: nom, prenom: prenom, email: email) { result in
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.benevole.state = .error
+                    }
+                case .success():
+                    DispatchQueue.main.async {
+                        self.benevole.state = .update(nom, prenom, email)
+                        self.benevole.state = .ready
+                    }
+                }
+            }
+
+        }
+    }
+    
+    func remove() async {
+        self.benevole.state = .removing
+        await dao.removeBenevoleById(id: self.benevole.id) { result in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.benevole.state = .error
+            case .success():
+                print("benevole removed")
+                self.benevole.state = .removed
+            }
+        }
     }
     
     

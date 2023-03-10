@@ -25,6 +25,18 @@ struct BenevoleModifView: View {
         self._email = State(initialValue: benevole.email)
     }
     
+    func update() async {
+        await self.intent.updateBenevole(nom: nom, prenom: prenom, email: email)
+        switch self.benevole.state {
+        case .ready:
+            presentationMode.wrappedValue.dismiss()
+        case .error:
+            print("error updating")
+        default:
+            break
+        }
+    }
+    
     var body: some View {
         //mettre un form
         VStack {
@@ -67,8 +79,9 @@ struct BenevoleModifView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
                     Button("Enregistrer") {
-                        self.intent.updateBenevole(nom: nom, prenom: prenom, email: email)
-                        presentationMode.wrappedValue.dismiss()
+                        Task {
+                            await self.update()
+                        }
                     }
                     .foregroundColor(.white)
                     .padding()

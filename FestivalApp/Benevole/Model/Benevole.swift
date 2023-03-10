@@ -12,13 +12,13 @@ enum BenevoleState : Equatable {
     case ready
     case isLoading
     case removing
+    case removed
     case load(String, String, String, String)
     case update(String, String, String)
     case error
 }
 
 class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, Object {
-    
     
     var id : String
     var dao : BenevoleDAO = BenevoleDAO()
@@ -29,19 +29,13 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
     @Published var state : BenevoleState = .isLoading{
             didSet{
                 switch state {
-                case .removing:
-                    Task{
-                        await self.remove()
-                    }
                 case .load(let id, let nom, let prenom, let email):
                     self.id = id
                     self.nom = nom
                     self.prenom = prenom
                     self.email = email
                 case .update(let nom, let prenom, let email):
-                    Task{
-                        await self.updateBenevole(nom: nom, prenom: prenom, email: email)
-                    }
+                    self.state = .load(self.id, nom, prenom, email)
                 default:
                     break
                 }
@@ -87,16 +81,7 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
         self.email = ""
     }
     
-    func remove() async {
-        await dao.removeBenevoleById(id: self.id) { result in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success():
-                print("benevole removed")
-            }
-        }
-    }
+
   
     /*
     func loadBenevoleById(id : String) async {
@@ -115,28 +100,6 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
         }
     }
      */
-    
-    func updateBenevole(nom: String, prenom: String, email: String) async {
-        do {
-            
-            //api
-            await dao.updateBenevole(id: self.id, nom: nom, prenom: prenom, email: email) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.state = .error
-                    }
-                case .success():
-                    DispatchQueue.main.async {
-                        self.state = .load(self.id, nom, prenom, email)
-                        self.state = .ready
-                    }
-                }
-            }
-
-        }
-    }
     
     
     func updateState() {

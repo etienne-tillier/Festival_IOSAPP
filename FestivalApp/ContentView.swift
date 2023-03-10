@@ -69,14 +69,12 @@ struct ContentView: View {
                             self.zones.zones.insert(selectedZone, at: 0)
                         }
                     }
-                    if self.displayedZone.id == "1" {
-                        BenevolePanelView(benevoles: benevoles)
-                            .environmentObject(zones)
-                    }
-                    else {
-                        CreneauListView(creneaux: CreneauList(creaneaux: displayedZone.creneaux), selectedZone: displayedZone)
-                            .environmentObject(zones)
-                    }
+                        if self.displayedZone.id == "1" {
+                            BenevolePanelView(benevoles: benevoles)
+                        }
+                        else {
+                            CreneauListView(creneaux: CreneauList(creneaux: displayedZone.creneaux))
+                        }
                 default:
                     Text("Error")
                 }

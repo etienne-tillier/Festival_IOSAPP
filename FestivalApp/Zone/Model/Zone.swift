@@ -112,7 +112,7 @@ class Zone : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
                 }
             case .success():
                 DispatchQueue.main.async {
-                    self.creneaux.append(Creneau(benevole: benevole, dateDebut: startDateString, dateFin: endDateString))
+                    self.creneaux.append(Creneau(benevole: benevole, dateDebut: startDateString, dateFin: endDateString, zoneNom: self.nom, zoneId: self.id))
                     self.state = .ready
                 }
             }

@@ -12,10 +12,13 @@ struct BenevoleView: View {
     @ObservedObject private var benevole : Benevole
     private var intent : BenevoleIntent
     @State private var showModificationView : Bool = false
+    @State private var showListCreneauView : Bool = false
     @State private var showAddCreneauView : Bool = false
     @State private var isConfimationPresented : Bool = false
+    @StateObject private var creneaux : CreneauList = CreneauList()
     var delegate: ListDelegate?
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var zones: ZoneList
     
     init(benevole: Benevole) {
         self.benevole = benevole
@@ -29,39 +32,89 @@ struct BenevoleView: View {
         self.intent = BenevoleIntent(benevole: benevole)
     }
     
-    func removeBenevole(){
-        //confirm
-        if (delegate != nil){
-            self.delegate!.didRemove(item: self.benevole)
+    
+    func removeBenevole() {
+        Task{
+            if (delegate != nil){
+                self.delegate!.didRemove(item: self.benevole)
+            }
+            await self.intent.remove()
+            switch self.benevole.state {
+            case .removed:
+                self.presentationMode.wrappedValue.dismiss()
+            case .error:
+                print("error")
+            default:
+                break
+            }
         }
-        self.intent.removeBenevoleById(id: self.benevole.id)
-        self.presentationMode.wrappedValue.dismiss()
+
+    }
+    
+    func getCreneauxForBenevole() {
+        for zone in self.zones.zones {
+            for creneau in zone.creneaux {
+                if (creneau.benevole.id == self.benevole.id){
+                    self.creneaux.creneaux.append(creneau)
+                }
+            }
+        }
     }
     
     var body: some View {
-        VStack {
-            Text(benevole.nom)
-            Text(benevole.prenom)
-            Text(benevole.email)
-            HStack {
-                Button("Modifier") {
-                    showModificationView = true
-                }
-                .sheet(isPresented: $showModificationView){
-                    BenevoleModifView(benevole: benevole, intent: intent)
-                }
-                .foregroundColor(.white)
-                .padding(.vertical, 10)
-                .padding(.horizontal, 20)
-                .background(Color.blue)
-                .cornerRadius(5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.blue, lineWidth: 2)
-                )
-                NavigationLink(destination: BenevoleListView(benevoles: BenevoleList())) {
-                    Button("Supprimer") {
-                        self.isConfimationPresented = true
+        NavigationView{
+            VStack {
+                Text(benevole.nom)
+                Text(benevole.prenom)
+                Text(benevole.email)
+                HStack {
+                    Button("Modifier") {
+                        showModificationView = true
+                    }
+                    .sheet(isPresented: $showModificationView){
+                        BenevoleModifView(benevole: benevole, intent: intent)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .background(Color.blue)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.blue, lineWidth: 2)
+                    )
+                    NavigationLink(destination: BenevoleListView(benevoles: BenevoleList())) {
+                        Button("Supprimer") {
+                            self.isConfimationPresented = true
+                        }
+                        .foregroundColor(.white)
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 20)
+                        .background(Color.blue)
+                        .cornerRadius(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.blue, lineWidth: 2)
+                        )
+                    }
+                    Button("Ajouter un créneau") {
+                        showAddCreneauView = true
+                    }
+                    .sheet(isPresented: $showAddCreneauView){
+                        CreneauCreateView(benevole: benevole)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .background(Color.blue)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.blue, lineWidth: 2)
+                    )
+                    
+                    Button("Creneaux") {
+                        showListCreneauView = true
                     }
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
@@ -73,31 +126,33 @@ struct BenevoleView: View {
                             .stroke(Color.blue, lineWidth: 2)
                     )
                 }
-                Button("Ajouter un créneau") {
-                    showAddCreneauView = true
+
+                if (showListCreneauView == true){
+                    Button("Masquer") {
+                        showListCreneauView = false
+                    }
+                    .foregroundColor(.white)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .background(Color.blue)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.blue, lineWidth: 2)
+                    )
+                    CreneauListBenevoleView(creneaux: creneaux)
                 }
-                .sheet(isPresented: $showAddCreneauView){
-                    CreneauCreateView(benevole: benevole)
-                }
-                .foregroundColor(.white)
-                .padding(.vertical, 10)
-                .padding(.horizontal, 20)
-                .background(Color.blue)
-                .cornerRadius(5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.blue, lineWidth: 2)
-                )
-                
+            }.onAppear{
+                self.getCreneauxForBenevole()
             }
-            
-        }.alert(isPresented: $isConfimationPresented) {
-            Alert(
-                title: Text("Confirmation"),
-                message: Text("Êtes-vous sûr de vouloir supprimer ce bénévole ?"),
-                primaryButton: .destructive(Text("Supprimer"), action: self.removeBenevole),
-                secondaryButton: .cancel()
-            )
+            .alert(isPresented: $isConfimationPresented) {
+                Alert(
+                    title: Text("Confirmation"),
+                    message: Text("Êtes-vous sûr de vouloir supprimer ce bénévole ?"),
+                    primaryButton: .destructive(Text("Supprimer"), action: self.removeBenevole),
+                    secondaryButton: .cancel()
+                )
+            }
         }
     }
 }

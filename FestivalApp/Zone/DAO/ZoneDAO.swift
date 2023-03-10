@@ -23,7 +23,9 @@ class ZoneDAO {
             completion(.failure(MyError.apiProblem(message: "Impossible to get the zone")))
             return
         }
-        
+        for creneau in zone.creneaux{
+            creneau.setZone(zone: zone)
+        }
         completion(.success(zone))
         
     
@@ -44,6 +46,13 @@ class ZoneDAO {
             completion(.failure(MyError.apiProblem(message: "Impossible d'obtenir les zones de l'API")))
             return
         }
+        
+        for zone in zones{
+            for creneau in zone.creneaux{
+                creneau.setZone(zone: zone)
+            }
+        }
+        
         
         completion(.success((zones)))
             

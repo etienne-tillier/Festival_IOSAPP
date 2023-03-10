@@ -28,7 +28,7 @@ struct BenevoleListView: View, ListDelegate {
     
     
     var body: some View {
-        NavigationStack {
+        NavigationStack{
             VStack{
                 List{
                     ForEach(benevoles.benevoles, id: \.self){
@@ -38,7 +38,7 @@ struct BenevoleListView: View, ListDelegate {
                         }
                     }.onDelete{
                         indexSet in
-                            intent.remove(index: indexSet)
+                        intent.remove(index: indexSet)
                     }
                 }
                 .refreshable {
@@ -65,7 +65,6 @@ struct BenevoleListView: View, ListDelegate {
                 }
             }.navigationTitle("Bénévoles")
         }
-        
     }
     
 }

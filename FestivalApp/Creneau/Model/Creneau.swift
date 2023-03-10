@@ -24,6 +24,8 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
     @Published var dateDebut : String
     @Published var dateFin : String
     @Published var benevole : Benevole
+    @Published var zoneId : String
+    @Published var zoneNom : String
     @Published var state : CreneauState = .ready{
         didSet {
             switch state {
@@ -49,14 +51,42 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
         self.dateDebut = try container.decode(String.self, forKey: .dateDebut)
         self.dateFin = try container.decode(String.self, forKey: .dateFin)
         self.benevole = try container.decode(Benevole.self, forKey: .benevole)
+        self.zoneNom = ""
+        self.zoneId = ""
         self.id = UUID()
     }
     
-    init(benevole : Benevole, dateDebut : String, dateFin : String){
+    
+    
+    init(benevole : Benevole, dateDebut : String, dateFin : String, zoneNom : String, zoneId : String){
         self.id = UUID()
         self.benevole = benevole
         self.dateDebut = dateDebut
         self.dateFin = dateFin
+        self.zoneId = zoneId
+        self.zoneNom = zoneNom
+    }
+    
+    init(){
+        self.id = UUID()
+        self.benevole = Benevole()
+        self.dateDebut = ""
+        self.dateFin = ""
+        self.zoneId = ""
+        self.zoneNom = ""
+    }
+    
+    func setValue(creneau : Creneau){
+        self.benevole = creneau.benevole
+        self.dateDebut = creneau.dateDebut
+        self.dateFin = creneau.dateFin
+        self.zoneId = creneau.zoneId
+        self.zoneNom = creneau.zoneNom
+    }
+    
+    func setZone(zone : Zone){
+        self.zoneId = zone.id
+        self.zoneNom = zone.nom
     }
     
     func remove() async {

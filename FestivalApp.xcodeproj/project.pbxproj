@@ -55,6 +55,7 @@
 		34D6874629A500C400BDC431 /* BenevoleIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D6874529A500C400BDC431 /* BenevoleIntent.swift */; };
 		34DA16E929B78821007B0C83 /* ListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DA16E829B78821007B0C83 /* ListDelegate.swift */; };
 		34DA16EB29B87447007B0C83 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DA16EA29B87447007B0C83 /* Object.swift */; };
+		34DA16ED29BB70DC007B0C83 /* CreneauListBenevoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DA16EC29BB70DC007B0C83 /* CreneauListBenevoleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		34D6874529A500C400BDC431 /* BenevoleIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleIntent.swift; sourceTree = "<group>"; };
 		34DA16E829B78821007B0C83 /* ListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDelegate.swift; sourceTree = "<group>"; };
 		34DA16EA29B87447007B0C83 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		34DA16EC29BB70DC007B0C83 /* CreneauListBenevoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreneauListBenevoleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +343,7 @@
 				343E7F2A29B148A40010F177 /* CreneauListItem.swift */,
 				343E7F2C29B1493B0010F177 /* CreneauView.swift */,
 				343E7F2E29B2947C0010F177 /* CreneauCreateView.swift */,
+				34DA16EC29BB70DC007B0C83 /* CreneauListBenevoleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				343E7F2F29B2947C0010F177 /* CreneauCreateView.swift in Sources */,
 				34D6871029A4C7CA00BDC431 /* BenevolePanelView.swift in Sources */,
 				343E7F1C29AFC3670010F177 /* TypeJeu.swift in Sources */,
+				34DA16ED29BB70DC007B0C83 /* CreneauListBenevoleView.swift in Sources */,
 				34D6870E29A4C7CA00BDC431 /* FestivalAppApp.swift in Sources */,
 				343E7EE129AD10880010F177 /* String.swift in Sources */,
 				343E7E9629A787930010F177 /* BenevoleList.swift in Sources */,
