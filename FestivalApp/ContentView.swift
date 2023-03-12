@@ -79,7 +79,7 @@ struct ContentView: View {
                     Text("Error")
                 }
             }.onAppear{
-                Task {
+                Task{
                     await zonesIntent.getAllZone()
                 }
             }

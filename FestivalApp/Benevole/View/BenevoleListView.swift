@@ -14,6 +14,14 @@ struct BenevoleListView: View, ListDelegate {
     @ObservedObject var benevoles : BenevoleList
     private var intent : BenevoleListIntent
     @State private var showAddView : Bool = false
+    @State private var searchText : String = ""
+    var searchResults: [Benevole] {
+         if searchText.isEmpty {
+             return self.benevoles.benevoles
+         } else {
+             return self.benevoles.benevoles.filter { $0.nom.contains(searchText) || $0.prenom.contains(searchText)}
+         }
+     }
     
     init(benevoles: BenevoleList) {
         self.benevoles = benevoles
@@ -33,7 +41,7 @@ struct BenevoleListView: View, ListDelegate {
         NavigationStack{
             VStack{
                 List{
-                    ForEach(benevoles.benevoles, id: \.self){
+                    ForEach(searchResults, id: \.self){
                         benevole in
                         NavigationLink(value: benevole) {
                             BenevoleListItem(benevole: benevole)
@@ -58,7 +66,6 @@ struct BenevoleListView: View, ListDelegate {
                     BenevoleView(benevole: benevole, delegate: self)
                 }
                 HStack{
-                    EditButton()
                     Button(action: {
                         withAnimation{
                             self.showAddView = true
@@ -68,7 +75,7 @@ struct BenevoleListView: View, ListDelegate {
                     })
                 }
             }.navigationTitle("Bénévoles")
-        }
+        }.searchable(text: $searchText, prompt: "Chercher un bénévole")
     }
     
 }

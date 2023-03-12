@@ -28,7 +28,7 @@ struct CreneauView: View {
         self.delegate = delegate
     }
     
-    func removeCreneau(){
+    func removeCreneau() {
         Task {
             await self.intent.removeCreneau(zoneId: self.creneau.zoneId)
             switch self.creneau.state {
