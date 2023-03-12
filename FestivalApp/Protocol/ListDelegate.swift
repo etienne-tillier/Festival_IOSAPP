@@ -9,5 +9,5 @@ import Foundation
 import SwiftUI
 
 protocol ListDelegate {
-    func didRemove(item : Object)
+    func didRemove(item : Object) async
 }

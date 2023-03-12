@@ -29,9 +29,7 @@ class CreneauList : Identifiable, ObservableObject, Hashable, Equatable {
             case .load(let creneaux):
                 self.creneaux = creneaux
             case .remove(let index):
-                Task{
-                    await self.remove(index: index)
-                }
+                self.creneaux.remove(atOffsets: index)
             case .add(let creneau):
                 self.creneaux.append(creneau)
             default:
@@ -52,23 +50,6 @@ class CreneauList : Identifiable, ObservableObject, Hashable, Equatable {
     }
     
 
-    func remove(index : IndexSet) async {
-        do {
-            await dao.removeCreneauFromZone(zoneId: self.creneaux[index.first!].zoneId, creneau: self.creneaux[index.first!]) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.state = .error
-                    }
-                case .success():
-                    self.creneaux.remove(at: index.first!)
-                    print("Le Créneau a été supprimé avec succès !")
-                }
-            }
-        }
-
-    }
     
     static func == (lhs: CreneauList, rhs: CreneauList) -> Bool {
         return lhs.id == rhs.id

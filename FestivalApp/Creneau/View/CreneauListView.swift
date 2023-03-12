@@ -18,10 +18,10 @@ struct CreneauListView : View, ListDelegate {
         self.intent = CreneauListIntent(creneaux: creneaux)
     }
     
-    func didRemove(item: Object) {
+    func didRemove(item: Object) async {
         let creneau = item as! Creneau
         let index = self.creneaux.creneaux.firstIndex(where: { $0 == creneau })
-        self.intent.remove(index: IndexSet(integer: index!))
+        await self.intent.remove(index: IndexSet(integer: index!))
     }
     
     
@@ -37,7 +37,9 @@ struct CreneauListView : View, ListDelegate {
                         }
                     }.onDelete{
                         indexSet in
-                        intent.remove(index: indexSet)
+                        Task {
+                          await intent.remove(index: indexSet)
+                        }
                     }
                 }
                 .sheet(isPresented: $showAddView){

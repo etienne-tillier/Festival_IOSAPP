@@ -29,10 +29,6 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
     @Published var state : CreneauState = .ready{
         didSet {
             switch state {
-            case .removing(let zoneId):
-                Task{
-                    await self.remove(zoneId: zoneId)
-                }
             default:
                 break
             }
@@ -89,22 +85,7 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
         self.zoneNom = zone.nom
     }
     
-    func remove() async {
-        
-    }
-    
-    func remove(zoneId : String) async {
-        await dao.removeCreneauFromZone(zoneId: zoneId, creneau: self){ result in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success():
-                DispatchQueue.main.async {
-                    self.state = .ready
-                }
-            }
-        }
-    }
+
     
     static func == (lhs: Creneau, rhs: Creneau) -> Bool {
         return lhs.id == rhs.id

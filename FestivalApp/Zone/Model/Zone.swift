@@ -12,7 +12,7 @@ enum ZoneState : Equatable {
     case ready
     case isLoading
     case load(Zone)
-    case addCreneau(Benevole, Date, Int, Int)
+    case addCreneau(Creneau)
     case error
 }
 
@@ -33,10 +33,8 @@ class Zone : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
                 self.id = zone.id
                 self.creneaux = zone.creneaux
                 self.jeux = zone.jeux
-            case .addCreneau(let benevole, let jour, let heureDebut, let heureFin):
-                Task{
-                    await self.addCreneau(benevole: benevole, date: jour, heureDebut: heureDebut, heureFin: heureFin)
-                }
+            case .addCreneau(let creneau):
+                self.creneaux.append(creneau)
             default:
                 break
             }
@@ -72,53 +70,6 @@ class Zone : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
         self.jeux = try container.decode([Jeu].self, forKey: .jeux)
     }
     
-    func getStartAndEndDates(forDay day: Date, startHour: Int, endHour: Int) -> (start: Date, end: Date)? {
-        let calendar = Calendar.current
-
-        // Extract the year, month, and day components from the given day date
-        //let dayComponents = calendar.dateComponents([.year, .month, .day], from: day)
-
-        // Create date components for the start hour
-        var startComponents = DateComponents()
-        startComponents.hour = startHour
-        startComponents.minute = 0
-
-        // Create date components for the end hour
-        var endComponents = DateComponents()
-        endComponents.hour = endHour
-        endComponents.minute = 0
-
-        // Combine the day components with the start/end hour components to create the start/end dates
-        if let startDate = calendar.date(bySettingHour: startHour, minute: 0, second: 0, of: day),
-           let endDate = calendar.date(bySettingHour: endHour, minute: 0, second: 0, of: day) {
-            return (startDate, endDate)
-        } else {
-            return nil
-        }
-    }
-    
-    func addCreneau(benevole : Benevole, date : Date, heureDebut : Int, heureFin : Int) async {
-        let creneau : (Date, Date) = getStartAndEndDates(forDay: date, startHour: heureDebut, endHour: heureFin)!
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        let startDateString = dateFormatter.string(from: creneau.0)
-        let endDateString = dateFormatter.string(from: creneau.1)
-        await dao.addCreneauToZone(zoneId: self.id, benevoleId: benevole.id, dateDebut: startDateString, dateFin: endDateString) { result in
-            switch result {
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print(error.localizedDescription)
-                    self.state = .error
-                }
-            case .success():
-                DispatchQueue.main.async {
-                    self.creneaux.append(Creneau(benevole: benevole, dateDebut: startDateString, dateFin: endDateString, zoneNom: self.nom, zoneId: self.id))
-                    self.state = .ready
-                }
-            }
-        }
-        
-    }
     
     
     

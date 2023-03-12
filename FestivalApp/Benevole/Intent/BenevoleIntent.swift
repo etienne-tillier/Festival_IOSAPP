@@ -67,23 +67,25 @@ struct BenevoleIntent {
     }
     
     func remove() async {
-        self.benevole.state = .removing
+        DispatchQueue.main.async {
+            self.benevole.state = .removing
+        }
         await dao.removeBenevoleById(id: self.benevole.id) { result in
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
-                self.benevole.state = .error
+                DispatchQueue.main.async {
+                    self.benevole.state = .error
+                }
             case .success():
+                DispatchQueue.main.async {
+                    self.benevole.state = .removed
+                }
                 print("benevole removed")
-                self.benevole.state = .removed
             }
         }
     }
     
-    
-    func removeBenevoleById(id : String) {
-        self.benevole.state = .removing
-    }
     
     
     

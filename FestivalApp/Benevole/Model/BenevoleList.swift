@@ -12,8 +12,9 @@ enum BenevoleListState {
     case ready
     case isLoading
     case load([Benevole])
+    case removing
     case remove(IndexSet)
-    case add(String, String, String)
+    case add(Benevole)
     case updated
     case error
 }
@@ -26,20 +27,12 @@ class BenevoleList : Identifiable, ObservableObject, Hashable, Equatable {
     @Published var state : BenevoleListState = .isLoading {
         didSet{
             switch state {
-            case .isLoading:
-                Task {
-                    await self.loadBenevoles()
-                }
             case .load(let benevoles):
                 self.benevoles = benevoles
+            case .add(let benevole):
+                self.benevoles.append(benevole)
             case .remove(let index):
-                Task {
-                    await self.remove(index: index)
-                }
-            case .add(let nom, let prenom, let email):
-                Task{
-                    await self.add(nom: nom, prenom: prenom, email: email)
-                }
+                self.benevoles.remove(atOffsets: index)
             default:
                 break
             }
@@ -57,60 +50,9 @@ class BenevoleList : Identifiable, ObservableObject, Hashable, Equatable {
         self.id = UUID()
     }
     
-    func remove(index: IndexSet) async {
-        do {
-            await dao.removeBenevoleById(id: self.benevoles[index.first!].id) { result in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-                DispatchQueue.main.async {
-                    self.state = .error
-                }
-            case .success():
-                DispatchQueue.main.async {
-                    self.benevoles.remove(atOffsets: index)
-                    self.state = .ready
-                    print("Le benevole a été supprimé avec succès !")
-                }
-            }
-        }
-        }
-
-    }
-    
-    func loadBenevoles() async {
-        do {
-            let newBenevoles : [Benevole] = try await dao.getAllBenevole()!
-            DispatchQueue.main.async {
-                self.state = .load(newBenevoles)
-                self.state = .ready
-            }
-        }
-        catch {
-            DispatchQueue.main.async {
-                self.state = .error
-            }
-        }
-    }
     
     func add(nom : String, prenom : String, email : String) async {
-        do {
-            await dao.createBenevole(nom: nom, prenom: prenom, email: email) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.state = .error
-                    }
-                case .success(let benevole):
-                    DispatchQueue.main.async {
-                        self.benevoles.append(benevole)
-                        self.state = .ready
-                    }
-                }
-                
-            }
-        }
+
     }
     
     static func == (lhs: BenevoleList, rhs: BenevoleList) -> Bool {

@@ -15,7 +15,7 @@ struct BenevoleView: View {
     @State private var showListCreneauView : Bool = false
     @State private var showAddCreneauView : Bool = false
     @State private var isConfimationPresented : Bool = false
-    @StateObject private var creneaux : CreneauList = CreneauList()
+    @ObservedObject private var creneaux : CreneauList = CreneauList()
     var delegate: ListDelegate?
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var zones: ZoneList
@@ -36,7 +36,7 @@ struct BenevoleView: View {
     func removeBenevole() {
         Task{
             if (delegate != nil){
-                self.delegate!.didRemove(item: self.benevole)
+                await self.delegate!.didRemove(item: self.benevole)
             }
             await self.intent.remove()
             switch self.benevole.state {
@@ -54,7 +54,7 @@ struct BenevoleView: View {
     func getCreneauxForBenevole() {
         for zone in self.zones.zones {
             for creneau in zone.creneaux {
-                if (creneau.benevole.id == self.benevole.id){
+                if (creneau.benevole == self.benevole){
                     self.creneaux.creneaux.append(creneau)
                 }
             }

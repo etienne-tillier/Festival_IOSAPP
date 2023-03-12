@@ -19,9 +19,27 @@ struct CreneauListIntent {
         
     }
     
-    func remove(index : IndexSet) {
-        self.creneaux.state = .remove(index)
+    func remove(index : IndexSet) async {
+        do {
+            await dao.removeCreneauFromZone(zoneId: self.creneaux.creneaux[index.first!].zoneId, creneau: self.creneaux.creneaux[index.first!]) { result in
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.creneaux.state = .error
+                    }
+                case .success():
+                    DispatchQueue.main.async {
+                        self.creneaux.state = .remove(index)
+                        print("Le Créneau a été supprimé avec succès !")
+                        self.creneaux.state = .ready
+                    }
+                }
+            }
+        }
+
     }
+
 
     
     

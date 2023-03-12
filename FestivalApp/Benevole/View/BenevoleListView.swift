@@ -23,7 +23,9 @@ struct BenevoleListView: View, ListDelegate {
     func didRemove(item: Object) {
         let benevole = item as! Benevole
         let index = self.benevoles.benevoles.firstIndex(where: { $0 == benevole })
-        self.intent.remove(index: IndexSet(integer: index!))
+        Task{
+            await self.intent.remove(index: IndexSet(integer: index!))
+        }
     }
     
     
@@ -38,12 +40,14 @@ struct BenevoleListView: View, ListDelegate {
                         }
                     }.onDelete{
                         indexSet in
-                        intent.remove(index: indexSet)
+                        Task {
+                            await intent.remove(index: indexSet)
+                        }
                     }
                 }
                 .refreshable {
-                    withAnimation{
-                        self.intent.loadBenevoles()
+                    Task {
+                        await self.intent.loadBenevoles()
                     }
                 }
                 .sheet(isPresented: $showAddView){

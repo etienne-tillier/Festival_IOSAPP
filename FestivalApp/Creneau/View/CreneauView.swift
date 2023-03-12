@@ -29,11 +29,20 @@ struct CreneauView: View {
     }
     
     func removeCreneau(){
-        if (delegate != nil){
-            self.delegate?.didRemove(item: self.creneau)
+        Task {
+            await self.intent.removeCreneau(zoneId: self.creneau.zoneId)
+            switch self.creneau.state {
+            case .error:
+                print("error")
+            case .ready:
+                if (delegate != nil){
+                    await self.delegate?.didRemove(item: self.creneau)
+                }
+            default:
+                break
+            }
+            self.presentationMode.wrappedValue.dismiss()
         }
-        self.intent.removeCreneau(zoneId: self.creneau.zoneId)
-        self.presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {

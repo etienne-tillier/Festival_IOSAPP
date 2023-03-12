@@ -37,7 +37,9 @@ struct BenevolePanelView : View {
                 ProgressView()
             }
         }.onAppear {
-            self.intent.loadBenevoles()
+            Task {
+                await self.intent.loadBenevoles()
+            }
         }
         
     }
