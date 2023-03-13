@@ -40,6 +40,8 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
         case dateDebut = "heureDebut"
         case dateFin = "heureFin"
         case benevole
+        case zoneNom = "zoneName"
+        case zoneId = "zoneId"
     }
     
     required init(from decoder: Decoder) throws {
@@ -47,9 +49,16 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
         self.dateDebut = try container.decode(String.self, forKey: .dateDebut)
         self.dateFin = try container.decode(String.self, forKey: .dateFin)
         self.benevole = try container.decode(Benevole.self, forKey: .benevole)
-        self.zoneNom = ""
-        self.zoneId = ""
         self.id = UUID()
+        guard let zone : String = try? container.decode(String.self, forKey: .zoneNom) else {
+            self.zoneNom = ""
+            self.zoneId = ""
+            return
+        }
+        self.zoneNom = zone
+        self.zoneId = try container.decode(String.self, forKey: .zoneId)
+
+
     }
     
     

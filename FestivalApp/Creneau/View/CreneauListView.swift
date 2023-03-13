@@ -43,14 +43,13 @@ struct CreneauListView : View, ListDelegate {
                     }
                 }
                 .sheet(isPresented: $showAddView){
-                    //BenevoleCreateView(benevoles: benevoles, intent: intent)
+                    //CreneauCreateView(benevole: self.)
                 }
                 .navigationDestination(for: Creneau.self){
                     creneau in
                     CreneauView(creneau: creneau, delegate: self)
                 }
                 HStack{
-                    EditButton()
                     Button(action: {
                         withAnimation{
                             //self.showAddView = true

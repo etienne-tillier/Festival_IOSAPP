@@ -51,15 +51,6 @@ struct BenevoleView: View {
 
     }
     
-    func getCreneauxForBenevole() {
-        for zone in self.zones.zones {
-            for creneau in zone.creneaux {
-                if (creneau.benevole == self.benevole){
-                    self.creneaux.creneaux.append(creneau)
-                }
-            }
-        }
-    }
     
     var body: some View {
         NavigationView{
@@ -140,10 +131,8 @@ struct BenevoleView: View {
                         RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.blue, lineWidth: 2)
                     )
-                    CreneauListBenevoleView(creneaux: creneaux)
+                    CreneauListBenevoleView(creneaux: creneaux, benevoleId: self.benevole.id)
                 }
-            }.onAppear{
-                self.getCreneauxForBenevole()
             }
             .alert(isPresented: $isConfimationPresented) {
                 Alert(

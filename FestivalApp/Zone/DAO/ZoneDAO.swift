@@ -132,6 +132,29 @@ class ZoneDAO {
             }.resume()
         }
     }
+    
+    func getCreneauByBenevole(benevoleId: String, completion: @escaping(Result<[Creneau],Error>) -> Void) async {
+        guard let url = URL(string: Env.get("API_URL") + "benevoles/" + benevoleId + "/zones") else {
+            completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "benevoles" + benevoleId + "/zones")))
+            return
+        }
+        
+        //la barre de rech disparait
+        //on peut plus ajouter de creneaux
+        //on peut pas fetch les creneaux dans les benev
+        
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+        
+        guard let creneaux : [Creneau] = try? await URLSession.shared.getJSON(from: request) else {
+            completion(.failure(MyError.apiProblem(message: "Impossible to get creneau for this benevole")))
+            return
+        }
+
+        completion(.success(creneaux))
+        }
 
 
 

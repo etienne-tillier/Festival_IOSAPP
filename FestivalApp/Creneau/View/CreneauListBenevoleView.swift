@@ -12,10 +12,12 @@ struct CreneauListBenevoleView : View, ListDelegate {
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
     @State private var showCreneau : Bool = false
+    @State private var benevoleId : String
     @StateObject private var selectedCreneau : Creneau = Creneau()
     
-    init(creneaux: CreneauList) {
+    init(creneaux: CreneauList, benevoleId : String) {
         self.creneaux = creneaux
+        self.benevoleId = benevoleId
         self.intent = CreneauListIntent(creneaux: creneaux)
     }
     
@@ -23,6 +25,10 @@ struct CreneauListBenevoleView : View, ListDelegate {
         let creneau = item as! Creneau
         let index = self.creneaux.creneaux.firstIndex(where: { $0 == creneau })
         await self.intent.remove(index: IndexSet(integer: index!))
+    }
+    
+    func getCreneauxForBenevole() async {
+        await self.intent.getCreneauxForBenevole(benevoleId: self.benevoleId)
     }
     
     
@@ -47,9 +53,10 @@ struct CreneauListBenevoleView : View, ListDelegate {
                 .sheet(isPresented: $showCreneau){
                     CreneauView(creneau: selectedCreneau, delegate: self)
                 }
-                
-                HStack{
-                    EditButton()
+            }
+            .onAppear{
+                Task {
+                    await self.getCreneauxForBenevole()
                 }
             }
     }

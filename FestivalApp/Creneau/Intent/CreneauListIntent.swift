@@ -39,6 +39,27 @@ struct CreneauListIntent {
         }
 
     }
+    
+    func getCreneauxForBenevole(benevoleId : String) async {
+        DispatchQueue.main.async {
+            self.creneaux.state = .isLoading
+        }
+        await self.dao.getCreneauByBenevole(benevoleId: benevoleId) { result in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+                print("bite")
+                DispatchQueue.main.async {
+                    self.creneaux.state = .error
+                }
+            case .success(let creneaux):
+                DispatchQueue.main.async {
+                    self.creneaux.state = .load(creneaux)
+                    self.creneaux.state = .ready
+                }
+            }
+        }
+    }
 
 
     

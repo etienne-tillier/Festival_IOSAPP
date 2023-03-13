@@ -54,19 +54,19 @@ class BenevoleDAO {
             request.httpMethod = "DELETE"
             request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: request) { data, response, error in
-                    if let error = error {
-                        completion(.failure(error))
-                        return
-                    }
-                    
-                    guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
-                        let error = NSError(domain: Env.get("API_URL"), code: 1, userInfo: [NSLocalizedDescriptionKey: "Erreur de serveur"])
-                        completion(.failure(error))
-                        return
-                    }
-                    
-                    completion(.success(()))
-                }.resume()
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                    let error = NSError(domain: Env.get("API_URL"), code: 1, userInfo: [NSLocalizedDescriptionKey: "Erreur de serveur"])
+                    completion(.failure(error))
+                    return
+                }
+                
+                completion(.success(()))
+            }.resume()
         }
     }
     
@@ -107,9 +107,9 @@ class BenevoleDAO {
                 completion(.success(()))
                 
             }.resume()
-            }
-            
         }
+        
+    }
     
     func createBenevole(nom : String, prenom : String, email : String, completion : @escaping (Result<Benevole,Error>) -> Void) async {
         do {
@@ -136,32 +136,13 @@ class BenevoleDAO {
                 return
             }
             completion(.success(newBenevole))
-            }
-            
+        }
+        
     }
     
-    func getCreneauByBenevole(benevoleId: String, completion: @escaping(Result<[Creneau],Error>) -> Void) async {
-        guard let url = URL(string: Env.get("API_URL") + "benevoles" + benevoleId + "/zones") else {
-            completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "benevoles" + benevoleId + "/zones")))
-            return
-        }
-        
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
-        
-        guard let creneaux : [Creneau] = try? await URLSession.shared.getJSON(from: request) else {
-            completion(.failure(MyError.apiProblem(message: "Impossible to get creneau for this benevole")))
-            return
-        }
-        completion(.success(creneaux))
-        }
     
     
     
-    }
-        
-        
     
     
+}
