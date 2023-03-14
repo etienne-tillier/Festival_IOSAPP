@@ -139,11 +139,6 @@ class ZoneDAO {
             return
         }
         
-        //la barre de rech disparait
-        //on peut plus ajouter de creneaux
-        //on peut pas fetch les creneaux dans les benev
-        
-        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")

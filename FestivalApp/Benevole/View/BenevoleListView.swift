@@ -65,17 +65,21 @@ struct BenevoleListView: View, ListDelegate {
                     benevole in
                     BenevoleView(benevole: benevole, delegate: self)
                 }
-                HStack{
-                    Button(action: {
-                        withAnimation{
-                            self.showAddView = true
-                        }
-                    }, label: {
-                        Image(systemName: "plus")
-                    })
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Chercher un bénévole")
+                .navigationTitle("Bénévoles")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            withAnimation{
+                                self.showAddView = true
+                            }
+                        }, label: {
+                            Image(systemName: "plus")
+                        })
+                    }
                 }
-            }.navigationTitle("Bénévoles")
-        }.searchable(text: $searchText, prompt: "Chercher un bénévole")
+            }
+        }
     }
     
 }

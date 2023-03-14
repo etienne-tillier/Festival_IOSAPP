@@ -140,9 +140,39 @@ class BenevoleDAO {
         
     }
     
+    func getBenevoleAvailableForCreneau(startDate : String, endDate : String, completion: @escaping(Result<[Benevole],Error>) -> Void) async {
+        do {
+            guard let url = URL(string: Env.get("API_URL") + "zones/availableBenevoles/") else {
+                completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "zones/availableBenevoles/")))
+                return
+            }
+            
+            let bodyData = ["heureDebut": startDate, "heureFin": endDate]
+            
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: bodyData) else {
+                completion(.failure(MyError.convertion()))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+
+            guard let benevoleAvailable : [Benevole] = try? await URLSession.shared.getJSON(from: request) else {
+                completion(.failure(MyError.apiProblem(message: "Impossible d'avoir les bénévoles disponibles pour ce créneau")))
+                return
+            }
+                
+                completion(.success((benevoleAvailable)))
+            }
+        }
+    }
     
     
     
     
     
-}
+    
+

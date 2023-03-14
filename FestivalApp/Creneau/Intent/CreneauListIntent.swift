@@ -48,7 +48,7 @@ struct CreneauListIntent {
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
-                print("bite")
+
                 DispatchQueue.main.async {
                     self.creneaux.state = .error
                 }

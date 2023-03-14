@@ -73,7 +73,7 @@ struct ContentView: View {
                             BenevolePanelView(benevoles: benevoles)
                         }
                         else {
-                            CreneauListView(creneaux: CreneauList(creneaux: displayedZone.creneaux))
+                            CreneauListView(creneaux: CreneauList(creneaux: displayedZone.creneaux), zone: selectedZone)
                         }
                 default:
                     Text("Error")

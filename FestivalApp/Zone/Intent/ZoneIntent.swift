@@ -27,34 +27,11 @@ struct ZoneIntent {
         self.zone.state = .ready
     }
     
-    func getStartAndEndDates(forDay day: Date, startHour: Int, endHour: Int) -> (start: Date, end: Date)? {
-        let calendar = Calendar.current
 
-        // Extract the year, month, and day components from the given day date
-        //let dayComponents = calendar.dateComponents([.year, .month, .day], from: day)
-
-        // Create date components for the start hour
-        var startComponents = DateComponents()
-        startComponents.hour = startHour
-        startComponents.minute = 0
-
-        // Create date components for the end hour
-        var endComponents = DateComponents()
-        endComponents.hour = endHour
-        endComponents.minute = 0
-
-        // Combine the day components with the start/end hour components to create the start/end dates
-        if let startDate = calendar.date(bySettingHour: startHour, minute: 0, second: 0, of: day),
-           let endDate = calendar.date(bySettingHour: endHour, minute: 0, second: 0, of: day) {
-            return (startDate, endDate)
-        } else {
-            return nil
-        }
-    }
 
     
     func addCreneau(benevole : Benevole, date : Date, heureDebut : Int, heureFin : Int) async {
-        let creneau : (Date, Date) = getStartAndEndDates(forDay: date, startHour: heureDebut, endHour: heureFin)!
+        let creneau : (Date, Date) = Tools.getStartAndEndDates(forDay: date, startHour: heureDebut, endHour: heureFin)!
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let startDateString = dateFormatter.string(from: creneau.0)

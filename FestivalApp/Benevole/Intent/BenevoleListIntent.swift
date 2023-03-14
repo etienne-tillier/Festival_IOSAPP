@@ -79,4 +79,31 @@ struct BenevoleListIntent {
         }
     }
     
+    func getBenevolesAvailableForCreneau(date : Date, startHour : Int, endHour : Int) async {
+        DispatchQueue.main.async {
+            self.benevoles.state = .isLoading
+        }
+        let creneau : (Date, Date) = Tools.getStartAndEndDates(forDay: date, startHour: startHour, endHour: endHour)!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let startDateString = dateFormatter.string(from: creneau.0)
+        let endDateString = dateFormatter.string(from: creneau.1)
+        await self.dao.getBenevoleAvailableForCreneau(startDate: startDateString, endDate: endDateString) { result in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.benevoles.state = .error
+                }
+            case .success(let benevoles):
+                print("success")
+                print(benevoles)
+                DispatchQueue.main.async {
+                    self.benevoles.state = .load(benevoles)
+                    self.benevoles.state = .ready
+                }
+            }
+        }
+    }
+    
 }

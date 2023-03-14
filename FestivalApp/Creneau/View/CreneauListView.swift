@@ -12,8 +12,10 @@ struct CreneauListView : View, ListDelegate {
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
     @State private var showAddView : Bool = false
+    @ObservedObject var zone : Zone
     
-    init(creneaux: CreneauList) {
+    init(creneaux: CreneauList, zone : Zone) {
+        self.zone = zone
         self.creneaux = creneaux
         self.intent = CreneauListIntent(creneaux: creneaux)
     }
@@ -43,22 +45,24 @@ struct CreneauListView : View, ListDelegate {
                     }
                 }
                 .sheet(isPresented: $showAddView){
-                    //CreneauCreateView(benevole: self.)
+                    CreneauZoneCreateView(zone: zone)
                 }
                 .navigationDestination(for: Creneau.self){
                     creneau in
                     CreneauView(creneau: creneau, delegate: self)
                 }
-                HStack{
-                    Button(action: {
-                        withAnimation{
-                            //self.showAddView = true
-                        }
-                    }, label: {
-                        Image(systemName: "plus")
-                    })
-                }
             }.navigationTitle("Créneaux occupés")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            withAnimation{
+                                self.showAddView = true
+                            }
+                        }, label: {
+                            Image(systemName: "plus")
+                        })
+                    }
+                }
         }
     }
     

@@ -50,15 +50,17 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
         self.dateFin = try container.decode(String.self, forKey: .dateFin)
         self.benevole = try container.decode(Benevole.self, forKey: .benevole)
         self.id = UUID()
-        guard let zone : String = try? container.decode(String.self, forKey: .zoneNom) else {
+        let zoneName : String? = try? container.decode(String.self, forKey: .zoneNom)
+        if (zoneName == nil){
             self.zoneNom = ""
             self.zoneId = ""
-            return
         }
-        self.zoneNom = zone
-        self.zoneId = try container.decode(String.self, forKey: .zoneId)
-
-
+        else {
+            print("cocoposp")
+            self.zoneNom = zoneName!
+            self.zoneId = try container.decode(String.self, forKey: .zoneId)
+            print(self.zoneNom)
+        }
     }
     
     
