@@ -48,7 +48,6 @@ struct CreneauListIntent {
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
-
                 DispatchQueue.main.async {
                     self.creneaux.state = .error
                 }

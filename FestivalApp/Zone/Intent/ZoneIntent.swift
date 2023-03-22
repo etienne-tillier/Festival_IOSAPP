@@ -30,23 +30,28 @@ struct ZoneIntent {
 
 
     
-    func addCreneau(benevole : Benevole, date : Date, heureDebut : Int, heureFin : Int) async {
+    func addCreneau(benevole : Benevole, date : Date, heureDebut : Int, heureFin : Int, completion: @escaping (Result<Creneau,Error>) -> Void) async {
         let creneau : (Date, Date) = Tools.getStartAndEndDates(forDay: date, startHour: heureDebut, endHour: heureFin)!
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let startDateString = dateFormatter.string(from: creneau.0)
         let endDateString = dateFormatter.string(from: creneau.1)
+        DispatchQueue.main.async {
+            self.zone.state = .isLoading
+        }
         await dao.addCreneauToZone(zoneId: self.zone.id, benevoleId: benevole.id, dateDebut: startDateString, dateFin: endDateString) { result in
             switch result {
             case .failure(let error):
+                completion(.failure(error))
                 DispatchQueue.main.async {
-                    print(error.localizedDescription)
                     self.zone.state = .error
                 }
             case .success():
                 DispatchQueue.main.async {
-                    self.zone.state = .addCreneau(Creneau(benevole: benevole, dateDebut: startDateString, dateFin: endDateString, zoneNom: self.zone.nom, zoneId: self.zone.id))
+                    let creneau : Creneau = Creneau(benevole: benevole, dateDebut: startDateString, dateFin: endDateString, zoneNom: self.zone.nom, zoneId: self.zone.id)
+                    self.zone.state = .addCreneau(creneau)
                     self.zone.state = .ready
+                    completion(.success((creneau)))
                 }
             }
         }

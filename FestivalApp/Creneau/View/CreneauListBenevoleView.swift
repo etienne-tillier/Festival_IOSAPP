@@ -27,6 +27,8 @@ struct CreneauListBenevoleView : View, ListDelegate {
         let index = self.creneaux.creneaux.firstIndex(where: { $0.dateDebut == creneau.dateDebut && $0.benevole.id == creneau.benevole.id })
         await self.intent.remove(index: IndexSet(integer: index!))
     }
+    
+    
      
 
     

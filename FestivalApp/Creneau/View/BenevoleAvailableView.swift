@@ -12,7 +12,10 @@ struct BenevoleAvailableView : View {
     
     
     @ObservedObject var benevoles : BenevoleList
+    @ObservedObject var chosenBenevole : Benevole
+    private var choosenBenevoleIntent : BenevoleIntent
     private var intent : BenevoleListIntent
+    @Environment(\.presentationMode) var presentationMode
     @State private var searchText : String = ""
     var searchResults: [Benevole] {
          if searchText.isEmpty {
@@ -22,9 +25,11 @@ struct BenevoleAvailableView : View {
          }
      }
     
-    init(benevoles: BenevoleList) {
+    init(benevoles: BenevoleList, chosenBenevole : Benevole) {
         self.benevoles = benevoles
         self.intent = BenevoleListIntent(benevoles: benevoles)
+        self.chosenBenevole = chosenBenevole
+        self.choosenBenevoleIntent = BenevoleIntent(benevole: chosenBenevole)
     }
     
     
@@ -35,9 +40,11 @@ struct BenevoleAvailableView : View {
                 List{
                     ForEach(searchResults, id: \.self){
                         benevole in
-                        NavigationLink(value: benevole) {
-                            BenevoleListItem(benevole: benevole)
-                        }
+                        BenevoleListItem(benevole: benevole)
+                            .onTapGesture {
+                                self.choosenBenevoleIntent.loadBenevoleData(benevole: benevole)
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
                     }
                 }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Chercher un bénévole")

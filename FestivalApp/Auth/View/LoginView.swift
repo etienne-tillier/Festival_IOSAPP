@@ -13,7 +13,8 @@ struct LoginView: View {
     @State private var password : String = ""
     @Binding var currentViewShowing : String
     @AppStorage("userID") var userID : String = ""
-    @EnvironmentObject var user : UserSettings
+    @EnvironmentObject var user : Benevole
+    @State var dao : UserDAO = UserDAO()
     
     private func isValidPassword(_ password: String) -> Bool {
         //minimum 6 lettres
@@ -25,6 +26,7 @@ struct LoginView: View {
         return passwordRegex.evaluate(with: password)
     }
     
+
     var body: some View {
         ZStack{
             Color.white.edgesIgnoringSafeArea(.all)
@@ -113,7 +115,26 @@ struct LoginView: View {
 
                                                 if let token = result?.token {
                                                     TokenManager.shared.setToken(token: token)
-                                                    user.user = User(email: authResult.user.email!, uid: authResult.user.uid)
+                                                    Task {
+                                                        print(authResult.user.uid)
+                                                        DispatchQueue.main.async {
+                                                            user.state = .isLoading
+                                                        }
+                                                        await dao.getLoggedBenevole(uid: authResult.user.uid) { result in
+                                                            switch result {
+                                                            case .failure(let error):
+                                                                DispatchQueue.main.async {
+                                                                    print(error.localizedDescription)
+                                                                    user.state = .error
+                                                                }
+                                                            case .success(let benevole):
+                                                                DispatchQueue.main.async {
+                                                                    user.state = .load(benevole)
+                                                                    user.state = .ready
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 //error
                                             })

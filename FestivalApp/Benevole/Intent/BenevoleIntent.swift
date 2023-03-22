@@ -86,6 +86,11 @@ struct BenevoleIntent {
         }
     }
     
+    func loadBenevoleData(benevole : Benevole){
+        self.benevole.state = .load(benevole)
+        self.benevole.state = .ready
+    }
+    
     
     
     

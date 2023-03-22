@@ -12,7 +12,7 @@ struct CreneauListView : View, ListDelegate {
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
     @State private var showAddView : Bool = false
-    @ObservedObject var zone : Zone
+    @ObservedObject private var zone : Zone
     
     init(creneaux: CreneauList, zone : Zone) {
         self.zone = zone
@@ -24,6 +24,10 @@ struct CreneauListView : View, ListDelegate {
         let creneau = item as! Creneau
         let index = self.creneaux.creneaux.firstIndex(where: { $0 == creneau })
         await self.intent.remove(index: IndexSet(integer: index!))
+    }
+    
+    func didAdd(creneau : Creneau){
+        self.creneaux.state = .add(creneau)
     }
     
     
@@ -45,7 +49,7 @@ struct CreneauListView : View, ListDelegate {
                     }
                 }
                 .sheet(isPresented: $showAddView){
-                    CreneauZoneCreateView(zone: zone)
+                    CreneauZoneCreateView(zone: zone, delegate : self)
                 }
                 .navigationDestination(for: Creneau.self){
                     creneau in

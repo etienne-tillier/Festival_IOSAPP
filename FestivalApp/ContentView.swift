@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var user: UserSettings
+    @EnvironmentObject var user: Benevole
     @State var benevoles = BenevoleList()
     @State var zonesIntent: ZoneListIntent
     @ObservedObject var zones: ZoneList
@@ -36,7 +36,6 @@ struct ContentView: View {
                             self.selectedZoneIntent.load(zone: zone)
                         }
                     }
-
                 }
             }
         }
@@ -50,42 +49,66 @@ struct ContentView: View {
     }
     
     var body: some View {
-        if user.user != nil {
-            VStack {
-                switch self.zones.state{
-                case .isLoading:
-                    ProgressView()
-                case .ready:
-                    Picker("Zones", selection: $selectedZone) {
-                        ForEach(zones.zones, id: \.self) { zone in
-                            Text(zone.nom)
+        switch user.state {
+        case .isLoading:
+            ProgressView()
+        case .ready:
+            if user.id != "" {
+                TabView {
+                    if (user.admin){
+                        VStack {
+                            switch self.zones.state{
+                            case .isLoading:
+                                ProgressView()
+                            case .ready:
+                                Picker("Zones", selection: $selectedZone) {
+                                    ForEach(zones.zones, id: \.self) { zone in
+                                        Text(zone.nom)
+                                    }
+                                }.onChange(of: selectedZone) { selectedZone in
+                                    Task{
+                                        await fetchCurrentZone(id: selectedZone.id)
+                                    }
+                                }.onAppear{
+                                    Task{
+                                        self.zones.zones.insert(selectedZone, at: 0)
+                                    }
+                                }
+                                if self.displayedZone.id == "1" {
+                                    BenevolePanelView(benevoles: benevoles)
+                                }
+                                else {
+                                    CreneauListView(creneaux: CreneauList(creneaux: displayedZone.creneaux), zone: selectedZone)
+                                }
+                            default:
+                                Text("Error")
+                            }
+                        }.onAppear{
+                            Task{
+                                await zonesIntent.getAllZone()
+                            }
                         }
-                    }.onChange(of: selectedZone) { selectedZone in
-                        Task{
-                            await fetchCurrentZone(id: selectedZone.id)
-                        }
-                    }.onAppear{
-                        Task{
-                            self.zones.zones.insert(selectedZone, at: 0)
+                        .tabItem {
+                            Label("Admin", systemImage: "shield.lefthalf.fill")
                         }
                     }
-                        if self.displayedZone.id == "1" {
-                            BenevolePanelView(benevoles: benevoles)
+                    Text("Affectations")
+                        .tabItem {
+                            Label("Affectations", systemImage: "calendar.circle")
                         }
-                        else {
-                            CreneauListView(creneaux: CreneauList(creneaux: displayedZone.creneaux), zone: selectedZone)
+                    Text("Mon compte : " + user.email)
+                        .tabItem {
+                            Label("Compte", systemImage: "person.circle")
                         }
-                default:
-                    Text("Error")
                 }
-            }.onAppear{
-                Task{
-                    await zonesIntent.getAllZone()
-                }
+                
             }
+                else {
+                    AuthView()
+                }
+        default:
+            ProgressView()
         }
-            else {
-                AuthView()
-            }
+
     }
 }

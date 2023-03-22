@@ -12,7 +12,7 @@ import FirebaseCore
 struct FestivalAppApp: App {
     // Faire une gestion d'erreur avec une variable globale et un component erreur qui s'affiche sur la racine
     // Faire une structure de données en mode : String : definition de l'erreur et Bool : erreur ou pas ? (ternaire dessus)
-    @StateObject var user : UserSettings = UserSettings()
+    @StateObject var user : Benevole = Benevole()
     @StateObject var zones : ZoneList = ZoneList()
     
     init(){

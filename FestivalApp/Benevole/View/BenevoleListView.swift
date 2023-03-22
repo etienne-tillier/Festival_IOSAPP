@@ -67,17 +67,6 @@ struct BenevoleListView: View, ListDelegate {
                 }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Chercher un bénévole")
                 .navigationTitle("Bénévoles")
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            withAnimation{
-                                self.showAddView = true
-                            }
-                        }, label: {
-                            Image(systemName: "plus")
-                        })
-                    }
-                }
             }
         }
     }

@@ -9,10 +9,14 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignUpView : View {
+    @State private var nom : String = ""
+    @State private var prenom : String = ""
     @State private var email : String = ""
     @State private var password : String = ""
+    @State private var benevoleDAO : BenevoleDAO = BenevoleDAO()
     @Binding var currentViewShowing : String
-    @EnvironmentObject var user : UserSettings
+    @EnvironmentObject var user : Benevole
+    @State var dao : UserDAO = UserDAO()
     
     private func isValidPassword(_ password: String) -> Bool {
         //minimum 6 lettres
@@ -41,6 +45,48 @@ struct SignUpView : View {
                 .padding(.top)
                 
                 Spacer()
+                
+                HStack{
+                    TextField("Nom", text: $nom)
+                    Spacer()
+                    
+                    if (nom.count > 0){
+                        
+                        Image(systemName: nom.count > 0 ? "checkmark" : "xmark")
+                            .fontWeight(.bold)
+                            .foregroundColor(nom.count > 0 ? .green : .red)
+                    }
+  
+                }
+                .foregroundColor(.white)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(.white)
+                )
+                .padding()
+                
+                HStack{
+                    TextField("Prénom", text: $prenom)
+                    Spacer()
+                    
+                    if (prenom.count > 0){
+                        
+                        Image(systemName: prenom.count > 0 ? "checkmark" : "xmark")
+                            .fontWeight(.bold)
+                            .foregroundColor(prenom.count > 0 ? .green : .red)
+                    }
+  
+                }
+                .foregroundColor(.white)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(.white)
+                )
+                .padding()
                 
                 HStack{
                     Image(systemName: "mail")
@@ -109,18 +155,36 @@ struct SignUpView : View {
                             //inscrit et connecté
                             withAnimation{
                                 authResult.user.getIDTokenResult(completion: { (result, error) in
-                                                guard error == nil else {
-                                                    print(error!.localizedDescription)
-                                                    return
+                                    guard error == nil else {
+                                        print(error!.localizedDescription)
+                                        return
+                                    }
+                                    
+                                    if let token = result?.token {
+                                        TokenManager.shared.setToken(token: token)
+                                        Task {
+                                            DispatchQueue.main.async {
+                                                user.state = .isLoading
+                                            }
+                                            await benevoleDAO.createBenevole(nom: nom, prenom: prenom, email: email) { result in
+                                                switch result {
+                                                case .failure(let error):
+                                                    DispatchQueue.main.async {
+                                                        print(error.localizedDescription)
+                                                        user.state = .error
+                                                    }
+                                                case .success(let benevole):
+                                                    DispatchQueue.main.async {
+                                                        user.state = .load(benevole)
+                                                        user.state = .ready
+                                                    }
                                                 }
-
-                                                if let token = result?.token {
-                                                    TokenManager.shared.setToken(token: token)
-                                                    user.user = User(email: authResult.user.email!, uid: authResult.user.uid)
-                                                }
-                                            })
+                                            }
+                                        }
+                                    }
+                                })
+                                
                             }
-                            
                         }
                     }
                 } label : {

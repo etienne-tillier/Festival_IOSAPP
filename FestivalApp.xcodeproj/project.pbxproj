@@ -10,6 +10,8 @@
 		342BE3C229C085A9006141B8 /* CreneauZoneCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C129C085A9006141B8 /* CreneauZoneCreateView.swift */; };
 		342BE3C429C08891006141B8 /* BenevoleAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C329C08891006141B8 /* BenevoleAvailableView.swift */; };
 		342BE3C629C09193006141B8 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C529C09193006141B8 /* Tools.swift */; };
+		342BE3C829C1B3BD006141B8 /* BenevoleSimpleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C729C1B3BD006141B8 /* BenevoleSimpleView.swift */; };
+		342BE3CA29C9A6D2006141B8 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C929C9A6D2006141B8 /* UserDAO.swift */; };
 		343E7E9429A786510010F177 /* BenevoleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9329A786510010F177 /* BenevoleListView.swift */; };
 		343E7E9629A787930010F177 /* BenevoleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9529A787930010F177 /* BenevoleList.swift */; };
 		343E7E9829A7A8140010F177 /* BenevoleListIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */; };
@@ -25,7 +27,6 @@
 		343E7EED29AD21500010F177 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 343E7EEC29AD21500010F177 /* FirebaseAuth */; };
 		343E7EEF29AD21500010F177 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 343E7EEE29AD21500010F177 /* FirebaseFirestore */; };
 		343E7EF129AD21500010F177 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 343E7EF029AD21500010F177 /* FirebaseStorage */; };
-		343E7EFA29ADE06D0010F177 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EF929ADE06D0010F177 /* User.swift */; };
 		343E7EFE29ADEB420010F177 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EFD29ADEB420010F177 /* ContentView.swift */; };
 		343E7F0029ADF15C0010F177 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7EFF29ADF15C0010F177 /* TokenManager.swift */; };
 		343E7F0229AF845A0010F177 /* BenevoleCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7F0129AF845A0010F177 /* BenevoleCreateView.swift */; };
@@ -82,6 +83,8 @@
 		342BE3C129C085A9006141B8 /* CreneauZoneCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreneauZoneCreateView.swift; sourceTree = "<group>"; };
 		342BE3C329C08891006141B8 /* BenevoleAvailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleAvailableView.swift; sourceTree = "<group>"; };
 		342BE3C529C09193006141B8 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		342BE3C729C1B3BD006141B8 /* BenevoleSimpleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleSimpleView.swift; sourceTree = "<group>"; };
+		342BE3C929C9A6D2006141B8 /* UserDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		343E7E9329A786510010F177 /* BenevoleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleListView.swift; sourceTree = "<group>"; };
 		343E7E9529A787930010F177 /* BenevoleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleList.swift; sourceTree = "<group>"; };
 		343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleListIntent.swift; sourceTree = "<group>"; };
@@ -94,7 +97,6 @@
 		343E7EE229AD15DC0010F177 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		343E7EE429AD18070010F177 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		343E7EE929AD1C530010F177 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		343E7EF929ADE06D0010F177 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		343E7EFD29ADEB420010F177 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		343E7EFF29ADF15C0010F177 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		343E7F0129AF845A0010F177 /* BenevoleCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleCreateView.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				343E7E9329A786510010F177 /* BenevoleListView.swift */,
 				343E7E9929A7AC530010F177 /* BenevoleListItem.swift */,
 				343E7F0129AF845A0010F177 /* BenevoleCreateView.swift */,
+				342BE3C729C1B3BD006141B8 /* BenevoleSimpleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				343E7EDD29AD0AB00010F177 /* LoginView.swift */,
 				343E7EE229AD15DC0010F177 /* SignUpView.swift */,
 				343E7EE429AD18070010F177 /* AuthView.swift */,
+				342BE3C929C9A6D2006141B8 /* UserDAO.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,7 +254,6 @@
 		343E7EF829ADE0510010F177 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				343E7EF929ADE06D0010F177 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				343E7F1429AFB0AC0010F177 /* ZoneListIntent.swift in Sources */,
 				34DA16EB29B87447007B0C83 /* Object.swift in Sources */,
 				34D6874429A4FAC300BDC431 /* BenevoleView.swift in Sources */,
+				342BE3CA29C9A6D2006141B8 /* UserDAO.swift in Sources */,
 				342BE3C229C085A9006141B8 /* CreneauZoneCreateView.swift in Sources */,
 				343E7F2929B1452E0010F177 /* CreneauListView.swift in Sources */,
 				34D6874629A500C400BDC431 /* BenevoleIntent.swift in Sources */,
@@ -622,6 +626,7 @@
 				343E7F0229AF845A0010F177 /* BenevoleCreateView.swift in Sources */,
 				343E7E9A29A7AC530010F177 /* BenevoleListItem.swift in Sources */,
 				343E7F0B29AFA3440010F177 /* Zone.swift in Sources */,
+				342BE3C829C1B3BD006141B8 /* BenevoleSimpleView.swift in Sources */,
 				343E7EE329AD15DC0010F177 /* SignUpView.swift in Sources */,
 				343E7F2F29B2947C0010F177 /* CreneauCreateView.swift in Sources */,
 				34D6871029A4C7CA00BDC431 /* BenevolePanelView.swift in Sources */,
@@ -632,7 +637,6 @@
 				343E7E9629A787930010F177 /* BenevoleList.swift in Sources */,
 				342BE3C629C09193006141B8 /* Tools.swift in Sources */,
 				343E7F2729B1445D0010F177 /* CreneauListIntent.swift in Sources */,
-				343E7EFA29ADE06D0010F177 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

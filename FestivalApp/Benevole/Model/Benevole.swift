@@ -13,7 +13,7 @@ enum BenevoleState : Equatable {
     case isLoading
     case removing
     case removed
-    case load(String, String, String, String)
+    case load(Benevole)
     case update(String, String, String)
     case error
 }
@@ -25,17 +25,23 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
     @Published var nom : String
     @Published var prenom : String
     @Published var email : String
+    @Published var dispo : [[String]]
+    @Published var admin : Bool
     
-    @Published var state : BenevoleState = .isLoading{
+    @Published var state : BenevoleState = .ready{
             didSet{
                 switch state {
-                case .load(let id, let nom, let prenom, let email):
-                    self.id = id
+                case .load(let benevole):
+                    self.id = benevole.id
+                    self.nom = benevole.nom
+                    self.prenom = benevole.prenom
+                    self.email = benevole.email
+                    self.dispo = benevole.dispo
+                    self.admin = benevole.admin
+                case .update(let nom, let prenom, let email):
                     self.nom = nom
                     self.prenom = prenom
                     self.email = email
-                case .update(let nom, let prenom, let email):
-                    self.state = .load(self.id, nom, prenom, email)
                 default:
                     break
                 }
@@ -47,16 +53,20 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
         case nom
         case prenom
         case email
+        case dispo
+        case admin
     }
     
     
     func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            try container.encode(id, forKey: .id)
-            try container.encode(nom, forKey: .nom)
-            try container.encode(prenom, forKey: .prenom)
-            try container.encode(email, forKey: .email)
-        }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(nom, forKey: .nom)
+        try container.encode(prenom, forKey: .prenom)
+        try container.encode(email, forKey: .email)
+        try container.encode(dispo, forKey: .dispo)
+        try container.encode(admin, forKey: .admin)
+    }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -64,14 +74,18 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
         self.nom = try container.decode(String.self, forKey: .nom)
         self.prenom = try container.decode(String.self, forKey: .prenom)
         self.email = try container.decode(String.self, forKey: .email)
+        self.dispo = try container.decode([[String]].self, forKey: .dispo)
+        self.admin = try container.decode(Bool.self, forKey: .admin)
     }
     
     
-    init(id: String, nom: String, prenom: String, email: String) {
+    init(id: String, nom: String, prenom: String, email: String, admin: Bool, dispo : [[String]]) {
         self.id = id
         self.nom = nom
         self.prenom = prenom
         self.email = email
+        self.admin = admin
+        self.dispo = dispo
     }
     
     init() {
@@ -79,6 +93,8 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
         self.nom = ""
         self.prenom = ""
         self.email = ""
+        self.admin = false
+        self.dispo = []
     }
     
 
