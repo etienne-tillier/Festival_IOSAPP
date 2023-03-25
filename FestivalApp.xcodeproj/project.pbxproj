@@ -12,6 +12,13 @@
 		342BE3C629C09193006141B8 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C529C09193006141B8 /* Tools.swift */; };
 		342BE3C829C1B3BD006141B8 /* BenevoleSimpleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C729C1B3BD006141B8 /* BenevoleSimpleView.swift */; };
 		342BE3CA29C9A6D2006141B8 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3C929C9A6D2006141B8 /* UserDAO.swift */; };
+		342BE3CC29CB173B006141B8 /* AdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3CB29CB173B006141B8 /* AdminView.swift */; };
+		342BE3CE29CB194F006141B8 /* AdminZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3CD29CB194F006141B8 /* AdminZoneView.swift */; };
+		342BE3D029CDDCC2006141B8 /* AffectationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3CF29CDDCC2006141B8 /* AffectationView.swift */; };
+		342BE3D229CDDFF4006141B8 /* BenevoleDispoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3D129CDDFF4006141B8 /* BenevoleDispoListView.swift */; };
+		342BE3D429CDF534006141B8 /* BenevoleDispoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3D329CDF534006141B8 /* BenevoleDispoAddView.swift */; };
+		342BE3D629CF43E0006141B8 /* CreneauListBenevoleNoAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3D529CF43E0006141B8 /* CreneauListBenevoleNoAdminView.swift */; };
+		342BE3D829CF4955006141B8 /* BenevoleProfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342BE3D729CF4955006141B8 /* BenevoleProfilView.swift */; };
 		343E7E9429A786510010F177 /* BenevoleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9329A786510010F177 /* BenevoleListView.swift */; };
 		343E7E9629A787930010F177 /* BenevoleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9529A787930010F177 /* BenevoleList.swift */; };
 		343E7E9829A7A8140010F177 /* BenevoleListIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */; };
@@ -85,6 +92,13 @@
 		342BE3C529C09193006141B8 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		342BE3C729C1B3BD006141B8 /* BenevoleSimpleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleSimpleView.swift; sourceTree = "<group>"; };
 		342BE3C929C9A6D2006141B8 /* UserDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
+		342BE3CB29CB173B006141B8 /* AdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminView.swift; sourceTree = "<group>"; };
+		342BE3CD29CB194F006141B8 /* AdminZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminZoneView.swift; sourceTree = "<group>"; };
+		342BE3CF29CDDCC2006141B8 /* AffectationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffectationView.swift; sourceTree = "<group>"; };
+		342BE3D129CDDFF4006141B8 /* BenevoleDispoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleDispoListView.swift; sourceTree = "<group>"; };
+		342BE3D329CDF534006141B8 /* BenevoleDispoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleDispoAddView.swift; sourceTree = "<group>"; };
+		342BE3D529CF43E0006141B8 /* CreneauListBenevoleNoAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreneauListBenevoleNoAdminView.swift; sourceTree = "<group>"; };
+		342BE3D729CF4955006141B8 /* BenevoleProfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleProfilView.swift; sourceTree = "<group>"; };
 		343E7E9329A786510010F177 /* BenevoleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleListView.swift; sourceTree = "<group>"; };
 		343E7E9529A787930010F177 /* BenevoleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleList.swift; sourceTree = "<group>"; };
 		343E7E9729A7A8140010F177 /* BenevoleListIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenevoleListIntent.swift; sourceTree = "<group>"; };
@@ -218,6 +232,9 @@
 				343E7E9929A7AC530010F177 /* BenevoleListItem.swift */,
 				343E7F0129AF845A0010F177 /* BenevoleCreateView.swift */,
 				342BE3C729C1B3BD006141B8 /* BenevoleSimpleView.swift */,
+				342BE3D129CDDFF4006141B8 /* BenevoleDispoListView.swift */,
+				342BE3D329CDF534006141B8 /* BenevoleDispoAddView.swift */,
+				342BE3D729CF4955006141B8 /* BenevoleProfilView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -355,6 +372,7 @@
 				34DA16EC29BB70DC007B0C83 /* CreneauListBenevoleView.swift */,
 				342BE3C129C085A9006141B8 /* CreneauZoneCreateView.swift */,
 				342BE3C329C08891006141B8 /* BenevoleAvailableView.swift */,
+				342BE3D529CF43E0006141B8 /* CreneauListBenevoleNoAdminView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -406,6 +424,9 @@
 				34D6870D29A4C7CA00BDC431 /* FestivalAppApp.swift */,
 				34D6871129A4C7CB00BDC431 /* Assets.xcassets */,
 				34D6871329A4C7CB00BDC431 /* Preview Content */,
+				342BE3CB29CB173B006141B8 /* AdminView.swift */,
+				342BE3CD29CB194F006141B8 /* AdminZoneView.swift */,
+				342BE3CF29CDDCC2006141B8 /* AffectationView.swift */,
 			);
 			path = FestivalApp;
 			sourceTree = "<group>";
@@ -621,22 +642,29 @@
 				343E7E9829A7A8140010F177 /* BenevoleListIntent.swift in Sources */,
 				343E7EDA29ABFD8E0010F177 /* BenevoleModifView.swift in Sources */,
 				34D6874229A4CB5100BDC431 /* URLSession.swift in Sources */,
+				342BE3D229CDDFF4006141B8 /* BenevoleDispoListView.swift in Sources */,
 				343E7F2229B1427D0010F177 /* CreneauIntent.swift in Sources */,
 				343E7F0029ADF15C0010F177 /* TokenManager.swift in Sources */,
 				343E7F0229AF845A0010F177 /* BenevoleCreateView.swift in Sources */,
+				342BE3D429CDF534006141B8 /* BenevoleDispoAddView.swift in Sources */,
 				343E7E9A29A7AC530010F177 /* BenevoleListItem.swift in Sources */,
 				343E7F0B29AFA3440010F177 /* Zone.swift in Sources */,
+				342BE3D629CF43E0006141B8 /* CreneauListBenevoleNoAdminView.swift in Sources */,
 				342BE3C829C1B3BD006141B8 /* BenevoleSimpleView.swift in Sources */,
 				343E7EE329AD15DC0010F177 /* SignUpView.swift in Sources */,
 				343E7F2F29B2947C0010F177 /* CreneauCreateView.swift in Sources */,
+				342BE3D029CDDCC2006141B8 /* AffectationView.swift in Sources */,
 				34D6871029A4C7CA00BDC431 /* BenevolePanelView.swift in Sources */,
 				343E7F1C29AFC3670010F177 /* TypeJeu.swift in Sources */,
+				342BE3D829CF4955006141B8 /* BenevoleProfilView.swift in Sources */,
 				34DA16ED29BB70DC007B0C83 /* CreneauListBenevoleView.swift in Sources */,
+				342BE3CE29CB194F006141B8 /* AdminZoneView.swift in Sources */,
 				34D6870E29A4C7CA00BDC431 /* FestivalAppApp.swift in Sources */,
 				343E7EE129AD10880010F177 /* String.swift in Sources */,
 				343E7E9629A787930010F177 /* BenevoleList.swift in Sources */,
 				342BE3C629C09193006141B8 /* Tools.swift in Sources */,
 				343E7F2729B1445D0010F177 /* CreneauListIntent.swift in Sources */,
+				342BE3CC29CB173B006141B8 /* AdminView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@ enum BenevoleState : Equatable {
     case removed
     case load(Benevole)
     case update(String, String, String)
+    case removeDispo(IndexSet)
     case error
 }
 
@@ -42,6 +43,8 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
                     self.nom = nom
                     self.prenom = prenom
                     self.email = email
+                case .removeDispo(let index):
+                    self.dispo.remove(atOffsets: index)
                 default:
                     break
                 }

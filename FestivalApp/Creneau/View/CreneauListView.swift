@@ -33,14 +33,12 @@ struct CreneauListView : View, ListDelegate {
     
     
     var body: some View {
-        NavigationStack{
             VStack{
                 List{
                     ForEach(creneaux.creneaux, id: \.self){
                         creneau in
-                        NavigationLink(value: creneau) {
-                            CreneauListItem(creneau: creneau, isBenevole: false)
-                        }
+                        //NavigationLink(destination: CreneauView(creneau: creneau, delegate: self)) {
+                        CreneauListItem(creneau: creneau, isBenevole: false)
                     }.onDelete{
                         indexSet in
                         Task {
@@ -50,10 +48,6 @@ struct CreneauListView : View, ListDelegate {
                 }
                 .sheet(isPresented: $showAddView){
                     CreneauZoneCreateView(zone: zone, delegate : self)
-                }
-                .navigationDestination(for: Creneau.self){
-                    creneau in
-                    CreneauView(creneau: creneau, delegate: self)
                 }
             }.navigationTitle("Créneaux occupés")
                 .toolbar {
@@ -68,6 +62,5 @@ struct CreneauListView : View, ListDelegate {
                     }
                 }
         }
-    }
     
 }

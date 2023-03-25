@@ -38,12 +38,11 @@ struct BenevoleListView: View, ListDelegate {
     
     
     var body: some View {
-        NavigationStack{
             VStack{
                 List{
                     ForEach(searchResults, id: \.self){
                         benevole in
-                        NavigationLink(value: benevole) {
+                        NavigationLink(destination: BenevoleView(benevole: benevole, delegate: self)) {
                             BenevoleListItem(benevole: benevole)
                         }
                     }.onDelete{
@@ -61,14 +60,9 @@ struct BenevoleListView: View, ListDelegate {
                 .sheet(isPresented: $showAddView){
                     BenevoleCreateView(benevoles: benevoles, intent: intent)
                 }
-                .navigationDestination(for: Benevole.self){
-                    benevole in
-                    BenevoleView(benevole: benevole, delegate: self)
-                }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Chercher un bénévole")
                 .navigationTitle("Bénévoles")
             }
-        }
     }
     
 }

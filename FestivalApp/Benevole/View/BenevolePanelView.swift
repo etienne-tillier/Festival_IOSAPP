@@ -21,8 +21,8 @@ struct BenevolePanelView : View {
 
     
     var body: some View {
-        VStack {
-            switch benevoles.state {
+            VStack {
+                switch benevoles.state {
                 case .isLoading :
                     ProgressView()
                 case .ready :
@@ -33,15 +33,14 @@ struct BenevolePanelView : View {
                     Text("updated")
                 case .error:
                     Text("erreur")
-            default:
-                ProgressView()
+                default:
+                    ProgressView()
+                }
+            }.onAppear {
+                Task {
+                    await self.intent.loadBenevoles()
+                }
             }
-        }.onAppear {
-            Task {
-                await self.intent.loadBenevoles()
-            }
-        }
-        
     }
 
 }

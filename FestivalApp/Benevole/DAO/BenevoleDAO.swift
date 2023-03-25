@@ -168,8 +168,84 @@ class BenevoleDAO {
                 completion(.success((benevoleAvailable)))
             }
         }
+    
+    func removeDispoForBenevole(benevoleId : String, dispo: [String], completion: @escaping(Result<Void,Error>) -> Void) async {
+        
+        do{
+            guard let url = URL(string: Env.get("API_URL") + "benevoles/" + benevoleId + "/removeSlot") else {
+                completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "benevoles/" + benevoleId + "/removeSlot")))
+                return
+            }
+            var request = URLRequest(url: url)
+            request.httpMethod = "PATCH"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            let dispoData = ["heureDebut": dispo[0]]
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: dispoData) else {
+                completion(.failure(MyError.convertion()))
+                return
+            }
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                
+                    guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                        let error = NSError(domain: Env.get("API_URL"), code: 1, userInfo: [NSLocalizedDescriptionKey: "Erreur de serveur"])
+                        completion(.failure(error))
+                        return
+                    }
+                 
+                    
+                    completion(.success(()))
+                }.resume()
+        }
+        
     }
     
+    func addCreneauForBenevole(benevoleId : String, heureDebut : String, heureFin : String, completion: @escaping(Result<Void,Error>) -> Void) async {
+        
+        do{
+            guard let url = URL(string: Env.get("API_URL") + "benevoles/" + benevoleId + "/addSlot") else {
+                completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "benevoles/" + benevoleId + "/addSlot")))
+                return
+            }
+            var request = URLRequest(url: url)
+            request.httpMethod = "PATCH"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            let dispoData = ["heureDebut": heureDebut, "heureFin": heureFin]
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: dispoData) else {
+                completion(.failure(MyError.convertion()))
+                return
+            }
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                
+                    guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                        let error = NSError(domain: Env.get("API_URL"), code: 1, userInfo: [NSLocalizedDescriptionKey: "Erreur de serveur"])
+                        completion(.failure(error))
+                        return
+                    }
+                 
+                    
+                    completion(.success(()))
+                }.resume()
+        }
+        
+    }
+        
+    }
+
+
     
     
     

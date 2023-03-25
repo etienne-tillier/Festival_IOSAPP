@@ -17,9 +17,9 @@ struct BenevoleIntent {
         self.benevole = benevole
     }
     
-    /*
     
-    func loadBenevoleById(id : String) async -> Benevole? {
+    
+    func loadBenevoleById(id : String) async {
         
         do {
             DispatchQueue.main.async {
@@ -28,10 +28,9 @@ struct BenevoleIntent {
             
             let newBenevole : Benevole = try await dao.getBenevolebyId(id: id)!
             DispatchQueue.main.async {
-                benevole.state = .load(newBenevole.id, newBenevole.nom, newBenevole.prenom, newBenevole.email)
+                benevole.state = .load(newBenevole)
                 benevole.state = .ready
             }
-            return newBenevole
         }
         catch {
             print(error)
@@ -39,9 +38,8 @@ struct BenevoleIntent {
                 benevole.state = .error
             }
         }
-        return nil
     }
-     */
+    
     
     
     func updateBenevole(nom: String, prenom: String, email: String) async {
@@ -89,6 +87,49 @@ struct BenevoleIntent {
     func loadBenevoleData(benevole : Benevole){
         self.benevole.state = .load(benevole)
         self.benevole.state = .ready
+    }
+    
+    func removeDispo(index : IndexSet) async {
+        /*
+        DispatchQueue.main.async {
+            self.benevole.state = .removing
+        }
+         */
+        await dao.removeDispoForBenevole(benevoleId: benevole.id, dispo: benevole.dispo[index.first!]){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success():
+                DispatchQueue.main.async {
+                    self.benevole.dispo.remove(atOffsets: index)
+                }
+                /*
+                DispatchQueue.main.async {
+                    self.benevole.state = .removeDispo(index)
+                    self.benevole.state = .ready
+                }
+                 */
+            }
+        }
+    }
+    
+    func addDispo(date : Date, heureDebut : Int, heureFin : Int, completion: @escaping(Result<Void,Error>) -> Void) async {
+        let creneau : (Date, Date) = Tools.getStartAndEndDates(forDay: date, startHour: heureDebut, endHour: heureFin)!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let startDateString = dateFormatter.string(from: creneau.0)
+        let endDateString = dateFormatter.string(from: creneau.1)
+        await dao.addCreneauForBenevole(benevoleId: benevole.id, heureDebut: startDateString, heureFin: endDateString) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success():
+                DispatchQueue.main.async {
+                    self.benevole.dispo.append([startDateString,endDateString])
+                    completion(.success(()))
+                }
+            }
+        }
     }
     
     
