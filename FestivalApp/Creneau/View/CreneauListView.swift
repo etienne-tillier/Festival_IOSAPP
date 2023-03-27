@@ -12,6 +12,7 @@ struct CreneauListView : View, ListDelegate {
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
     @State private var showAddView : Bool = false
+    @State private var showAddZone : Bool = false
     @ObservedObject private var zone : Zone
     
     init(creneaux: CreneauList, zone : Zone) {

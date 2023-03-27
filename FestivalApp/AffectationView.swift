@@ -16,6 +16,7 @@ struct AffectationView: View {
     //@State var benevoleIntent : BenevoleIntent
     
     init(user : Benevole){
+        self.action = 0
         //self.benevoleIntent = BenevoleIntent(benevole: _benevole.wrappedValue)
         self.benevole = user
     }

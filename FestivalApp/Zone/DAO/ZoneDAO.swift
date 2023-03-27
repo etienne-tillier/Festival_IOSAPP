@@ -155,8 +155,34 @@ class ZoneDAO {
 
         completion(.success(creneaux))
         }
-
-
-
+    
+    
+    func createZone(nom : String, nombreBenevole : Int, completion : @escaping (Result<Zone,Error>) -> Void) async {
+        do {
+            guard let url = URL(string: Env.get("API_URL") + "zones") else {
+                completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "zones")))
+                return
+            }
+            
+            let zoneData : [String : Any] = ["nom": nom, "nbBenevNecessaire": nombreBenevole]
+            
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: zoneData) else {
+                completion(.failure(MyError.convertion()))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            
+            guard let newZone : Zone = try? await URLSession.shared.getJSON(from: request) else {
+                completion(.failure(MyError.apiProblem(message: "Impossible de créer la zone")))
+                return
+            }
+            completion(.success(newZone))
+        }
+    }
     
 }

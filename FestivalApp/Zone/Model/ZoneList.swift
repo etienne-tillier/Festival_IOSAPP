@@ -23,7 +23,7 @@ class ZoneList : Identifiable, ObservableObject, Hashable, Equatable {
     var id : UUID
     private var dao : ZoneDAO = ZoneDAO()
     @Published var zones : [Zone]
-    @Published var state : ZoneListState = .isLoading {
+    @Published var state : ZoneListState = .ready {
         didSet{
             switch state {
             case .load(let zones):

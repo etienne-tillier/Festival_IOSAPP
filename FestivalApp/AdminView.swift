@@ -9,14 +9,15 @@ import SwiftUI
 
 struct AdminView: View {
 
-    @ObservedObject var zones: ZoneList
-    @State var zonesIntent : ZoneListIntent
+    @ObservedObject var festivals: FestivalList
+    @State var festivalIntent : FestivalListIntent
     @State private var action: Int? = 0
     @State var benevoles = BenevoleList()
 
-    init(zones: ZoneList) {
-        self.zones = zones
-        self.zonesIntent = ZoneListIntent(zones: zones)
+    init(festivals: FestivalList) {
+        self.festivals = festivals
+        self.festivalIntent = FestivalListIntent(festivals: festivals)
+        self.action = 0
     }
     
     
@@ -27,7 +28,7 @@ struct AdminView: View {
             NavigationLink(destination: BenevolePanelView(benevoles: benevoles), tag: 1, selection: $action) {
                 EmptyView()
             }
-            NavigationLink(destination: AdminZoneView(zones: zones), tag: 2, selection: $action) {
+            NavigationLink(destination: FestivalListView(festivals: festivals), tag: 2, selection: $action) {
                 EmptyView()
             }
             VStack{

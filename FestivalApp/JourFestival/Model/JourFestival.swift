@@ -8,66 +8,62 @@
 import Foundation
 import SwiftUI
 
-enum ZoneState : Equatable {
+enum JourFestivalState : Equatable {
     case ready
     case isLoading
-    case load(Zone)
-    case addCreneau(Creneau)
     case error
 }
 
 
-class Zone : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
+class JourFestival : Identifiable, ObservableObject, Decodable, Hashable, Equatable {
     
     
-    var dao : ZoneDAO = ZoneDAO()
     @Published var id : String
     @Published var nom : String
-    @Published var creneaux : [Creneau]
-    @Published var state : ZoneState = .isLoading{
-        didSet{
+    @Published var debut : String
+    @Published var fin : String
+    @Published var state : JourFestivalState = .ready{
+        didSet {
             switch state {
-            case .load(let zone):
-                self.nom = zone.nom
-                self.id = zone.id
-                self.creneaux = zone.creneaux
-            case .addCreneau(let creneau):
-                self.creneaux.append(creneau)
             default:
                 break
             }
         }
     }
     
-    init(id: String, nom: String, creneaux: [Creneau]) {
+    init(id: String, nom: String, debut: String, fin: String) {
         self.id = id
         self.nom = nom
-        self.creneaux = creneaux
+        self.debut = debut
+        self.fin = fin
     }
     
     init(){
         self.id = ""
         self.nom = ""
-        self.creneaux = []
+        self.debut = ""
+        self.fin = ""
     }
     
     private enum CodingKeys : String, CodingKey {
         case id = "_id"
-        case nom
-        case creneaux = "benevoles"
+        case nom = "name"
+        case debut = "openingTime"
+        case fin = "closingTime"
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.nom = try container.decode(String.self, forKey: .nom)
-        self.creneaux = try container.decode([Creneau].self, forKey: .creneaux)
+        self.debut = try container.decode(String.self, forKey: .debut)
+        self.fin = try container.decode(String.self, forKey: .fin)
     }
     
     
     
     
-    static func == (lhs: Zone, rhs: Zone) -> Bool {
+    static func == (lhs: JourFestival, rhs: JourFestival) -> Bool {
         return lhs.id == rhs.id
     }
     
