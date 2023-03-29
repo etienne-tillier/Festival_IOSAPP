@@ -185,4 +185,39 @@ class ZoneDAO {
         }
     }
     
+    func updateZone(id : String, nom : String, nbBenev : Int, completion: @escaping (Result<Void, Error>) -> Void) async  {
+        
+        do {
+            guard let url = URL(string: Env.get("API_URL") + "zones/" + id) else {
+                completion(.failure(MyError.invalidURL(message: Env.get("API_URL") + "zones/" + id)))
+                return
+            }
+            
+            let zoneData : [String : Any] = ["nom": nom, "nbBenevNecessaire": nbBenev]
+            
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: zoneData) else {
+                completion(.failure(MyError.convertion()))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PATCH"
+            request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print(error)
+                    completion(.failure(error))
+                    return
+                }
+                
+                
+                completion(.success(()))
+                
+            }.resume()
+        }
+        
+    }
+    
 }

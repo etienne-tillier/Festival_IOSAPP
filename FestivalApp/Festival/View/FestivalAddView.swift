@@ -13,7 +13,7 @@ struct FestivalAddView : View {
     @State var intent : FestivalListIntent
     @State var nomText : String = ""
     @State private var selectedDate = Date()
-    @State private var nbJours = 0
+    @State private var nbJours = 1
     
     @Environment(\.presentationMode) var presentationMode
     

@@ -11,14 +11,17 @@ struct CreneauListView : View, ListDelegate {
     
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
+    @ObservedObject var festival : Festival
     @State private var showAddView : Bool = false
     @State private var showAddZone : Bool = false
     @ObservedObject private var zone : Zone
+    @State private var showModifZone : Bool = false
     
-    init(creneaux: CreneauList, zone : Zone) {
+    init(creneaux: CreneauList, zone : Zone, festival : Festival) {
         self.zone = zone
         self.creneaux = creneaux
         self.intent = CreneauListIntent(creneaux: creneaux)
+        self.festival = festival
     }
     
     func didRemove(item: Object) async {
@@ -35,6 +38,7 @@ struct CreneauListView : View, ListDelegate {
     
     var body: some View {
             VStack{
+                
                 List{
                     ForEach(creneaux.creneaux, id: \.self){
                         creneau in
@@ -48,8 +52,18 @@ struct CreneauListView : View, ListDelegate {
                     }
                 }
                 .sheet(isPresented: $showAddView){
-                    CreneauZoneCreateView(zone: zone, delegate : self)
+                    CreneauZoneCreateView(zone: zone, delegate : self, festi: self.festival)
                 }
+                Button("Modifier la zone") {
+                    self.showModifZone = true
+                }
+                .sheet(isPresented: $showModifZone){
+                    ZoneModifView(zone: self.zone)
+                }
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(10)
             }.navigationTitle("Créneaux occupés")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {

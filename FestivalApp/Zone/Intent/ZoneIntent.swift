@@ -57,6 +57,24 @@ struct ZoneIntent {
         }
     }
     
+    func updateZone(nom : String, nbBenev : Int, completion: @escaping(Result<Void,Error>) -> Void) async {
+        DispatchQueue.main.async {
+            self.zone.state = .isLoading
+        }
+        await self.dao.updateZone(id: self.zone.id, nom: nom, nbBenev: nbBenev) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(()):
+                DispatchQueue.main.async {
+                    self.zone.state = .update(nom, nbBenev)
+                    self.zone.state = .ready
+                }
+                completion(.success(()))
+            }
+        }
+    }
+    
     
     
 }

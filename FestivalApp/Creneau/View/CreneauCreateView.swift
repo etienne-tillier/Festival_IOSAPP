@@ -17,12 +17,16 @@ struct CreneauCreateView: View {
     @State private var selectedDate = Date()
     @State private var startHour = 12
     @State private var endHour = 15
+    @ObservedObject private var festival : Festival
+    @State private var dateRange : ClosedRange<Date>? = nil
     @Environment(\.presentationMode) var presentationMode
     
     
-    init(benevole: Benevole) {
+    init(benevole: Benevole, festival : Festival) {
         self.benevole = benevole
+        self.festival = festival
     }
+
     
     var body: some View {
         VStack{
@@ -40,36 +44,37 @@ struct CreneauCreateView: View {
                 self.selectedZoneIntent.load(zone: selectedZone)
             }
             Form {
-                        Section(header: Text("Date")) {
-                            DatePicker(
-                                "Select a date",
-                                selection: $selectedDate,
-                                displayedComponents: [.date]
-                            )
-                        }
-                        
-                        Section(header: Text("Start hour")) {
-                            HStack{
-                                Text("\(startHour) h")
-                                    .foregroundColor(.black)
-                                Stepper(value: $startHour, in: 0...(endHour - 1)) {
-                                    Text("\(startHour):00")
-                                }
-                            }
-
-                        }
-                        
-                        Section(header: Text("End hour")) {
-                            HStack{
-                                Text("\(endHour) h")
-                                    .foregroundColor(.black)
-                                Stepper(value: $endHour, in: (startHour + 1)...23) {
-                                    Text("\(endHour):00")
-                                }
-                            }
-  
+                Section(header: Text("Date")) {
+                    DatePicker(
+                        "Select a date",
+                        selection: $selectedDate,
+                        in: dateRange!,
+                        displayedComponents: [.date]
+                    )
+                }
+                
+                Section(header: Text("Start hour")) {
+                    HStack{
+                        Text("\(startHour) h")
+                            .foregroundColor(.black)
+                        Stepper(value: $startHour, in: 0...(endHour - 1)) {
+                            Text("\(startHour):00")
                         }
                     }
+                    
+                }
+                
+                Section(header: Text("End hour")) {
+                    HStack{
+                        Text("\(endHour) h")
+                            .foregroundColor(.black)
+                        Stepper(value: $endHour, in: (startHour + 1)...23) {
+                            Text("\(endHour):00")
+                        }
+                    }
+                    
+                }
+            }
             Button(action: {
                 Task {
                     await self.selectedZoneIntent.addCreneau(benevole: benevole, date: selectedDate, heureDebut: startHour, heureFin: endHour) { result in
@@ -80,7 +85,7 @@ struct CreneauCreateView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
-
+                    
                 }
             }, label: {
                 Text("Enregistrer")

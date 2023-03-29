@@ -59,21 +59,6 @@ struct BenevoleView: View {
                 Text(benevole.prenom)
                 Text(benevole.email)
                 HStack {
-                    Button("Modifier") {
-                        showModificationView = true
-                    }
-                    .sheet(isPresented: $showModificationView){
-                        BenevoleModifView(benevole: benevole, intent: intent)
-                    }
-                    .foregroundColor(.white)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
-                    .background(Color.blue)
-                    .cornerRadius(5)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.blue, lineWidth: 2)
-                    )
                     NavigationLink(destination: BenevoleListView(benevoles: BenevoleList())) {
                         Button("Supprimer") {
                             self.isConfimationPresented = true
@@ -88,22 +73,6 @@ struct BenevoleView: View {
                                 .stroke(Color.blue, lineWidth: 2)
                         )
                     }
-                    Button("Ajouter un créneau") {
-                        showAddCreneauView = true
-                    }
-                    .sheet(isPresented: $showAddCreneauView){
-                        CreneauCreateView(benevole: benevole)
-                    }
-                    .foregroundColor(.white)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
-                    .background(Color.blue)
-                    .cornerRadius(5)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.blue, lineWidth: 2)
-                    )
-                    
                     Button("Creneaux") {
                         showListCreneauView = true
                     }

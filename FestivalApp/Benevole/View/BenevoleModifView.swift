@@ -58,15 +58,6 @@ struct BenevoleModifView: View {
                     .foregroundColor(Color.black)
                     .autocapitalization(.words)
                     .disableAutocorrection(true)
-
-                TextField("Email", text: $email)
-                    .textFieldStyle(.roundedBorder).textFieldStyle(.roundedBorder).multilineTextAlignment(.center)
-                    .foregroundColor(Color.black)
-                    .textContentType(.emailAddress)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-
             }
             Section {
                 HStack {

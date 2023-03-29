@@ -20,14 +20,16 @@ struct CreneauZoneCreateView: View {
     @State private var endHour = 15
     @State private var isChoosingBenevole : Bool = false
     private var delegate : CreneauListView
+    @ObservedObject var festival : Festival
     @Environment(\.presentationMode) var presentationMode
     
     
-    init(zone: Zone, delegate : CreneauListView) {
+    init(zone: Zone, delegate : CreneauListView, festi : Festival) {
         self.selectedZone = zone
         self._benevoleAvailableIntent = State(initialValue: BenevoleListIntent(benevoles: _benevoleAvailable.wrappedValue))
         self.selectedZoneIntent = ZoneIntent(zone: zone)
         self.delegate = delegate
+        self.festival = festi
     }
     
     func getBenevoleAvailable() async {
@@ -55,6 +57,28 @@ struct CreneauZoneCreateView: View {
         }
     }
     
+    func getDateRange() -> ClosedRange<Date> {
+        let dateRange = {
+            let calendar = Calendar.current
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            let startComponents = DateComponents(year: self.festival.dateDebut.getYear()!, month: self.festival.dateDebut.getMonth()!,
+                                                 day: self.festival.dateDebut.getDay()!)
+            let festivalDate : Date = dateFormatter.date(from: self.festival.dateDebut)!
+            let end : Date = calendar.date(byAdding: .day, value: self.festival.jours.count - 1, to: festivalDate)!
+            
+            let components = end.get(.day, .month, .year)
+            let endComponents = DateComponents(year: components.year,
+                                               month: components.month,
+                                               day: components.day)
+            return calendar.date(from:startComponents)!
+                ...
+                calendar.date(from:endComponents)!
+        }()
+        return dateRange
+    }
+    
     var body: some View {
         VStack{
             Form {
@@ -62,6 +86,7 @@ struct CreneauZoneCreateView: View {
                             DatePicker(
                                 "Select a date",
                                 selection: $selectedDate,
+                                in: getDateRange(),
                                 displayedComponents: [.date]
                             )
                         }
@@ -131,10 +156,7 @@ struct CreneauZoneCreateView: View {
                 .background(Color.blue)
                 .cornerRadius(10)
             }
-            }
-
-            
-        .sheet(isPresented: $isChoosingBenevole){
+        }.sheet(isPresented: $isChoosingBenevole){
             BenevoleAvailableView(benevoles: benevoleAvailable, chosenBenevole : choosenBenevole)
         }
         /*

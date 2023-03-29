@@ -37,4 +37,39 @@ extension String{
             return nil
         }
     
+    func getDay() -> Int? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = dateFormatter.date(from: self) {
+                let calendar = Calendar.current
+                let day = calendar.component(.day, from: date)
+                return day
+            }
+            return nil
+        }
+    
+    func getYear() -> Int? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = dateFormatter.date(from: self) {
+                let calendar = Calendar.current
+                let year = calendar.component(.year, from: date)
+                return year
+            }
+            return nil
+        }
+    
+    func getMonth() -> Int? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = dateFormatter.date(from: self) {
+                let calendar = Calendar.current
+                let month = calendar.component(.month, from: date)
+                return month
+            }
+            return nil
+        }
+    
+    
+    
 }

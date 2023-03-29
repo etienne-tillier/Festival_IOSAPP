@@ -57,9 +57,6 @@ struct BenevoleListView: View, ListDelegate {
                         await self.intent.loadBenevoles()
                     }
                 }
-                .sheet(isPresented: $showAddView){
-                    BenevoleCreateView(benevoles: benevoles, intent: intent)
-                }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Chercher un bénévole")
                 .navigationTitle("Bénévoles")
             }
