@@ -17,7 +17,6 @@ struct AffectationView: View {
     
     init(user : Benevole){
         self.action = 0
-        //self.benevoleIntent = BenevoleIntent(benevole: _benevole.wrappedValue)
         self.benevole = user
     }
     
@@ -30,18 +29,37 @@ struct AffectationView: View {
                 EmptyView()
             }
             VStack{
-                Label("Mes dispos", systemImage: "calendar.badge.plus")
-                    .onTapGesture {
-                        self.action = 1
-                    }
-                Label("Mes affectations", systemImage: "mappin.and.ellipse")
-                    .onTapGesture {
-                        self.action = 2
-                    }
+                VStack{
+                    Image(systemName: "calendar.badge.plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                    Text("Mes dispos")
+                        .font(.system(size: 20))
+                }
+                .padding(.horizontal, 120)
+                .padding(.vertical, 60)
+                .border(.black)
+                .onTapGesture {
+                    self.action = 1
+                }
+                Spacer().frame(height: 40)
+                VStack{
+                    Image(systemName: "mappin.and.ellipse")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                    Text("Mes affectations")
+                        .font(.system(size: 20))
+                }
+                .padding(.horizontal, 100)
+                .padding(.vertical, 60)
+                .border(.black)
+                .onTapGesture {
+                    self.action = 2
+                }
             }
-            .navigationTitle("Mes affectations")
         }.onAppear{
-            print("yessssaaaaai")
             self.action = 0
         }
     }

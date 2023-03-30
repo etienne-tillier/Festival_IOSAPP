@@ -71,7 +71,6 @@ class ZoneDAO {
             let creneauData = ["id": creneau.benevole.id, "heureDebut": creneau.dateDebut]
             guard let jsonData = try? JSONSerialization.data(withJSONObject: creneauData) else {
                 completion(.failure(MyError.convertion()))
-                print("1")
                 return
             }
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -79,7 +78,6 @@ class ZoneDAO {
             URLSession.shared.dataTask(with: request) { data, response, error in
                     if let error = error {
                         completion(.failure(error))
-                        print("2")
                         return
                     }
                     
@@ -87,7 +85,6 @@ class ZoneDAO {
                     guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
                         let error = NSError(domain: Env.get("API_URL"), code: 1, userInfo: [NSLocalizedDescriptionKey: "Erreur de serveur"])
                         completion(.failure(error))
-                        print("3")
                         return
                     }
                  
@@ -207,7 +204,6 @@ class ZoneDAO {
             request.httpBody = jsonData
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    print(error)
                     completion(.failure(error))
                     return
                 }

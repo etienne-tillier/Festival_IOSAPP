@@ -11,7 +11,7 @@ import SwiftUI
 struct AuthView: View {
     
     @State private var currentViewShowing : String = "login" // login or signup
-    
+    @EnvironmentObject var error : ErrorObject
     
     
     var body: some View {

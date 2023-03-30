@@ -9,9 +9,12 @@ import SwiftUI
 
 struct BenevoleProfilView : View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @EnvironmentObject var user : Benevole
     @ObservedObject private var benevole : Benevole
     private var intent : BenevoleIntent
+    @State private var userIntent : BenevoleIntent? = nil
     @State private var showModificationView : Bool = false
     @State private var isConfimationPresented : Bool = false
     @Environment(\.presentationMode) var presentationMode
@@ -24,7 +27,7 @@ struct BenevoleProfilView : View {
     
     
     func disconnect() {
-        self.user.id = ""
+        self.userIntent!.disconnectUser()
     }
     
     
@@ -52,7 +55,6 @@ struct BenevoleProfilView : View {
                 .background(Color.white)
                 .padding(.horizontal, 90)
                 .border(.black)
-                .cornerRadius(10)
                 Spacer().frame(height: 40)
                 HStack {
                     Button("Modifier") {
@@ -96,6 +98,8 @@ struct BenevoleProfilView : View {
                 .background(Color.white)
                 .cornerRadius(5)
 
+            }.onAppear{
+                self.userIntent = BenevoleIntent(benevole: user)
             }
         }
     }

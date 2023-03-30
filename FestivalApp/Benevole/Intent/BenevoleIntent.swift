@@ -48,8 +48,7 @@ struct BenevoleIntent {
             //api
             await dao.updateBenevole(id: self.benevole.id, nom: nom, prenom: prenom, email: email) { result in
                 switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure(_):
                     DispatchQueue.main.async {
                         self.benevole.state = .error
                     }
@@ -64,22 +63,22 @@ struct BenevoleIntent {
         }
     }
     
-    func remove() async {
+    func remove(completion: @escaping(Result<Void,Error>) -> Void) async {
         DispatchQueue.main.async {
             self.benevole.state = .removing
         }
         await dao.removeBenevoleById(id: self.benevole.id) { result in
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
                 DispatchQueue.main.async {
                     self.benevole.state = .error
                 }
+                completion(.failure(error))
             case .success():
                 DispatchQueue.main.async {
                     self.benevole.state = .removed
                 }
-                print("benevole removed")
+                completion(.success(()))
             }
         }
     }
@@ -130,6 +129,10 @@ struct BenevoleIntent {
                 }
             }
         }
+    }
+    
+    func disconnectUser(){
+        self.benevole.state = .disconnected
     }
     
     

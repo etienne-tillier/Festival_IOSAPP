@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BenevoleCreateView: View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var benevoles : BenevoleList
     private var intent : BenevoleListIntent
     @State private var nom : String = ""
@@ -66,7 +68,15 @@ struct BenevoleCreateView: View {
                     Button("Enregistrer") {
                         Task {
                             await self.intent.add(nom: nom, prenom: prenom, email: email)
-                            presentationMode.wrappedValue.dismiss()
+                            switch self.benevoles.state {
+                            case .error:
+                                self.error.message = "Erreur lors de l'ajout du bénévole"
+                                self.error.isPresented = true
+                            default:
+                                presentationMode.wrappedValue.dismiss()
+                                break
+                            }
+
                         }
                     }
                     .foregroundColor(.white)

@@ -43,8 +43,7 @@ struct BenevoleListIntent {
             }
             await dao.removeBenevoleById(id: self.benevoles.benevoles[index.first!].id) { result in
             switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.benevoles.state = .error
                 }
@@ -52,7 +51,6 @@ struct BenevoleListIntent {
                 DispatchQueue.main.async {
                     self.benevoles.state = .remove(index)
                     self.benevoles.state = .ready
-                    print("Le benevole a été supprimé avec succès !")
                 }
             }
         }
@@ -63,8 +61,7 @@ struct BenevoleListIntent {
         do {
             await dao.createBenevole(nom: nom, prenom: prenom, email: email) { result in
                 switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure(_):
                     DispatchQueue.main.async {
                         self.benevoles.state = .error
                     }
@@ -90,14 +87,11 @@ struct BenevoleListIntent {
         let endDateString = dateFormatter.string(from: creneau.1)
         await self.dao.getBenevoleAvailableForCreneau(startDate: startDateString, endDate: endDateString) { result in
             switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.benevoles.state = .error
                 }
             case .success(let benevoles):
-                print("success")
-                print(benevoles)
                 DispatchQueue.main.async {
                     self.benevoles.state = .load(benevoles)
                     self.benevoles.state = .ready

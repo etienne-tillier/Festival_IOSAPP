@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreneauView: View {
     
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject private var creneau : Creneau
     private var intent : CreneauIntent
     @State private var showModificationView : Bool = false
@@ -33,7 +34,8 @@ struct CreneauView: View {
             await self.intent.removeCreneau(zoneId: self.creneau.zoneId)
             switch self.creneau.state {
             case .error:
-                print("error")
+                self.error.message = "Erreur lors de la supression du créneau"
+                self.error.isPresented = true
             case .ready:
                 if (delegate != nil){
                     await self.delegate?.didRemove(item: self.creneau)

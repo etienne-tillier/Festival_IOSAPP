@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FestivalAddView : View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var festivals : FestivalList
     @State var intent : FestivalListIntent
     @State var nomText : String = ""
@@ -28,7 +30,7 @@ struct FestivalAddView : View {
             Form {
                 
                         Section() {
-                            TextField("Nom", text: $nomText)
+                            TextField("Nom du festival", text: $nomText)
                                 .textFieldStyle(.roundedBorder).textFieldStyle(.roundedBorder).multilineTextAlignment(.center)
                                 .textContentType(.givenName)
                                 .foregroundColor(Color.black)
@@ -59,7 +61,8 @@ struct FestivalAddView : View {
                     await self.intent.add(nom: nomText, dateDebut: selectedDate, nbJours: nbJours)
                     switch self.festivals.state {
                     case .error:
-                        print("error")
+                        self.error.message = "Erreur d'ajout du festival"
+                        self.error.isPresented = true
                     case .ready:
                         self.presentationMode.wrappedValue.dismiss()
                     default:

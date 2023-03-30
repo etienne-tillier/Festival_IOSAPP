@@ -27,7 +27,6 @@ class FestivalDAO {
         }
         catch {
             throw error
-            //throw MyError.apiProblem(message: error.localizedDescription)
         }
     }
     
@@ -147,7 +146,7 @@ class FestivalDAO {
         await zoneDao.createZone(nom: nom, nombreBenevole: nbBenev) { result in
             switch result {
             case .failure(let error):
-                print(error)
+                completion(.failure(error))
             case .success(let zone):
                 do {
                     guard let url = URL(string: Env.get("API_URL") + "festivals/addZone/" + idFestival) else {
@@ -169,7 +168,6 @@ class FestivalDAO {
                     request.httpBody = jsonData
                     URLSession.shared.dataTask(with: request) { data, response, error in
                         if let error = error {
-                            print(error)
                             completion(.failure(error))
                             return
                         }

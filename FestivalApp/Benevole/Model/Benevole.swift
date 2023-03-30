@@ -13,6 +13,7 @@ enum BenevoleState : Equatable {
     case isLoading
     case removing
     case removed
+    case disconnected
     case load(Benevole)
     case update(String, String, String)
     case removeDispo(IndexSet)
@@ -100,25 +101,6 @@ class Benevole : Identifiable, ObservableObject, Codable, Hashable, Equatable, O
         self.dispo = []
     }
     
-
-  
-    /*
-    func loadBenevoleById(id : String) async {
-        do {
-            let newBenevole : Benevole = try await dao.getBenevolebyId(id: id)!
-            DispatchQueue.main.async {
-                self.state = .load(newBenevole.id, newBenevole.nom, newBenevole.prenom, newBenevole.email)
-                self.state = .ready
-            }
-        }
-        catch {
-            print(error)
-            DispatchQueue.main.async {
-                self.state = .error
-            }
-        }
-    }
-     */
     
     
     func updateState() {

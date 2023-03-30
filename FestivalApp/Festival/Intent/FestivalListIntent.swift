@@ -24,7 +24,6 @@ struct FestivalListIntent {
                 self.festivals.state = .isLoading
             }
             let newFestivals : [Festival] = try await dao.getAllFestivals()!
-            print("j'ai fetcthc les festivals")
             print(newFestivals)
             DispatchQueue.main.async {
                 self.festivals.state = .load(newFestivals)
@@ -46,8 +45,7 @@ struct FestivalListIntent {
             }
             await dao.removeFestivalById(id: self.festivals.festivals[index.first!].id) { result in
             switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.festivals.state = .error
                 }
@@ -55,7 +53,6 @@ struct FestivalListIntent {
                 DispatchQueue.main.async {
                     self.festivals.state = .remove(index)
                     self.festivals.state = .ready
-                    print("Le festival a été supprimé avec succès !")
                 }
             }
         }
@@ -70,8 +67,7 @@ struct FestivalListIntent {
             let startDateString = dateFormatter.string(from: creneau.0)
             await dao.createFestival(nom: nom, dateDebut: startDateString, nbJours: nbJours) { result in
                 switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure(_):
                     DispatchQueue.main.async {
                         self.festivals.state = .error
                     }

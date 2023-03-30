@@ -14,6 +14,8 @@ struct FestivalAppApp: App {
     // Faire une structure de données en mode : String : definition de l'erreur et Bool : erreur ou pas ? (ternaire dessus)
     @StateObject var user : Benevole = Benevole()
     @StateObject var festivals : FestivalList = FestivalList()
+    @StateObject var error : ErrorObject = ErrorObject()
+    @State var userIntent : BenevoleIntent? = nil
     
     init(){
         FirebaseApp.configure()
@@ -24,6 +26,11 @@ struct FestivalAppApp: App {
             ContentView(festivals: festivals)
                 .environmentObject(user)
                 .environmentObject(festivals)
+                .environmentObject(error)
+                .onAppear{
+                    self.userIntent = BenevoleIntent(benevole : user)
+                    self.userIntent!.disconnectUser()
+                }
         }
     }
 }

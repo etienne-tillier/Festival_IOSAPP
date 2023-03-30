@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CreneauListBenevoleNoAdminView : View, ListDelegate {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
     @State private var benevoleId : String
@@ -24,6 +26,13 @@ struct CreneauListBenevoleNoAdminView : View, ListDelegate {
         let creneau = item as! Creneau
         let index = self.creneaux.creneaux.firstIndex(where: { $0.dateDebut == creneau.dateDebut && $0.benevole.id == creneau.benevole.id })
         await self.intent.remove(index: IndexSet(integer: index!))
+        switch self.creneaux.state {
+        case .error:
+            self.error.message = "Erreur lors de la suppression du créneau"
+            self.error.isPresented = true
+        default:
+            break
+        }
     }
     
     
@@ -32,6 +41,13 @@ struct CreneauListBenevoleNoAdminView : View, ListDelegate {
     
     func getCreneauxForBenevole() async {
         await self.intent.getCreneauxForBenevole(benevoleId: self.benevoleId)
+        switch self.creneaux.state {
+        case .error:
+            self.error.message = "Erreur lors de la récupération des créneaux"
+            self.error.isPresented = true
+        default:
+            break
+        }
     }
     
     

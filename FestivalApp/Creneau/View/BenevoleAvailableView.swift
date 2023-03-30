@@ -10,7 +10,7 @@ import SwiftUI
 struct BenevoleAvailableView : View {
 
     
-    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var benevoles : BenevoleList
     @ObservedObject var chosenBenevole : Benevole
     private var choosenBenevoleIntent : BenevoleIntent
@@ -36,7 +36,10 @@ struct BenevoleAvailableView : View {
     
     var body: some View {
             VStack{
+                Spacer().frame(height: 20)
                 Text("Bénévoles disponibles")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 20))
                 List{
                     ForEach(searchResults, id: \.self){
                         benevole in

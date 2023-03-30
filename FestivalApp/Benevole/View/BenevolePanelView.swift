@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BenevolePanelView : View {
     
-    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject private var benevoles : BenevoleList
     @State private var intent : BenevoleListIntent
 

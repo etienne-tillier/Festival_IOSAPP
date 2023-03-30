@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreneauListView : View, ListDelegate {
     
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var creneaux : CreneauList
     private var intent : CreneauListIntent
     @ObservedObject var festival : Festival
@@ -28,6 +29,13 @@ struct CreneauListView : View, ListDelegate {
         let creneau = item as! Creneau
         let index = self.creneaux.creneaux.firstIndex(where: { $0 == creneau })
         await self.intent.remove(index: IndexSet(integer: index!))
+        switch self.creneaux.state {
+        case.error:
+            self.error.message = "Erreur lors de la suppression du créneau"
+            self.error.isPresented = true
+        default:
+            break
+        }
     }
     
     func didAdd(creneau : Creneau){

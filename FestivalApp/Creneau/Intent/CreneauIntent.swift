@@ -21,9 +21,7 @@ struct CreneauIntent {
     func removeCreneau(zoneId : String) async {
         await dao.removeCreneauFromZone(zoneId: zoneId, creneau: self.creneau){ result in
             switch result {
-            case .failure(let error):
-                print("grosserreur")
-                print(error)
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.creneau.state = .error
                 }

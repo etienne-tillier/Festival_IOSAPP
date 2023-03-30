@@ -10,7 +10,7 @@ import SwiftUI
 struct BenevoleSimpleView: View {
     
     @ObservedObject var benevole : Benevole
-    
+    @EnvironmentObject var error : ErrorObject
     
     init (benevole : Benevole){
         self.benevole = benevole
@@ -18,10 +18,9 @@ struct BenevoleSimpleView: View {
     
     
     var body: some View {
-        VStack {
+        HStack {
             Text(benevole.nom)
             Text(benevole.prenom)
-            Text(benevole.email)
         }
     }
 }

@@ -10,11 +10,13 @@ import SwiftUI
 struct FestivalListView: View, ListDelegate {
 
     
-    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var festivals : FestivalList
     private var intent : FestivalListIntent
     @State private var showAddView : Bool = false
     @State private var searchText : String = ""
+    @State private var indexToRemove : IndexSet = IndexSet(integer: 0)
+    @State private var isConfimationPresented : Bool = false
     var searchResults: [Festival] {
          if searchText.isEmpty {
              return self.festivals.festivals
@@ -35,6 +37,19 @@ struct FestivalListView: View, ListDelegate {
             await self.intent.remove(index: IndexSet(integer: index!))
         }
     }
+    
+    func removeFestival() {
+        Task {
+            await intent.remove(index: indexToRemove)
+            switch self.festivals.state {
+            case .error:
+                self.error.message = "Erreur de suppresion du festival"
+                self.error.isPresented = true
+            default:
+                break;
+            }
+        }
+    }
 
     
     var body: some View {
@@ -47,11 +62,18 @@ struct FestivalListView: View, ListDelegate {
                         }
                     }.onDelete{
                         indexSet in
-                        Task {
-                            await intent.remove(index: indexSet)
-                        }
+                            self.indexToRemove = indexSet
+                            self.isConfimationPresented = true
                     }
                 }
+                .alert(isPresented: $isConfimationPresented) {
+                            Alert(
+                                title: Text("Confirmation"),
+                                message: Text("Êtes-vous sûr de vouloir supprimer définitivement ce festival ?"),
+                                primaryButton: .destructive(Text("Supprimer"), action: self.removeFestival),
+                                secondaryButton: .cancel()
+                            )
+                        }
                 .refreshable {
                     Task {
                         await self.intent.loadFestivals()

@@ -21,11 +21,9 @@ class UserDAO {
         request.setValue("Bearer " + TokenManager.shared.getToken()!, forHTTPHeaderField: "Authorization")
         
         guard let user : Benevole = try? await URLSession.shared.getJSON(from: request) else {
-            print("j'ai pas le user")
             completion(.failure(MyError.apiProblem(message: "Impossible to get datas for this user")))
             return
         }
-        print("j'ai le user")
         completion(.success(user))
     }
     

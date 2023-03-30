@@ -10,11 +10,13 @@ import SwiftUI
 struct BenevoleListView: View, ListDelegate {
 
     
-    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var benevoles : BenevoleList
     private var intent : BenevoleListIntent
     @State private var showAddView : Bool = false
     @State private var searchText : String = ""
+    @State private var indexSetToRemove : IndexSet = IndexSet(integer: 0)
+    @State private var isConfimationPresented : Bool = false
     var searchResults: [Benevole] {
          if searchText.isEmpty {
              return self.benevoles.benevoles
@@ -31,8 +33,26 @@ struct BenevoleListView: View, ListDelegate {
     func didRemove(item: Object) {
         let benevole = item as! Benevole
         let index = self.benevoles.benevoles.firstIndex(where: { $0 == benevole })
-        Task{
-            await self.intent.remove(index: IndexSet(integer: index!))
+        self.benevoles.state = .remove(IndexSet(integer: index!))
+        switch self.benevoles.state {
+        case .error:
+            self.error.message = "Erreur lors de la suppression du bénévole"
+            self.error.isPresented = true
+        default:
+            break
+        }
+    }
+    
+    func removeBenevole(){
+        Task {
+            await self.intent.remove(index: indexSetToRemove)
+            switch self.benevoles.state {
+            case .error:
+                self.error.message = "Erreur lors de la suppression du bénévole"
+                self.error.isPresented = true
+            default:
+                break
+            }
         }
     }
     
@@ -47,11 +67,18 @@ struct BenevoleListView: View, ListDelegate {
                         }
                     }.onDelete{
                         indexSet in
-                        Task {
-                            await intent.remove(index: indexSet)
-                        }
+                        self.indexSetToRemove = indexSet
+                        self.isConfimationPresented = true
                     }
                 }
+                .alert(isPresented: $isConfimationPresented) {
+                            Alert(
+                                title: Text("Confirmation"),
+                                message: Text("Êtes-vous sûr de vouloir supprimer définitivement ce bénévole ?"),
+                                primaryButton: .destructive(Text("Supprimer"), action: self.removeBenevole),
+                                secondaryButton: .cancel()
+                            )
+                        }
                 .refreshable {
                     Task {
                         await self.intent.loadBenevoles()

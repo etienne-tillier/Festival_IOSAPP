@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BenevoleView: View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject private var benevole : Benevole
     private var intent : BenevoleIntent
     @State private var showModificationView : Bool = false
@@ -16,7 +18,7 @@ struct BenevoleView: View {
     @State private var showAddCreneauView : Bool = false
     @State private var isConfimationPresented : Bool = false
     @ObservedObject private var creneaux : CreneauList = CreneauList()
-    var delegate: ListDelegate?
+    var delegate: BenevoleListView?
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var zones: ZoneList
     
@@ -26,7 +28,7 @@ struct BenevoleView: View {
         self.delegate = nil
     }
     
-    init(benevole: Benevole, delegate : ListDelegate) {
+    init(benevole: Benevole, delegate : BenevoleListView) {
         self.delegate = delegate
         self.benevole = benevole
         self.intent = BenevoleIntent(benevole: benevole)
@@ -35,17 +37,21 @@ struct BenevoleView: View {
     
     func removeBenevole() {
         Task{
-            if (delegate != nil){
-                await self.delegate!.didRemove(item: self.benevole)
-            }
-            await self.intent.remove()
-            switch self.benevole.state {
-            case .removed:
-                self.presentationMode.wrappedValue.dismiss()
-            case .error:
-                print("error")
-            default:
-                break
+            await self.intent.remove(){ result in
+                switch result {
+                case .success(()):
+                    if (delegate != nil){
+                        self.delegate!.didRemove(item: self.benevole)
+                    }
+                    DispatchQueue.main.async {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                case .failure(let error):
+                    self.error.message = error.localizedDescription
+                    self.error.isPresented = true
+
+                    
+                }
             }
         }
 
@@ -53,26 +59,22 @@ struct BenevoleView: View {
     
     
     var body: some View {
-        NavigationView{
+        VStack {
             VStack {
-                Text(benevole.nom)
-                Text(benevole.prenom)
-                Text(benevole.email)
-                HStack {
-                    NavigationLink(destination: BenevoleListView(benevoles: BenevoleList())) {
-                        Button("Supprimer") {
-                            self.isConfimationPresented = true
-                        }
-                        .foregroundColor(.white)
+                VStack{
+                    Text(benevole.nom)
                         .padding(.vertical, 10)
-                        .padding(.horizontal, 20)
-                        .background(Color.blue)
-                        .cornerRadius(5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.blue, lineWidth: 2)
-                        )
-                    }
+                    Text(benevole.prenom)
+                        .padding(.vertical, 10)
+                    Text(benevole.email)
+                        .padding(.vertical, 10)
+                }
+                .background(Color.white)
+                .padding(.horizontal, 90)
+                .border(.black)
+                .cornerRadius(10)
+                Spacer().frame(height: 40)
+                if (showListCreneauView == false){
                     Button("Creneaux") {
                         showListCreneauView = true
                     }
@@ -86,32 +88,47 @@ struct BenevoleView: View {
                             .stroke(Color.blue, lineWidth: 2)
                     )
                 }
-
-                if (showListCreneauView == true){
-                    Button("Masquer") {
-                        showListCreneauView = false
-                    }
-                    .foregroundColor(.white)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
-                    .background(Color.blue)
-                    .cornerRadius(5)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.blue, lineWidth: 2)
+            }
+            
+            if (showListCreneauView == true){
+                Button("Masquer") {
+                    showListCreneauView = false
+                }
+                .foregroundColor(.white)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 20)
+                .background(Color.blue)
+                .cornerRadius(5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.blue, lineWidth: 2)
+                )
+                CreneauListBenevoleView(creneaux: creneaux, benevoleId: self.benevole.id)
+            }
+        }.alert(isPresented: $isConfimationPresented) {
+                    Alert(
+                        title: Text("Confirmation"),
+                        message: Text("Êtes-vous sûr de vouloir supprimer ce bénévole ?"),
+                        primaryButton: .destructive(Text("Supprimer"), action: self.removeBenevole),
+                        secondaryButton: .cancel()
                     )
-                    CreneauListBenevoleView(creneaux: creneaux, benevoleId: self.benevole.id)
+                }.toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        HStack {
+                            NavigationLink(destination: BenevoleListView(benevoles: BenevoleList())) {
+                                Button(action: {
+                                    withAnimation{
+                                        self.isConfimationPresented = true
+                                    }
+                                }, label: {
+                                    Image(systemName: "trash")
+                                })
+                            }
+                        }
+                    }
                 }
             }
-            .alert(isPresented: $isConfimationPresented) {
-                Alert(
-                    title: Text("Confirmation"),
-                    message: Text("Êtes-vous sûr de vouloir supprimer ce bénévole ?"),
-                    primaryButton: .destructive(Text("Supprimer"), action: self.removeBenevole),
-                    secondaryButton: .cancel()
-                )
-            }
+            
         }
-    }
-}
+
 

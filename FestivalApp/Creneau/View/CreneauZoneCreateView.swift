@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CreneauZoneCreateView: View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var benevoleAvailable : BenevoleList = BenevoleList()
     @ObservedObject var choosenBenevole : Benevole = Benevole()
     @State private var benevoleAvailableIntent : BenevoleListIntent
@@ -36,7 +38,8 @@ struct CreneauZoneCreateView: View {
         await self.benevoleAvailableIntent.getBenevolesAvailableForCreneau(date: selectedDate, startHour: startHour, endHour: endHour)
         switch self.benevoleAvailable.state {
         case .error:
-            print("error")
+            self.error.message = "Erreur pour récupérer les bénévoles"
+            self.error.isPresented = true
         case .ready:
             self.isChoosingBenevole = true
         default:
@@ -48,7 +51,8 @@ struct CreneauZoneCreateView: View {
         await selectedZoneIntent.addCreneau(benevole: self.choosenBenevole, date: self.selectedDate, heureDebut: self.startHour, heureFin: self.endHour) { result in
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
+                self.error.message = error.localizedDescription
+                self.error.isPresented = true
             case .success((let creneau)):
                 self.delegate.didAdd(creneau: creneau)
                 self.presentationMode.wrappedValue.dismiss()
@@ -77,6 +81,13 @@ struct CreneauZoneCreateView: View {
                 calendar.date(from:endComponents)!
         }()
         return dateRange
+    }
+    
+    func setSelectedDate(){
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        self.selectedDate = dateFormatter.date(from: self.festival.dateDebut)!
     }
     
     var body: some View {
@@ -115,7 +126,8 @@ struct CreneauZoneCreateView: View {
                     }
             if self.choosenBenevole.id != "" {
                 VStack{
-                    Text("Benevole choisi")
+                    Text("Bénévole choisi")
+                        .foregroundColor(.gray)
                     BenevoleSimpleView(benevole: choosenBenevole)
                 }
                 HStack{
@@ -124,7 +136,7 @@ struct CreneauZoneCreateView: View {
                             await self.getBenevoleAvailable()
                         }
                     }, label: {
-                        Text("Choisir un autre bénévole")
+                        Text("Modifier")
                     })
                     .foregroundColor(.white)
                     .padding()
@@ -158,6 +170,8 @@ struct CreneauZoneCreateView: View {
             }
         }.sheet(isPresented: $isChoosingBenevole){
             BenevoleAvailableView(benevoles: benevoleAvailable, chosenBenevole : choosenBenevole)
+        }.onAppear{
+            setSelectedDate()
         }
         /*
         .onChange(of: $isValidated){

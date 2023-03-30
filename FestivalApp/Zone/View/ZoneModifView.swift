@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ZoneModifView : View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var zone : Zone
     private var intent : ZoneIntent
     @State private var nom : String
@@ -30,7 +32,8 @@ struct ZoneModifView : View {
                 case .success(()):
                     presentationMode.wrappedValue.dismiss()
                 case .failure(let error):
-                    print(error)
+                    self.error.message = error.localizedDescription
+                    self.error.isPresented = true
                 }
             }
         }
@@ -61,7 +64,7 @@ struct ZoneModifView : View {
                                     EmptyView()
                                 }
                             }
-                        }
+                        }.foregroundColor(.gray)
                     }
             Section {
                 HStack {

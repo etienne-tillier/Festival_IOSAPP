@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BenevoleModifView: View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var benevole : Benevole
     private var intent : BenevoleIntent
     @State private var nom : String
@@ -31,7 +33,8 @@ struct BenevoleModifView: View {
         case .ready:
             presentationMode.wrappedValue.dismiss()
         case .error:
-            print("error updating")
+            self.error.message = "Erreur lors de la mise à jour du bénévole"
+            self.error.isPresented = true
         default:
             break
         }

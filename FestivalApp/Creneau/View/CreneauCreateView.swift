@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreneauCreateView: View {
     
+    @EnvironmentObject var error : ErrorObject
     @EnvironmentObject var zones : ZoneList
     @ObservedObject var benevole : Benevole
     @State var selectedZone : Zone = Zone()
@@ -80,7 +81,8 @@ struct CreneauCreateView: View {
                     await self.selectedZoneIntent.addCreneau(benevole: benevole, date: selectedDate, heureDebut: startHour, heureFin: endHour) { result in
                         switch result {
                         case .failure(let error):
-                            print(error.localizedDescription)
+                            self.error.message = error.localizedDescription
+                            self.error.isPresented = true
                         case .success((_)):
                             presentationMode.wrappedValue.dismiss()
                         }

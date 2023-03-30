@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BenevoleDispoListView: View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @State var benevoleIntent : BenevoleIntent? = nil
     @State var showAddView : Bool = false
     @ObservedObject var user : Benevole
@@ -36,6 +38,13 @@ struct BenevoleDispoListView: View {
                     indexSet in
                     Task {
                         await benevoleIntent!.removeDispo(index: indexSet)
+                        switch self.user.state {
+                        case .error:
+                            self.error.message = "Erreur de la suppression de la dispo"
+                            self.error.isPresented = true
+                        default:
+                            break
+                        }
                     }
                      
                 }
@@ -56,8 +65,6 @@ struct BenevoleDispoListView: View {
                 }
             }
         }.onAppear{
-            print("dispo : ")
-            print(user.dispo)
             self.benevoleIntent = BenevoleIntent(benevole: self.user)
         }
     }

@@ -92,7 +92,6 @@ class BenevoleDAO {
             request.httpBody = jsonData
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    print(error)
                     completion(.failure(error))
                     return
                 }

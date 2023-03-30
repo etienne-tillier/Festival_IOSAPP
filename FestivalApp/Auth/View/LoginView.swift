@@ -9,6 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
+    
+    @EnvironmentObject var error : ErrorObject
     @State private var email : String = ""
     @State private var password : String = ""
     @Binding var currentViewShowing : String
@@ -101,7 +103,8 @@ struct LoginView: View {
                         
                         if let error = error {
                             //error
-                            print(error)
+                            self.error.message = error.localizedDescription
+                            self.error.isPresented = true
                         }
                         
                         if let authResult = authResult {
@@ -109,7 +112,8 @@ struct LoginView: View {
                             withAnimation{
                                 authResult.user.getIDTokenResult(completion: { (result, error) in
                                                 guard error == nil else {
-                                                    print(error!.localizedDescription)
+                                                    self.error.message = error!.localizedDescription
+                                                    self.error.isPresented = true
                                                     return
                                                 }
 
@@ -124,7 +128,8 @@ struct LoginView: View {
                                                             switch result {
                                                             case .failure(let error):
                                                                 DispatchQueue.main.async {
-                                                                    print(error.localizedDescription)
+                                                                    self.error.message = error.localizedDescription
+                                                                    self.error.isPresented = true
                                                                     user.state = .error
                                                                 }
                                                             case .success(let benevole):

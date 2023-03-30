@@ -24,8 +24,7 @@ struct ZoneListIntent {
             }
             await dao.getAllZones() { result in
                 switch result{
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure(_):
                     DispatchQueue.main.async {
                         self.zones.state = .error
                     }

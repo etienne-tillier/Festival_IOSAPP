@@ -56,10 +56,8 @@ class Creneau : Decodable, ObservableObject, Hashable, Identifiable, Object {
             self.zoneId = ""
         }
         else {
-            print("cocoposp")
             self.zoneNom = zoneName!
             self.zoneId = try container.decode(String.self, forKey: .zoneId)
-            print(self.zoneNom)
         }
     }
     

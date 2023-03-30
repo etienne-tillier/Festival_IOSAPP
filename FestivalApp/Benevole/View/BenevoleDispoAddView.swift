@@ -10,7 +10,7 @@ import SwiftUI
 struct BenevoleDispoAddView: View {
     
     @ObservedObject var user : Benevole
-
+    @EnvironmentObject var error : ErrorObject
     @State private var selectedDate = Date()
     @State private var startHour = 12
     @State private var endHour = 15
@@ -59,7 +59,8 @@ struct BenevoleDispoAddView: View {
                     await self.userIntent!.addDispo(date: selectedDate, heureDebut: startHour, heureFin: endHour){ result in
                         switch result {
                         case .failure(let error):
-                            print(error.localizedDescription)
+                            self.error.message = error.localizedDescription
+                            self.error.isPresented = true
                         case .success((_)):
                             presentationMode.wrappedValue.dismiss()
                         }

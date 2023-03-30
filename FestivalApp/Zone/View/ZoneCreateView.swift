@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ZoneCreateView : View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var festival : Festival
     @State var intent : FestivalIntent
     @State var nomText : String = ""
@@ -29,7 +31,7 @@ struct ZoneCreateView : View {
             Form {
                 
                         Section() {
-                            TextField("Nom", text: $nomText)
+                            TextField("Nom de la zone", text: $nomText)
                                 .textFieldStyle(.roundedBorder).textFieldStyle(.roundedBorder).multilineTextAlignment(.center)
                                 .textContentType(.givenName)
                                 .foregroundColor(Color.black)
@@ -45,14 +47,15 @@ struct ZoneCreateView : View {
                                     EmptyView()
                                 }
                             }
-                        }
+                        }.foregroundColor(.gray)
                     }
             Button(action: {
                 Task {
                     await self.intent.addZone(festivalId: festival.id, nom: nomText, nbBenev: nbBenev){ result in
                         switch result {
                         case .failure(let error):
-                            print(error)
+                            self.error.message = error.localizedDescription
+                            self.error.isPresented = true
                         case .success(let zone):
                             delegate.didAdd(zone: zone)
                             self.presentationMode.wrappedValue.dismiss()

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreneauListItem: View {
     
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var creneau : Creneau
     @State var isBenevole : Bool
     

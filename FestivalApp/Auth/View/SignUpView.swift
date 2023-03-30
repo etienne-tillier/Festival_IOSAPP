@@ -9,6 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignUpView : View {
+    
+    @EnvironmentObject var error : ErrorObject
     @State private var nom : String = ""
     @State private var prenom : String = ""
     @State private var email : String = ""
@@ -146,7 +148,8 @@ struct SignUpView : View {
                     Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                         if let error = error {
                             //error
-                            print(error)
+                            self.error.message = error.localizedDescription
+                            self.error.isPresented = true
                             return
                         }
                         
@@ -156,7 +159,8 @@ struct SignUpView : View {
                             withAnimation{
                                 authResult.user.getIDTokenResult(completion: { (result, error) in
                                     guard error == nil else {
-                                        print(error!.localizedDescription)
+                                        self.error.message = error!.localizedDescription
+                                        self.error.isPresented = true
                                         return
                                     }
                                     
@@ -170,7 +174,8 @@ struct SignUpView : View {
                                                 switch result {
                                                 case .failure(let error):
                                                     DispatchQueue.main.async {
-                                                        print(error.localizedDescription)
+                                                        self.error.message = error.localizedDescription
+                                                        self.error.isPresented = true
                                                         user.state = .error
                                                     }
                                                 case .success(let benevole):

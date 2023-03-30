@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BenevoleListItem: View {
     
+    
+    @EnvironmentObject var error : ErrorObject
     @ObservedObject var benevole : Benevole
     private var intent : BenevoleIntent
     

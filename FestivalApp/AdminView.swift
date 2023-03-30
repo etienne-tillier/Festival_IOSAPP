@@ -32,14 +32,35 @@ struct AdminView: View {
                 EmptyView()
             }
             VStack{
-                Label("Bénévoles", systemImage: "person.3.fill")
-                    .onTapGesture {
-                        self.action = 1
-                    }
-                Label("Affectations", systemImage: "calendar")
-                    .onTapGesture {
-                        self.action = 2
-                    }
+                VStack{
+                    Image(systemName: "person.3.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                    Text("Bénévoles")
+                        .font(.system(size: 20))
+                }
+                .padding(.horizontal, 120)
+                .padding(.vertical, 60)
+                .border(.black)
+                .onTapGesture {
+                    self.action = 1
+                }
+                Spacer().frame(height: 40)
+                VStack{
+                    Image(systemName: "calendar")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                    Text("Affectations")
+                        .font(.system(size: 20))
+                }
+                .padding(.horizontal, 120)
+                .padding(.vertical, 60)
+                .border(.black)
+                .onTapGesture {
+                    self.action = 2
+                }
             }.onAppear{
                 Task{
                     self.action = 0

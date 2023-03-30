@@ -18,7 +18,6 @@ extension URLSession {
             */
             let decoder = JSONDecoder() // création d'un décodeur
             let decoded = try decoder.decode(T.self, from: data)
-            print(decoded)
             return decoded
         }
 }
